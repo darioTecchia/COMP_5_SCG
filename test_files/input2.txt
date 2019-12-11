@@ -1,0 +1,1 @@
+while a < b do if a <> b then a <-- b else

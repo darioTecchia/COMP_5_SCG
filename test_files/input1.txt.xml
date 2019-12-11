@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Program>
+  <Global>
+    <VarDecl>
+      <Id lexeme="buffer"/>
+      <PrimitiveType kind="FLOAT"/>
+      <VarInitValue>
+        <FloatConst value="0.0"/>
+      </VarInitValue>
+    </VarDecl>
+    <VarDecl>
+      <Id lexeme="result"/>
+      <PrimitiveType kind="FLOAT"/>
+      <VarInitValue>
+        <FloatConst value="0.0"/>
+      </VarInitValue>
+    </VarDecl>
+  </Global>
+  <Function>
+    <Id lexeme="add"/>
+    <ParDecl>
+      <Id lexeme="x"/>
+      <PrimitiveType kind="FLOAT"/>
+    </ParDecl>
+    <ParDecl>
+      <Id lexeme="y"/>
+      <PrimitiveType kind="FLOAT"/>
+    </ParDecl>
+    <PrimitiveType kind="FLOAT"/>
+    <AssignStatement>
+      <PlusOp>
+        <Id lexeme="x"/>
+        <IntegerConst value="1"/>
+      </PlusOp>
+      <Id lexeme="x"/>
+    </AssignStatement>
+    <LocalStatement>
+      <VarDecl>
+        <Id lexeme="i"/>
+        <PrimitiveType kind="FLOAT"/>
+        <VarInitValue>
+          <FloatConst value="2.0"/>
+        </VarInitValue>
+      </VarDecl>
+      <AssignStatement>
+        <PlusOp>
+          <Id lexeme="i"/>
+          <IntegerConst value="1"/>
+        </PlusOp>
+        <Id lexeme="i"/>
+      </AssignStatement>
+      <LocalStatement>
+        <VarDecl>
+          <Id lexeme="i"/>
+          <PrimitiveType kind="FLOAT"/>
+          <VarInitValue>
+            <FloatConst value="1.0"/>
+          </VarInitValue>
+        </VarDecl>
+        <AssignStatement>
+          <PlusOp>
+            <Id lexeme="i"/>
+            <IntegerConst value="1"/>
+          </PlusOp>
+          <Id lexeme="i"/>
+        </AssignStatement>
+        <AssignStatement>
+          <PlusOp>
+            <Id lexeme="y"/>
+            <IntegerConst value="1"/>
+          </PlusOp>
+          <Id lexeme="y"/>
+        </AssignStatement>
+      </LocalStatement>
+      <ReturnStatement>
+        <PlusOp>
+          <PlusOp>
+            <Id lexeme="x"/>
+            <Id lexeme="y"/>
+          </PlusOp>
+          <Id lexeme="i"/>
+        </PlusOp>
+      </ReturnStatement>
+    </LocalStatement>
+  </Function>
+  <Function>
+    <Id lexeme="main"/>
+    <PrimitiveType kind="NIL"/>
+    <ReadStatement>
+      <Id lexeme="buffer"/>
+      <Id lexeme="result"/>
+    </ReadStatement>
+    <AssignStatement>
+      <FunctionCall>
+        <Id lexeme="addInc"/>
+        <PlusOp>
+          <Id lexeme="result"/>
+          <IntegerConst value="1"/>
+        </PlusOp>
+        <Id lexeme="buffer"/>
+      </FunctionCall>
+      <Id lexeme="result"/>
+    </AssignStatement>
+    <WriteStatement>
+      <StringConst value="la somma risulta: "/>
+      <Id lexeme="result"/>
+    </WriteStatement>
+  </Function>
+</Program>

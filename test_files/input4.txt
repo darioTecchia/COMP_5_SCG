@@ -1,0 +1,1 @@
+if a < b then a <--b else b <-- a;if c < d then d <-- c else c --> d
