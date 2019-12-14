@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="java-cup-11b-runtime">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/../java-cup-11b-runtime.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

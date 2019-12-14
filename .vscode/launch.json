@@ -1,0 +1,11 @@
+{
+  "configurations": [
+    {
+      "type": "java",
+      "name": "CodeLens (Launch) - ParserTester",
+      "request": "launch",
+      "mainClass": "test.ParserTester",
+      "projectName": "Esercitazione3 (2)"
+    }
+  ]
+}
