@@ -534,10 +534,10 @@ public class Lexer implements java_cup.runtime.Scanner {
   StringBuffer string = new StringBuffer();
 
   private Symbol generateTokenSym(int type) {
-    return new Symbol(type);
+    return new Symbol(type, yyline, yycolumn);
   }
   private Symbol generateTokenSym(int type, Object value) {
-    return new Symbol(type, value);
+    return new Symbol(type, yyline, yycolumn, value);
   }
 
   // prepara file input per lettura e controlla errori

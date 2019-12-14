@@ -158,3 +158,8 @@ Expr ::=  NIL
 ```
 
 ## Notes
+```
+java -jar C:\CUP\java-cup-11b.jar -dump -progress -expect 5 -destdir .\src\dist\ .\srcjflexcup\Parser.cup 2>.\out.txt
+
+..\jflex-1.7.0\bin\jflex -d .\src\dist\ srcjflexcup\Lexer.flex
+```

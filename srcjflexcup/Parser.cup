@@ -21,12 +21,12 @@ parser code{:
 
 public void report_error(String msg, Object info) {
   Symbol sym = (Symbol)info;
-  System.out.println(msg + ": " + symbl_name_from_id(sym.sym));
+  System.out.println(msg + " on: " + symbl_name_from_id(sym.sym) + "\nLine: " + sym.left + ", Column: " + sym.left);
 }
 
-public void syntax_error(Symbol cur_token) {
-  System.out.println("Syntax error: " + symbl_name_from_id(cur_token.sym));
-}
+//public void syntax_error(Symbol cur_token) {
+//  System.out.println("Syntax Error: On " + symbl_name_from_id(cur_token.sym) + "\nLine: " + cur_token.left + ", Column: " + cur_token.left);
+//}
 
 :}
 
@@ -206,8 +206,8 @@ Stat ::= NOP:n
         | RETURN:r Expr:expr
         {: RESULT = new ReturnStatement(rleft, rright, expr); :}
         |
-        error:e
-        {: System.out.println("left: " + eleft + " right: " + eright); :}
+        error
+        {: :}
 ;
 
 Vars ::= ID:id COMMA Vars:vs
@@ -311,4 +311,7 @@ Expr ::= NIL:nilConst
         |
         SHARP Expr:e1
         {: RESULT = new SharpExpr(e1left, e1right, e1); :}
+        |
+        error
+        {: :}
 ;
