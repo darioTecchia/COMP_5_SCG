@@ -75,30 +75,30 @@ Functions ::= Def_fun Functions
             | Def_fun
 ;
 
-Def_fun ::= FUNCTION ID LPAR Par_decls RPAR COLON Type Statements END
-          | FUNCTION ID LPAR RPAR COLON Type Statements END
+Def_fun ::= FUNCTION ID LPAR Par_decls RPAR COLON TypeDenoter Statements END
+          | FUNCTION ID LPAR RPAR COLON TypeDenoter Statements END
 ;
 
-Par_decls ::= ID COLON Type COMMA Par_decls
-            | ID COLON Type
+Par_decls ::= ID COLON TypeDenoter COMMA Par_decls
+            | ID COLON TypeDenoter
 ;
 
-Var_decls ::= Var_decls SEMI ID COLON Type Var_init_value  
-            | ID COLON Type Var_init_value
+Var_decls ::= Var_decls SEMI ID COLON TypeDenoter Var_init_value  
+            | ID COLON TypeDenoter Var_init_value
 ;
 
 Var_init_value ::= ASSIGN Expr
                 | /* empty */
 ;
 
-Type ::= NIL | INT | BOOL | FLOAT | STRING
-      | BLPAR Type BRPAR
-      | LPAR Types RPAR ARROW Type
-      | LPAR RPAR ARROW Type
+TypeDenoter ::= NIL | INT | BOOL | FLOAT | STRING
+      | BLPAR TypeDenoter BRPAR
+      | LPAR Types RPAR ARROW TypeDenoter
+      | LPAR RPAR ARROW TypeDenoter
 ;
 
-Types ::= Type COMMA Types
-        | Type
+Types ::= TypeDenoter COMMA Types
+        | TypeDenoter
 ;
 
 Statements ::= Stat SEMI Statements
@@ -134,7 +134,7 @@ Expr ::=  NIL
       | INT_CONST 
       | FLOAT_CONST 
       | STRING_CONST 
-      | BLPAR BRPAR COLON Type 
+      | BLPAR BRPAR COLON TypeDenoter 
       | ID 
       | Expr SLPAR Expr SRPAR 
       | ID LPAR Exprs RPAR 

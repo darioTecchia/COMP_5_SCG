@@ -3,6 +3,7 @@ package syntax;
 import java.util.LinkedList;
 
 
+import nodetype.PrimitiveNodeType;
 import syntax.expr.Id;
 import visitor.Visitor;
 
@@ -10,28 +11,28 @@ public class Function extends AstNode {
 
   private Id id;
   private LinkedList<ParDecl> parDecls;
-  private Type type;
+  private TypeDenoter typeDenoter;
   private LinkedList<Statement> statements;
 
   /**
    * Function definition with params
    */
-  public Function(int leftLocation, int rightLocation, Id id, LinkedList<ParDecl> parDecls, Type type, LinkedList<Statement> statements) {
+  public Function(int leftLocation, int rightLocation, Id id, LinkedList<ParDecl> parDecls, TypeDenoter typeDenoter, LinkedList<Statement> statements) {
     super(leftLocation, rightLocation);
     this.id = id;
     this.parDecls = parDecls;
-    this.type = type;
+    this.typeDenoter = typeDenoter;
     this.statements = statements;
   }
 
   /**
    * Function definition without params
    */
-  public Function(int leftLocation, int rightLocation, Id id, Type type, LinkedList<Statement> statements) {
+  public Function(int leftLocation, int rightLocation, Id id, TypeDenoter typeDenoter, LinkedList<Statement> statements) {
     super(leftLocation, rightLocation);
     this.id = id;
     this.parDecls = new LinkedList<>();
-    this.type = type;
+    this.typeDenoter = typeDenoter;
     this.statements = statements;
   }
 
@@ -59,8 +60,8 @@ public class Function extends AstNode {
   /**
    * @return the type
    */
-  public Type getType() {
-    return type;
+  public TypeDenoter getTypeDenoter() {
+    return typeDenoter;
   }
 
   @Override

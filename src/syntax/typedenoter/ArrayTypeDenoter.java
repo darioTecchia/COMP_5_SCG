@@ -1,25 +1,16 @@
-package syntax;
+package syntax.typedenoter;
 
-
-import syntax.expr.Id;
+import nodetype.PrimitiveNodeType;
+import syntax.TypeDenoter;
 import visitor.Visitor;
 
-public class ParDecl extends AstNode {
+public class ArrayTypeDenoter extends TypeDenoter {
 
-  private Id id;
   private TypeDenoter typeDenoter;
 
-  public ParDecl(int leftLocation, int rightLocation, Id id, TypeDenoter type) {
+  public ArrayTypeDenoter(int leftLocation, int rightLocation, TypeDenoter typeDenoter) {
     super(leftLocation, rightLocation);
-    this.id = id;
     this.typeDenoter = typeDenoter;
-  }
-
-  /**
-   * @return the id
-   */
-  public Id getId() {
-    return id;
   }
 
   /**
@@ -34,4 +25,8 @@ public class ParDecl extends AstNode {
     return visitor.visit(this, arg);
   }
 
+  @Override
+  public PrimitiveNodeType typeFactory() {
+    return null;
+  }
 }

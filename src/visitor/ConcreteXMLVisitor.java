@@ -7,7 +7,7 @@ import org.w3c.dom.Element;
 
 import syntax.*;
 import syntax.expr.*;
-import syntax.type.*;
+import syntax.typedenoter.*;
 import syntax.statement.*;
 import syntax.expr.unaryexpr.*;
 import syntax.expr.binaryexpr.arithop.*;
@@ -40,7 +40,7 @@ public class ConcreteXMLVisitor implements Visitor<Element, Document> {
     Element element = arg.createElement("Function");
     element.appendChild(function.getId().accept(this, arg));
     function.getParDecls().forEach(addParent(element, arg));
-    element.appendChild(function.getType().accept(this, arg));
+    element.appendChild(function.getTypeDenoter().accept(this, arg));
     function.getStatements().forEach(addParent(element, arg));
     return element;
   }
@@ -49,7 +49,7 @@ public class ConcreteXMLVisitor implements Visitor<Element, Document> {
   public Element visit(ParDecl parDecl, Document arg) {
     Element element = arg.createElement("ParDecl");
     element.appendChild(parDecl.getId().accept(this, arg));
-    element.appendChild((parDecl.getType().accept(this, arg)));
+    element.appendChild((parDecl.getTypeDenoter().accept(this, arg)));
     return element;
   }
 
@@ -57,7 +57,7 @@ public class ConcreteXMLVisitor implements Visitor<Element, Document> {
   public Element visit(VarDecl varDecl, Document arg) {
     Element element = arg.createElement("VarDecl");
     element.appendChild(varDecl.getId().accept(this, arg));
-    element.appendChild(varDecl.getType().accept(this, arg));
+    element.appendChild(varDecl.getTypeDenoter().accept(this, arg));
     element.appendChild(varDecl.getVarInitValue().accept(this, arg));
     return element;
   }
@@ -70,22 +70,22 @@ public class ConcreteXMLVisitor implements Visitor<Element, Document> {
   }
 
   @Override
-  public Element visit(PrimitiveType primitiveType, Document arg) {
-    Element element = arg.createElement("PrimitiveType");
+  public Element visit(PrimitiveTypeDenoter primitiveType, Document arg) {
+    Element element = arg.createElement("PrimitiveTypeDenoter.java");
     element.setAttribute("kind", primitiveType.getKind());
     return element;
   }
 
   @Override
-  public Element visit(ArrayType arrayType, Document arg) {
-    Element element = arg.createElement("ArrayType");
-    element.appendChild((arrayType.getType().accept(this, arg)));
+  public Element visit(ArrayTypeDenoter arrayType, Document arg) {
+    Element element = arg.createElement("ArrayTypeDenoter");
+    element.appendChild((arrayType.getTypeDenoter().accept(this, arg)));
     return element;
   }
 
   @Override
-  public Element visit(FunctionType functionType, Document arg) {
-    Element element = arg.createElement("FunctionType");
+  public Element visit(FunctionTypeDenoter functionType, Document arg) {
+    Element element = arg.createElement("FunctionTypeDenoter");
     functionType.getTypes().forEach(addParent(element, arg));
     element.appendChild(functionType.getReturnType().accept(this, arg));
     return element;
@@ -348,7 +348,7 @@ public class ConcreteXMLVisitor implements Visitor<Element, Document> {
   @Override
   public Element visit(ArrayConst arrayConst, Document arg) {
     Element element = arg.createElement("ArrayConst");
-    element.appendChild(arrayConst.getType().accept(this, arg));
+    element.appendChild(arrayConst.getTypeDenoter().accept(this, arg));
     return element;
   }
 

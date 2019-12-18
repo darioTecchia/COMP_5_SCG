@@ -9,7 +9,7 @@ import java.util.LinkedList;
 
 import syntax.*;
 import syntax.expr.*;
-import syntax.type.*;
+import syntax.typedenoter.*;
 import syntax.statement.*;
 import syntax.expr.unaryexpr.*;
 import syntax.expr.binaryexpr.arithop.*;
@@ -24,9 +24,9 @@ public void report_error(String msg, Object info) {
   System.out.println(msg + " on: " + symbl_name_from_id(sym.sym) + "\nLine: " + sym.left + ", Column: " + sym.left);
 }
 
-//public void syntax_error(Symbol cur_token) {
-//  System.out.println("Syntax Error: On " + symbl_name_from_id(cur_token.sym) + "\nLine: " + cur_token.left + ", Column: " + cur_token.left);
-//}
+public void syntax_error(Symbol cur_token) {
+  System.out.println("Syntax Error: On " + symbl_name_from_id(cur_token.sym) + "\nLine: " + cur_token.left + ", Column: " + cur_token.left);
+}
 
 :}
 
@@ -51,8 +51,8 @@ non terminal Function Def_fun;
 non terminal LinkedList<ParDecl> Par_decls;
 non terminal LinkedList<VarDecl> Var_decls;
 non terminal VarInitValue Var_init_value;
-non terminal Type Type;
-non terminal LinkedList<Type> Types;
+non terminal TypeDenoter TypeDenoter;
+non terminal LinkedList<TypeDenoter> Types;
 non terminal LinkedList<Statement> Statements;
 non terminal Statement Stat;
 non terminal LinkedList<Id> Vars;
@@ -89,33 +89,33 @@ Functions ::= Def_fun:df Functions:fs
               :}
 ;
 
-Def_fun ::= FUNCTION:f ID:fName LPAR Par_decls:parDecls RPAR COLON Type:t Statements:stms END
+Def_fun ::= FUNCTION:f ID:fName LPAR Par_decls:parDecls RPAR COLON TypeDenoter:t Statements:stms END
             {: RESULT = new Function(fleft, fright, new Id(fNameleft, fNameright, fName), parDecls, t, stms); :}
             |
-            FUNCTION:f ID:fName LPAR RPAR COLON Type:t Statements:stms END
+            FUNCTION:f ID:fName LPAR RPAR COLON TypeDenoter:t Statements:stms END
             {: RESULT = new Function(fleft, fright, new Id(fNameleft, fNameright, fName), t, stms); :}
 ;
 
-Par_decls ::= ID:id COLON Type:t COMMA Par_decls:ps
+Par_decls ::= ID:id COLON TypeDenoter:t COMMA Par_decls:ps
               {: 
                 ps.addFirst(new ParDecl(idleft, idright, new Id(idleft, idright, id), t));
                 RESULT = ps;
               :}
               |
-              ID:id COLON Type:t
+              ID:id COLON TypeDenoter:t
               {: 
                 RESULT = new LinkedList<ParDecl>();
                 RESULT.addFirst(new ParDecl(idleft, idright, new Id(idleft, idright, id), t));
               :}
 ;
 
-Var_decls ::= Var_decls:vs SEMI ID:id COLON Type:t Var_init_value:varInit  
+Var_decls ::= Var_decls:vs SEMI ID:id COLON TypeDenoter:t Var_init_value:varInit  
               {: 
                 vs.addFirst(new VarDecl(idleft, idright, new Id(idleft, idright, id), t, varInit));
                 RESULT = vs;
               :}
               |
-              ID:id COLON Type:t Var_init_value:varInit
+              ID:id COLON TypeDenoter:t Var_init_value:varInit
               {: 
                 RESULT = new LinkedList<VarDecl>();
                 RESULT.addFirst(new VarDecl(idleft, idright, new Id(idleft, idright, id), t, varInit));
@@ -128,40 +128,40 @@ Var_init_value ::= ASSIGN Expr:expr
                   /* empty */
 ;
 
-Type ::= NIL:nil
-        {: RESULT = new PrimitiveType(nilleft, nilright, "NIL"); :}
+TypeDenoter ::= NIL:nil
+        {: RESULT = new PrimitiveTypeDenoter(nilleft, nilright, "NIL"); :}
         | 
         INT:integer
-        {: RESULT = new PrimitiveType(integerleft, integerright, "INT"); :}
+        {: RESULT = new PrimitiveTypeDenoter(integerleft, integerright, "INT"); :}
         | 
         BOOL:booleaner
-        {: RESULT = new PrimitiveType(booleanerleft, booleanerright, "BOOL"); :}
+        {: RESULT = new PrimitiveTypeDenoter(booleanerleft, booleanerright, "BOOL"); :}
         | 
         FLOAT:floater
-        {: RESULT = new PrimitiveType(floaterleft, floaterright, "FLOAT"); :}
+        {: RESULT = new PrimitiveTypeDenoter(floaterleft, floaterright, "FLOAT"); :}
         | 
         STRING:stringer
-        {: RESULT = new PrimitiveType(stringerleft, stringerright, "STRING"); :}
+        {: RESULT = new PrimitiveTypeDenoter(stringerleft, stringerright, "STRING"); :}
         |
-        BLPAR:b Type:t BRPAR
-        {: RESULT = new ArrayType(bleft, bright, t); :}
+        BLPAR:b TypeDenoter:t BRPAR
+        {: RESULT = new ArrayTypeDenoter(bleft, bright, t); :}
         |
-        LPAR:l Types:ts RPAR ARROW Type:t
-        {: RESULT = new FunctionType(lleft, lright, ts, t); :}
+        LPAR:l Types:ts RPAR ARROW TypeDenoter:t
+        {: RESULT = new FunctionTypeDenoter(lleft, lright, ts, t); :}
         |
-        LPAR:l RPAR ARROW Type:t
-        {: RESULT = new FunctionType(lleft, lright, t); :}
+        LPAR:l RPAR ARROW TypeDenoter:t
+        {: RESULT = new FunctionTypeDenoter(lleft, lright, t); :}
 ;
 
-Types ::= Type:t COMMA Types:ts
+Types ::= TypeDenoter:t COMMA Types:ts
           {: 
             ts.addFirst(t); 
             RESULT = ts;
           :}
           |
-          Type:t
+          TypeDenoter:t
           {: 
-            RESULT = new LinkedList<Type>();
+            RESULT = new LinkedList<TypeDenoter>();
             RESULT.addFirst(t); 
           :}
 ;
@@ -254,7 +254,7 @@ Expr ::= NIL:nilConst
         STRING_CONST:stringConst
         {: RESULT = new StringConst(stringConstleft, stringConstright, stringConst); :}
         |
-        BLPAR:b BRPAR COLON Type:type
+        BLPAR:b BRPAR COLON TypeDenoter:type
         {: RESULT = new ArrayConst(bleft, bright, type); :}
         |
         ID:id

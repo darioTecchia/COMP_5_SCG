@@ -2,7 +2,7 @@ package visitor;
 
 import syntax.*;
 import syntax.statement.*;
-import syntax.type.*;
+import syntax.typedenoter.*;
 import syntax.expr.*;
 import syntax.expr.binaryexpr.arithop.*;
 import syntax.expr.binaryexpr.relop.*;
@@ -24,11 +24,11 @@ public interface Visitor<T, P> {
 
   T visit(VarInitValue varInitValue, P arg);
 
-  T visit(PrimitiveType primitiveType, P arg);
+  T visit(PrimitiveTypeDenoter primitiveType, P arg);
 
-  T visit(ArrayType arrayType, P arg);
+  T visit(ArrayTypeDenoter arrayType, P arg);
 
-  T visit(FunctionType functionType, P arg);
+  T visit(FunctionTypeDenoter functionType, P arg);
 
   T visit(IfThenStatement ifThenStatement, P arg);
 

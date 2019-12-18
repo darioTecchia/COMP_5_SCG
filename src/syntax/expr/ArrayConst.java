@@ -6,18 +6,18 @@ import visitor.Visitor;
 
 public class ArrayConst extends Expr {
 
-  private Type type;
+  private TypeDenoter typeDenoter;
 
-  public ArrayConst(int leftLocation, int rightLocation, Type type) {
+  public ArrayConst(int leftLocation, int rightLocation, TypeDenoter typeDenoter) {
     super(leftLocation, rightLocation);
-    this.type = type;
+    this.typeDenoter = typeDenoter;
   }
 
   /**
    * @return the type
    */
-  public Type getType() {
-    return type;
+  public TypeDenoter getTypeDenoter() {
+    return typeDenoter;
   }
 
   @Override
