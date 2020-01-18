@@ -20,13 +20,14 @@ public class PrimitiveTypeDenoter extends TypeDenoter implements Leaf<String> {
 
   public PrimitiveNodeType typeFactory(){
     switch(this.kind){
-      case "int":
+      case "INT":
         return PrimitiveNodeType.INT;
-      case "double":
-        return PrimitiveNodeType.DOUBLE;
-      case "string":
+      case "FLOAT":
+        System.out.println(PrimitiveNodeType.FLOAT);
+        return PrimitiveNodeType.FLOAT;
+      case "STRING":
         return PrimitiveNodeType.STRING;
-      case "bool":
+      case "BOOL":
         return PrimitiveNodeType.BOOL;
       default:
         return PrimitiveNodeType.NULL;
