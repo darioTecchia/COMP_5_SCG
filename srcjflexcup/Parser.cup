@@ -90,35 +90,35 @@ Functions ::= Def_fun:df Functions:fs
 ;
 
 Def_fun ::= FUNCTION:f ID:fName LPAR Par_decls:parDecls RPAR COLON TypeDenoter:t Statements:stms END
-            {: RESULT = new Function(fleft, fright, new Id(fNameleft, fNameright, fName), parDecls, t, stms); :}
+            {: RESULT = new Function(fleft, fright, new Variable(fNameleft, fNameright, fName), parDecls, t, stms); :}
             |
             FUNCTION:f ID:fName LPAR RPAR COLON TypeDenoter:t Statements:stms END
-            {: RESULT = new Function(fleft, fright, new Id(fNameleft, fNameright, fName), t, stms); :}
+            {: RESULT = new Function(fleft, fright, new Variable(fNameleft, fNameright, fName), t, stms); :}
 ;
 
 Par_decls ::= ID:id COLON TypeDenoter:t COMMA Par_decls:ps
               {: 
-                ps.addFirst(new ParDecl(idleft, idright, new Id(idleft, idright, id), t));
+                ps.addFirst(new ParDecl(idleft, idright, new Variable(idleft, idright, id), t));
                 RESULT = ps;
               :}
               |
               ID:id COLON TypeDenoter:t
               {: 
                 RESULT = new LinkedList<ParDecl>();
-                RESULT.addFirst(new ParDecl(idleft, idright, new Id(idleft, idright, id), t));
+                RESULT.addFirst(new ParDecl(idleft, idright, new Variable(idleft, idright, id), t));
               :}
 ;
 
 Var_decls ::= Var_decls:vs SEMI ID:id COLON TypeDenoter:t Var_init_value:varInit  
               {: 
-                vs.addFirst(new VarDecl(idleft, idright, new Id(idleft, idright, id), t, varInit));
+                vs.addFirst(new VarDecl(idleft, idright, new Variable(idleft, idright, id), t, varInit));
                 RESULT = vs;
               :}
               |
               ID:id COLON TypeDenoter:t Var_init_value:varInit
               {: 
                 RESULT = new LinkedList<VarDecl>();
-                RESULT.addFirst(new VarDecl(idleft, idright, new Id(idleft, idright, id), t, varInit));
+                RESULT.addFirst(new VarDecl(idleft, idright, new Variable(idleft, idright, id), t, varInit));
               :}
 ;
 
@@ -190,7 +190,7 @@ Stat ::= NOP:n
         | IF:i Expr:expr THEN Statements:thenss ELSE Statements:elsess END
         {: RESULT = new IfThenElseStatement(ileft, iright, expr, thenss, elsess); :}
         | FOR:f ID:id ASSIGN Expr:initExpr COMMA Expr:condExpr DO Statements:ss END
-        {: RESULT = new ForStatement(fleft, fright, new Id(idleft, idright, id), initExpr, condExpr, ss); :}
+        {: RESULT = new ForStatement(fleft, fright, new Variable(idleft, idright, id), initExpr, condExpr, ss); :}
         | LOCAL:l Var_decls:vs SEMI Statements:ss END
         {: RESULT = new LocalStatement(lleft, lright, vs, ss); :}
         | ID:id ASSIGN Expr:expr

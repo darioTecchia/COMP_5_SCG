@@ -10,14 +10,14 @@ import syntax.*;
 
 public class ForStatement extends Statement {
 
-  private Id id;
+  private Variable variable;
   private Expr initExpr;
   private Expr postConditionExpr;
   private LinkedList<Statement> statements;
 
-  public ForStatement(int leftLocation, int rightLocation, Id id, Expr initExpr, Expr postConditionExpr, LinkedList<Statement> statements) {
+  public ForStatement(int leftLocation, int rightLocation, Variable variable, Expr initExpr, Expr postConditionExpr, LinkedList<Statement> statements) {
     super(leftLocation, rightLocation);
-    this.id = id;
+    this.variable = variable;
     this.initExpr = initExpr;
     this.postConditionExpr = postConditionExpr;
     this.statements = statements;
@@ -33,8 +33,8 @@ public class ForStatement extends Statement {
   /**
    * @return the id
    */
-  public Id getId() {
-    return id;
+  public Variable getVariable() {
+    return variable;
   }
 
   /**

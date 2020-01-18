@@ -264,6 +264,11 @@ public class TypeCheckerVisitor implements Visitor<NodeType, SymbolTable> {
   }
 
   @Override
+  public NodeType visit(Variable variable, SymbolTable arg) {
+    return null;
+  }
+
+  @Override
   public NodeType visit(Id id, SymbolTable arg) {
     // TODO Auto-generated method stub
     return null;
@@ -281,5 +286,10 @@ public class TypeCheckerVisitor implements Visitor<NodeType, SymbolTable> {
     return null;
   }
 
-  
+  @Override
+  public NodeType visit(WhileStatement whileStatement, SymbolTable arg) {
+    // TODO Auto-generated method stub
+    return null;
+  }
+
 }

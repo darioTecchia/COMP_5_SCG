@@ -99,4 +99,8 @@ public interface Visitor<T, P> {
   T visit(ArrayConst arrayConst, P arg);
 
   T visit(NopStatement nopStatement, P arg);
+
+  T visit(WhileStatement whileStatement, P arg);
+
+  T visit(Variable variable, P arg);
 }

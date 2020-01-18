@@ -38,7 +38,7 @@ public class ConcreteXMLVisitor implements Visitor<Element, Document> {
   @Override
   public Element visit(Function function, Document arg) {
     Element element = arg.createElement("Function");
-    element.appendChild(function.getId().accept(this, arg));
+    element.appendChild(function.getVariable().accept(this, arg));
     function.getParDecls().forEach(addParent(element, arg));
     element.appendChild(function.getTypeDenoter().accept(this, arg));
     function.getStatements().forEach(addParent(element, arg));
@@ -48,7 +48,7 @@ public class ConcreteXMLVisitor implements Visitor<Element, Document> {
   @Override
   public Element visit(ParDecl parDecl, Document arg) {
     Element element = arg.createElement("ParDecl");
-    element.appendChild(parDecl.getId().accept(this, arg));
+    element.appendChild(parDecl.getVariable().accept(this, arg));
     element.appendChild((parDecl.getTypeDenoter().accept(this, arg)));
     return element;
   }
@@ -56,7 +56,7 @@ public class ConcreteXMLVisitor implements Visitor<Element, Document> {
   @Override
   public Element visit(VarDecl varDecl, Document arg) {
     Element element = arg.createElement("VarDecl");
-    element.appendChild(varDecl.getId().accept(this, arg));
+    element.appendChild(varDecl.getVariable().accept(this, arg));
     element.appendChild(varDecl.getTypeDenoter().accept(this, arg));
     element.appendChild(varDecl.getVarInitValue().accept(this, arg));
     return element;
@@ -346,6 +346,13 @@ public class ConcreteXMLVisitor implements Visitor<Element, Document> {
   }
 
   @Override
+  public Element visit(Variable variable, Document arg) {
+    Element element = arg.createElement("Variable");
+    element.setAttribute("lexeme", variable.getValue());
+    return element;
+  }
+
+  @Override
   public Element visit(ArrayConst arrayConst, Document arg) {
     Element element = arg.createElement("ArrayConst");
     element.appendChild(arrayConst.getTypeDenoter().accept(this, arg));
@@ -355,6 +362,14 @@ public class ConcreteXMLVisitor implements Visitor<Element, Document> {
   @Override
   public Element visit(NopStatement nopStatement, Document arg) {
     Element element = arg.createElement("NopStatement");
+    return element;
+  }
+
+  @Override
+  public Element visit(WhileStatement whileStatement, Document arg) {
+    Element element = arg.createElement("WhileStatement");
+    element.appendChild(whileStatement.getExpr().accept(this, arg));
+    whileStatement.getStatements().forEach(addParent(element, arg));
     return element;
   }
 

@@ -22,9 +22,9 @@ public class StackErrorHandler implements ErrorHandler {
     errorBuilder.append(msg);
     errorBuilder.append(" at ");
     errorBuilder.append('(');
-    errorBuilder.append(node.getLeftLocation());
+    errorBuilder.append(node.getLeftLocation() + 1);
     errorBuilder.append('-');
-    errorBuilder.append(node.getRightLocation());
+    errorBuilder.append(node.getRightLocation() + 1);
     errorBuilder.append(")");
     this.catchedErrors.push(errorBuilder.toString());
   }

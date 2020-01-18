@@ -1,0 +1,10 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="ScopeCheckTest" type="Application" factoryName="Application">
+    <option name="MAIN_CLASS_NAME" value="test.ScopeCheckTester" />
+    <module name="tecchia_sansone_es5_SCG" />
+    <option name="PROGRAM_PARAMETERS" value="test_files\input1.txt" />
+    <method v="2">
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+</component>

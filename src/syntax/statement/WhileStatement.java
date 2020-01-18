@@ -33,7 +33,7 @@ public class WhileStatement extends Statement {
 
   @Override
   public <T, P> T accept(Visitor<T, P> visitor, P arg) {
-    return null;
+    return visitor.visit(this, arg);
   }
 
 }

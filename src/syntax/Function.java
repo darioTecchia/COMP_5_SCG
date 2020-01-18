@@ -9,7 +9,7 @@ import visitor.Visitor;
 
 public class Function extends AstNode {
 
-  private Id id;
+  private Variable variable;
   private LinkedList<ParDecl> parDecls;
   private TypeDenoter typeDenoter;
   private LinkedList<Statement> statements;
@@ -17,9 +17,9 @@ public class Function extends AstNode {
   /**
    * Function definition with params
    */
-  public Function(int leftLocation, int rightLocation, Id id, LinkedList<ParDecl> parDecls, TypeDenoter typeDenoter, LinkedList<Statement> statements) {
+  public Function(int leftLocation, int rightLocation, Variable variable, LinkedList<ParDecl> parDecls, TypeDenoter typeDenoter, LinkedList<Statement> statements) {
     super(leftLocation, rightLocation);
-    this.id = id;
+    this.variable = variable;
     this.parDecls = parDecls;
     this.typeDenoter = typeDenoter;
     this.statements = statements;
@@ -28,9 +28,9 @@ public class Function extends AstNode {
   /**
    * Function definition without params
    */
-  public Function(int leftLocation, int rightLocation, Id id, TypeDenoter typeDenoter, LinkedList<Statement> statements) {
+  public Function(int leftLocation, int rightLocation, Variable variable, TypeDenoter typeDenoter, LinkedList<Statement> statements) {
     super(leftLocation, rightLocation);
-    this.id = id;
+    this.variable = variable;
     this.parDecls = new LinkedList<>();
     this.typeDenoter = typeDenoter;
     this.statements = statements;
@@ -39,8 +39,8 @@ public class Function extends AstNode {
   /**
    * @return the id
    */
-  public Id getId() {
-    return id;
+  public Variable getVariable() {
+    return variable;
   }
 
   /**

@@ -271,6 +271,4 @@ public enum PrimitiveNodeType implements NodeType {
         return "undefined";
     }
   }
-
-
 }

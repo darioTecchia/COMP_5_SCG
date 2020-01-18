@@ -6,20 +6,20 @@ import visitor.Visitor;
 
 public class ParDecl extends AstNode {
 
-  private Id id;
+  private Variable variable;
   private TypeDenoter typeDenoter;
 
-  public ParDecl(int leftLocation, int rightLocation, Id id, TypeDenoter type) {
+  public ParDecl(int leftLocation, int rightLocation, Variable variable, TypeDenoter type) {
     super(leftLocation, rightLocation);
-    this.id = id;
+    this.variable = variable;
     this.typeDenoter = typeDenoter;
   }
 
   /**
    * @return the id
    */
-  public Id getId() {
-    return id;
+  public Variable getVariable() {
+    return variable;
   }
 
   /**

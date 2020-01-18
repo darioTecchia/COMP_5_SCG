@@ -6,13 +6,13 @@ import visitor.Visitor;
 
 public class VarDecl extends AstNode {
 
-  private Id id;
+  private Variable variable;
   private TypeDenoter typeDenoter;
   private VarInitValue varInitValue;
 
-  public VarDecl(int leftLocation, int rightLocation, Id id, TypeDenoter typeDenoter, VarInitValue varInitValue) {
+  public VarDecl(int leftLocation, int rightLocation, Variable variable, TypeDenoter typeDenoter, VarInitValue varInitValue) {
     super(leftLocation, rightLocation);
-    this.id = id;
+    this.variable = variable;
     this.typeDenoter = typeDenoter;
     this.varInitValue = varInitValue;
   }
@@ -20,8 +20,8 @@ public class VarDecl extends AstNode {
   /**
    * @return the id
    */
-  public Id getId() {
-    return id;
+  public Variable getVariable() {
+    return variable;
   }
 
   /**
