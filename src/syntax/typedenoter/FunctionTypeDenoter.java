@@ -11,7 +11,7 @@ public class FunctionTypeDenoter extends TypeDenoter {
   private LinkedList<TypeDenoter> typeDenoters;
   private TypeDenoter returnTypeDenoter;
 
-  public FunctionTypeDenoter(int leftLocation, int rightLocation, LinkedList<TypeDenoter> typeDenoters, TypeDenoter returnType) {
+  public FunctionTypeDenoter(int leftLocation, int rightLocation, LinkedList<TypeDenoter> typeDenoters, TypeDenoter returnTypeDenoter) {
     super(leftLocation, rightLocation);
     this.returnTypeDenoter = returnTypeDenoter;
     this.typeDenoters = typeDenoters;

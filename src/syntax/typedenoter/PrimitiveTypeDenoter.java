@@ -23,7 +23,6 @@ public class PrimitiveTypeDenoter extends TypeDenoter implements Leaf<String> {
       case "INT":
         return PrimitiveNodeType.INT;
       case "FLOAT":
-        System.out.println(PrimitiveNodeType.FLOAT);
         return PrimitiveNodeType.FLOAT;
       case "STRING":
         return PrimitiveNodeType.STRING;

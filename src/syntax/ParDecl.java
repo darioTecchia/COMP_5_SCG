@@ -9,7 +9,7 @@ public class ParDecl extends AstNode {
   private Variable variable;
   private TypeDenoter typeDenoter;
 
-  public ParDecl(int leftLocation, int rightLocation, Variable variable, TypeDenoter type) {
+  public ParDecl(int leftLocation, int rightLocation, Variable variable, TypeDenoter typeDenoter) {
     super(leftLocation, rightLocation);
     this.variable = variable;
     this.typeDenoter = typeDenoter;

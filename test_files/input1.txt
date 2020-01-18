@@ -3,7 +3,7 @@ global
     buffer: float = 0.0
 end
 
-function add(x: float, y: float): float
+function add(x: int, y: int): float
     x = x + 1;
     local
         i: float = 2.0;
