@@ -9,6 +9,7 @@ import lexical.StringTable;
 import semantic.StackSymbolTable;
 import semantic.SymbolTable;
 import syntax.Program;
+import visitor.PreScopeCheckerVisitor;
 import visitor.ScopeCheckerVisitor;
 
 public class ScopeCheckTester {
@@ -33,7 +34,11 @@ public class ScopeCheckTester {
 
       System.out.println(program);
 
+      PreScopeCheckerVisitor preScopeCheckerVisitor = new PreScopeCheckerVisitor();
+
       ScopeCheckerVisitor scopeCheckerVisitor = new ScopeCheckerVisitor(errorHandler);
+
+      program.accept(preScopeCheckerVisitor, symbolTable);
 
       boolean sc = program.accept(scopeCheckerVisitor, symbolTable);
 
