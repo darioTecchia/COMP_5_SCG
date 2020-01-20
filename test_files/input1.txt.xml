@@ -2,31 +2,31 @@
 <Program>
   <Global>
     <VarDecl>
-      <Id lexeme="buffer"/>
-      <PrimitiveType kind="FLOAT"/>
+      <Variable lexeme="buffer"/>
+      <PrimitiveTypeDenoter.java kind="FLOAT"/>
       <VarInitValue>
         <FloatConst value="0.0"/>
       </VarInitValue>
     </VarDecl>
     <VarDecl>
-      <Id lexeme="result"/>
-      <PrimitiveType kind="FLOAT"/>
+      <Variable lexeme="result"/>
+      <PrimitiveTypeDenoter.java kind="FLOAT"/>
       <VarInitValue>
         <FloatConst value="0.0"/>
       </VarInitValue>
     </VarDecl>
   </Global>
   <Function>
-    <Id lexeme="add"/>
+    <Variable lexeme="addInc"/>
     <ParDecl>
-      <Id lexeme="x"/>
-      <PrimitiveType kind="FLOAT"/>
+      <Variable lexeme="x"/>
+      <PrimitiveTypeDenoter.java kind="STRING"/>
     </ParDecl>
     <ParDecl>
-      <Id lexeme="y"/>
-      <PrimitiveType kind="FLOAT"/>
+      <Variable lexeme="y"/>
+      <PrimitiveTypeDenoter.java kind="INT"/>
     </ParDecl>
-    <PrimitiveType kind="FLOAT"/>
+    <PrimitiveTypeDenoter.java kind="FLOAT"/>
     <AssignStatement>
       <PlusOp>
         <Id lexeme="x"/>
@@ -36,8 +36,8 @@
     </AssignStatement>
     <LocalStatement>
       <VarDecl>
-        <Id lexeme="i"/>
-        <PrimitiveType kind="FLOAT"/>
+        <Variable lexeme="i"/>
+        <PrimitiveTypeDenoter.java kind="STRING"/>
         <VarInitValue>
           <FloatConst value="2.0"/>
         </VarInitValue>
@@ -51,8 +51,8 @@
       </AssignStatement>
       <LocalStatement>
         <VarDecl>
-          <Id lexeme="i"/>
-          <PrimitiveType kind="FLOAT"/>
+          <Variable lexeme="i"/>
+          <PrimitiveTypeDenoter.java kind="FLOAT"/>
           <VarInitValue>
             <FloatConst value="1.0"/>
           </VarInitValue>
@@ -84,8 +84,8 @@
     </LocalStatement>
   </Function>
   <Function>
-    <Id lexeme="main"/>
-    <PrimitiveType kind="NIL"/>
+    <Variable lexeme="main"/>
+    <PrimitiveTypeDenoter.java kind="NIL"/>
     <ReadStatement>
       <Id lexeme="buffer"/>
       <Id lexeme="result"/>

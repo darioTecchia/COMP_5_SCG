@@ -22,7 +22,7 @@ public class ScopeCheckTester {
     SymbolTable symbolTable = new StackSymbolTable(stringTable);
     ErrorHandler errorHandler = new StackErrorHandler();
 
-    lexer = new Lexer();
+    lexer = new Lexer(stringTable);
 
     if(lexer.initialize(args[0])) {
       System.out.println(args[0]);

@@ -1,6 +1,8 @@
 package test;
 
 import dist.*;
+import lexical.ArrayStringTable;
+import lexical.StringTable;
 import syntax.Program;
 
 public class ParserTester {
@@ -10,7 +12,9 @@ public class ParserTester {
 
   public static void main(String[] args) throws Exception {
 
-    lexer = new Lexer();
+    StringTable stringTable = new ArrayStringTable();
+
+    lexer = new Lexer(stringTable);
 
     if(lexer.initialize(args[0])) {
       parser = new Parser(lexer);

@@ -34,6 +34,4 @@ public class SymbolTableRecord {
   public String toString() {
     return String.format("Type: %s, Kind: %s", this.nodeType.toString(), this.nodeKind);
   }
-
-  
 }

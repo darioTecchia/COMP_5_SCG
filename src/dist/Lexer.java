@@ -5,6 +5,7 @@ package dist;
 
 
 import java_cup.runtime.Symbol;
+import lexical.StringTable;
 /**
 * This class is a simple example lexer.
 */
@@ -531,12 +532,14 @@ public class Lexer implements java_cup.runtime.Scanner {
   private int zzFinalHighSurrogate = 0;
 
   /* user code: */
-  StringBuffer string = new StringBuffer();
+  private StringTable table;
+  private StringBuffer string = new StringBuffer();
 
   private Symbol generateTokenSym(int type) {
     return new Symbol(type, yyline, yycolumn);
   }
   private Symbol generateTokenSym(int type, Object value) {
+    this.table.install(value.toString());
     return new Symbol(type, yyline, yycolumn, value);
   }
 
@@ -550,7 +553,9 @@ public class Lexer implements java_cup.runtime.Scanner {
     }
   }
 
-  public Lexer() { }
+  public Lexer(StringTable table) {
+    this.table = table;
+  }
 
 
   /**

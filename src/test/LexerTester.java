@@ -2,6 +2,8 @@ package test;
 
 import dist.*;
 import java_cup.runtime.Symbol;
+import lexical.ArrayStringTable;
+import lexical.StringTable;
 
 public class LexerTester {
 
@@ -9,7 +11,10 @@ public class LexerTester {
   static Parser parser;
 
   public static void main(String[] args) throws Exception {
-    Lexer lexicalAnalyzer = new Lexer();
+
+    StringTable stringTable = new ArrayStringTable();
+
+    Lexer lexicalAnalyzer = new Lexer(stringTable);
     String filePath = args[0];
 
     if (lexicalAnalyzer.initialize(filePath)) {

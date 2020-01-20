@@ -1,6 +1,8 @@
 package test;
 
 import dist.*;
+import lexical.ArrayStringTable;
+import lexical.StringTable;
 import org.w3c.dom.Document;
 import syntax.Program;
 import template.XMLTemplate;
@@ -16,7 +18,9 @@ public class XMLVisit {
 
   public static void main(String[] args) throws Exception {
 
-    lexer = new Lexer();
+    StringTable stringTable = new ArrayStringTable();
+
+    lexer = new Lexer(stringTable);
 
     if(lexer.initialize(args[0])) {
       System.out.println(args[0]);

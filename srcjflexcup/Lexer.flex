@@ -3,6 +3,7 @@ package dist;
 
 
 import java_cup.runtime.Symbol;
+import lexical.StringTable;
 /**
 * This class is a simple example lexer.
 */
@@ -23,12 +24,14 @@ import java_cup.runtime.Symbol;
 %column
 
 %{
-  StringBuffer string = new StringBuffer();
+  private StringTable table;
+  private StringBuffer string = new StringBuffer();
 
   private Symbol generateTokenSym(int type) {
     return new Symbol(type, yyline, yycolumn);
   }
   private Symbol generateTokenSym(int type, Object value) {
+    this.table.install(value.toString());
     return new Symbol(type, yyline, yycolumn, value);
   }
 
@@ -42,7 +45,9 @@ import java_cup.runtime.Symbol;
     }
   }
 
-  public Lexer() { }
+  public Lexer(StringTable table) {
+    this.table = table;
+  }
 %}
 
 %eofval{

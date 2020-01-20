@@ -44,12 +44,14 @@ public class ScopeCheckerVisitor implements Visitor<Boolean, SymbolTable> {
    */
   @Override
   public Boolean visit(Program program, SymbolTable arg) {
+    arg.enterScope();
     boolean isGlobalSafe = program.getGlobal().accept(this, arg);
     boolean areFunctionsSafe = this.checkContext(program.getFunctions(), arg);
     boolean isProgramSafe = isGlobalSafe && areFunctionsSafe;
     if(!isProgramSafe) {
       this.errorHandler.reportError("Program Error", program);
     }
+    arg.exitScope();
     return isProgramSafe;
   }
 
@@ -61,13 +63,11 @@ public class ScopeCheckerVisitor implements Visitor<Boolean, SymbolTable> {
    */
   @Override
   public Boolean visit(Global global, SymbolTable arg) {
-    arg.enterScope();
     boolean areVarDeclsSafe = this.checkContext(global.getVarDecls(), arg);
     boolean isGlobalSafe = areVarDeclsSafe;
     if(!isGlobalSafe) {
       this.errorHandler.reportError("Global Error", global);
     }
-    arg.exitScope();
     return isGlobalSafe;
   }
 
@@ -107,9 +107,9 @@ public class ScopeCheckerVisitor implements Visitor<Boolean, SymbolTable> {
    */
   @Override
   public Boolean visit(ParDecl parDecl, SymbolTable arg) {
-    boolean isIdSafe = parDecl.getVariable().accept(this, arg);
+    boolean isVariableSafe = parDecl.getVariable().accept(this, arg);
     boolean isTypeDenoterSafe = parDecl.getTypeDenoter().accept(this, arg);
-    boolean isParDeclSafe = isTypeDenoterSafe && isIdSafe;
+    boolean isParDeclSafe = isTypeDenoterSafe && isVariableSafe;
     if(!isParDeclSafe) {
       this.errorHandler.reportError("Parameter Declaration Error", parDecl);
     } else {
@@ -126,10 +126,10 @@ public class ScopeCheckerVisitor implements Visitor<Boolean, SymbolTable> {
    */
   @Override
   public Boolean visit(VarDecl varDecl, SymbolTable arg) {
-    boolean isIdSafe = varDecl.getVariable().accept(this, arg);
+    boolean isVariableSafe = varDecl.getVariable().accept(this, arg);
     boolean isTypeDenoter = varDecl.getTypeDenoter().accept(this, arg);
     boolean isVarInitValueSafe = varDecl.getVarInitValue().accept(this, arg);
-    boolean isVarDeclSafe = isIdSafe && isTypeDenoter && isVarInitValueSafe;
+    boolean isVarDeclSafe = isVariableSafe && isTypeDenoter && isVarInitValueSafe;
     if(!isVarDeclSafe) {
       this.errorHandler.reportError("Variable Declaration Error", varDecl);
     } else {
@@ -230,11 +230,11 @@ public class ScopeCheckerVisitor implements Visitor<Boolean, SymbolTable> {
   @Override
   public Boolean visit(ForStatement forStatement, SymbolTable arg) {
     arg.enterScope();
-    boolean isIdSafe = forStatement.getVariable().accept(this, arg);
+    boolean isVariableSafe = forStatement.getVariable().accept(this, arg);
     boolean isInitExprSafe = forStatement.getInitExpr().accept(this, arg);
     boolean isPostCondSafe = forStatement.getPostConditionExpr().accept(this, arg);
     boolean areStatementsSafe = this.checkContext(forStatement.getStatements(), arg);
-    boolean isForSafe = isIdSafe && isInitExprSafe && isPostCondSafe && areStatementsSafe;
+    boolean isForSafe = isVariableSafe && isInitExprSafe && isPostCondSafe && areStatementsSafe;
     if(!isForSafe) {
       this.errorHandler.reportError("For Statement Error", forStatement);
     }

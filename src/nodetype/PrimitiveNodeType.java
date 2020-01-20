@@ -1,9 +1,5 @@
 package nodetype;
 
-/**
- *
- * @author didacus
- */
 public enum PrimitiveNodeType implements NodeType {
 
   BOOL {

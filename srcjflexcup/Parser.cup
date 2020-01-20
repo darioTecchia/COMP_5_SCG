@@ -97,7 +97,7 @@ Def_fun ::= FUNCTION:f ID:fName LPAR Par_decls:parDecls RPAR COLON TypeDenoter:t
 ;
 
 Par_decls ::= ID:id COLON TypeDenoter:t COMMA Par_decls:ps
-              {: 
+              {:
                 ps.addFirst(new ParDecl(idleft, idright, new Variable(idleft, idright, id), t));
                 RESULT = ps;
               :}

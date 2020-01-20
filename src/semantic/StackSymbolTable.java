@@ -1,17 +1,21 @@
 package semantic;
 
-import java.util.*;
-
 import lexical.StringTable;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.Map;
+import java.util.Optional;
+import java.util.Stack;
 
 /**
- * StackSymbolTable
+ *
+ * @author didacus
  */
 public class StackSymbolTable extends LinkedHashMap<Integer, HashMap<Integer, SymbolTableRecord>>
     implements SymbolTable {
 
-  private Stack<Integer> scopeLevel;
-  private StringTable table;
+  private final Stack<Integer> scopeLevel;
+  private final StringTable table;
   private int currentLevel;
 
   public StackSymbolTable(StringTable table) {
@@ -42,11 +46,10 @@ public class StackSymbolTable extends LinkedHashMap<Integer, HashMap<Integer, Sy
   public Optional<SymbolTableRecord> lookup(String lexeme) {
     int address = this.table.getAddress(lexeme);
     int size = (this.scopeLevel.size() - 1);
-    for (int i = size; i > 0; i--) {
+    for(int i = size; i > 0; i--){
       int level = this.scopeLevel.elementAt(i);
-      if (this.get(level).containsKey(address)) {
+      if (this.get(level).containsKey(address))
         return Optional.of(this.get(level).get(address));
-      }
     }
     return Optional.empty();
   }
@@ -62,11 +65,11 @@ public class StackSymbolTable extends LinkedHashMap<Integer, HashMap<Integer, Sy
     StringBuilder dump = new StringBuilder();
     this.entrySet().forEach(entry -> {
       Integer level = entry.getKey();
-      dump.append("Level:").append(level).append('\n');
+      dump.append("Level: ").append(level).append('\n');
       Map<Integer, SymbolTableRecord> record = entry.getValue();
       record.entrySet().forEach(en -> {
-        dump.append("==>");
-        dump.append("Address:").append(en.getKey());
+        dump.append("==> ");
+        dump.append("Address: ").append(en.getKey());
         dump.append("|");
         dump.append("Records(");
         dump.append(en.getValue().toString());
@@ -76,5 +79,4 @@ public class StackSymbolTable extends LinkedHashMap<Integer, HashMap<Integer, Sy
     });
     return dump.toString();
   }
-
 }
