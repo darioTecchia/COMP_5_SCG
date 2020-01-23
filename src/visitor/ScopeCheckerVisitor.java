@@ -92,8 +92,8 @@ public class ScopeCheckerVisitor implements Visitor<Boolean, SymbolTable> {
         this.errorHandler.reportError("Function Declaration error", function);
       } else {
         arg.exitScope();
-        String name = function.getVariable().getValue();
-        arg.addEntry(name, new SymbolTableRecord(function.getTypeDenoter().typeFactory(), NodeKind.FUNCTION));
+        // String name = function.getVariable().getValue();
+        // arg.addEntry(name, new SymbolTableRecord(function.getTypeDenoter().typeFactory(), NodeKind.FUNCTION));
       }
     }
     return isFunctionSafe;

@@ -34,18 +34,18 @@ public class ScopeCheckTester {
 
       System.out.println(program);
 
-      PreScopeCheckerVisitor preScopeCheckerVisitor = new PreScopeCheckerVisitor();
-
+      PreScopeCheckerVisitor preScopeCheckerVisitor = new PreScopeCheckerVisitor(errorHandler);
       ScopeCheckerVisitor scopeCheckerVisitor = new ScopeCheckerVisitor(errorHandler);
 
-      program.accept(preScopeCheckerVisitor, symbolTable);
+      boolean psc = program.accept(preScopeCheckerVisitor, symbolTable);
+      System.out.println("\nPre Scope checking result:\n" + psc + "\n");
+      System.out.println("Pre Check Symbol table: \n" + symbolTable);
+      System.out.println("Errors:");
+      errorHandler.logErrors();
 
       boolean sc = program.accept(scopeCheckerVisitor, symbolTable);
-
       System.out.println("\nScope checking result:\n" + sc + "\n");
-
       System.out.println("Symbol table: \n" + symbolTable);
-
       System.out.println("Errors:");
       errorHandler.logErrors();
 

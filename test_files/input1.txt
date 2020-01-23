@@ -4,17 +4,17 @@ global
 end
 
 function addInc(x: float): float
-    x = x + 1
-    // local
-    //     i: string = 2.0;
-    //     i = i + 1;
-    //     local
-    //         pippo: float = 1.0;
-    //         pippo = pippo + 1;
-    //         y = y + 1
-    //      end;
-    //      return x + y + pippo
-    // end
+    x = x + 1;
+    local
+        i: string = 2.0;
+        i = i + 1;
+        local
+            pippo: float = 1.0;
+            pippo = pippo + 1;
+            y = y + 1
+         end;
+         return x + y + pippo
+    end
 end
 
 function main(): nil
