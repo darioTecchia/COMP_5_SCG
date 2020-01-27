@@ -199,6 +199,8 @@ Stat ::= NOP:n
         {: RESULT = new ArrayElemAssignStatement(arrayNameleft, arrayNameright, arrayName, arrayIndex, expr); :}
         | ID:id LPAR Exprs:exprs RPAR
         {: RESULT = new FunctionCallStatement(idleft, idright, new Id(idleft, idright, id), exprs); :}
+        | ID:id LPAR RPAR
+        {: RESULT = new FunctionCallStatement(idleft, idright, new Id(idleft, idright, id)); :}
         | Vars:vs READ
         {: RESULT = new ReadStatement(vsleft, vsright, vs); :}
         | Exprs:exprs WRITE
@@ -265,6 +267,9 @@ Expr ::= NIL:nilConst
         |
         ID:id LPAR Exprs:es RPAR
         {: RESULT = new FunctionCall(idleft, idright, new Id(idleft, idright, id), es); :}
+        |
+        ID:id LPAR RPAR
+        {: RESULT = new FunctionCall(idleft, idright, new Id(idleft, idright, id)); :}
         |
         Expr:e1 PLUS Expr:e2
         {: RESULT = new PlusOp(e1left, e1right, e1, e2); :}

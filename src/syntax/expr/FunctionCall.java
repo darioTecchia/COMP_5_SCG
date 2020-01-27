@@ -17,6 +17,12 @@ public class FunctionCall extends Expr {
     this.exprs = exprs;
   }
 
+  public FunctionCall(int leftLocation, int rightLocation, Id id) {
+    super(leftLocation, rightLocation);
+    this.id = id;
+    this.exprs = new LinkedList<>();
+  }
+
   /**
    * @return the exprs
    */

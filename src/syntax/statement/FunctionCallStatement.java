@@ -18,6 +18,12 @@ public class FunctionCallStatement extends Statement {
     this.functionParams = functionParams;
   }
 
+  public FunctionCallStatement(int leftLocation, int rightLocation, Id id) {
+    super(leftLocation, rightLocation);
+    this.id = id;
+    this.functionParams = new LinkedList<>();
+  }
+
   /**
    * @return the functionParams
    */
