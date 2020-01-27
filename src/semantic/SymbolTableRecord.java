@@ -10,8 +10,10 @@ public class SymbolTableRecord {
 
   private NodeType nodeType;
   private NodeKind nodeKind;
+  private String lexeme;
 
-  public SymbolTableRecord(NodeType nodeType, NodeKind nodeKind) {
+  public SymbolTableRecord(String lexeme, NodeType nodeType, NodeKind nodeKind) {
+    this.lexeme = lexeme;
     this.nodeType = nodeType;
     this.nodeKind = nodeKind;
   }
@@ -32,6 +34,6 @@ public class SymbolTableRecord {
 
   @Override
   public String toString() {
-    return String.format("Type: %s, Kind: %s", this.nodeType.toString(), this.nodeKind);
+    return String.format("Lexeme: %s, Type: %s, Kind: %s", this.lexeme, this.nodeType.toString(), this.nodeKind);
   }
 }

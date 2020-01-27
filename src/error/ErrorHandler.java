@@ -16,6 +16,8 @@ public interface ErrorHandler {
 
   void reportError(String msg, AstNode node);
 
+  void reportError(String msg);
+
   void logErrors();
 
   default void reportTypeMismatch(NodeType expected, NodeType actual, AstNode node) {

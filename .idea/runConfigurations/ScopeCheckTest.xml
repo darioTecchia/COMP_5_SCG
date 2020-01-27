@@ -2,7 +2,7 @@
   <configuration default="false" name="ScopeCheckTest" type="Application" factoryName="Application">
     <option name="MAIN_CLASS_NAME" value="test.ScopeCheckTester" />
     <module name="tecchia_sansone_es5_SCG" />
-    <option name="PROGRAM_PARAMETERS" value="test_files\input1.txt" />
+    <option name="PROGRAM_PARAMETERS" value="test_files\input1.mp" />
     <method v="2">
       <option name="Make" enabled="true" />
     </method>

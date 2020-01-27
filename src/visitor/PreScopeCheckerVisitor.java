@@ -43,15 +43,14 @@ public class PreScopeCheckerVisitor implements Visitor<Boolean, SymbolTable> {
   @Override
   public Boolean visit(Program program, SymbolTable arg) {
     arg.enterScope();
-    boolean isGlobalSafe = program.getGlobal().accept(this, arg);
     boolean areFunctionsSafe = this.checkContext(program.getFunctions(), arg);
-    boolean isProgramSafe = isGlobalSafe && areFunctionsSafe;
-    arg.exitScope();
+    //arg.exitScope();
+
     if(this.mainCounter >= 2) {
-      this.errorHandler.reportError("Too many main method, only one can be present", program);
+      this.errorHandler.reportError("Too many main method, only one can be present");
       return false;
     } else {
-    return isProgramSafe;
+      return areFunctionsSafe;
     }
   }
 
@@ -65,22 +64,13 @@ public class PreScopeCheckerVisitor implements Visitor<Boolean, SymbolTable> {
     if(function.getVariable().getName().equalsIgnoreCase("main")) {
       this.mainCounter++;
     }
+
     boolean isFunctionSafe = function.getVariable().accept(this, arg);
     if(!isFunctionSafe) {
       this.errorHandler.reportYetDefined(function);
     } else {
-      arg.enterScope();
-      boolean areParDeclsSafe = this.checkContext(function.getParDecls(), arg);
-      boolean areStatementsSafe = this.checkContext(function.getStatements(), arg);
-      boolean areTypeDenoterSafe = function.getTypeDenoter().accept(this, arg);
-      isFunctionSafe = areParDeclsSafe && areStatementsSafe && areTypeDenoterSafe;
-      if(!isFunctionSafe) {
-        this.errorHandler.reportError("Function Declaration error", function);
-      } else {
-        arg.exitScope();
-        String name = function.getVariable().getValue();
-        arg.addEntry(name, new SymbolTableRecord(function.getTypeDenoter().typeFactory(), NodeKind.FUNCTION));
-      }
+      String name = function.getVariable().getValue();
+      arg.addEntry(name, new SymbolTableRecord(function.getVariable().getName(), function.getTypeDenoter().typeFactory(), NodeKind.FUNCTION));
     }
     return isFunctionSafe;
   }
@@ -276,11 +266,6 @@ public class PreScopeCheckerVisitor implements Visitor<Boolean, SymbolTable> {
   }
 
   @Override
-  public Boolean visit(Id id, SymbolTable arg) {
-    return true;
-  }
-
-  @Override
   public Boolean visit(ArrayConst arrayConst, SymbolTable arg) {
     return true;
   }
@@ -297,6 +282,12 @@ public class PreScopeCheckerVisitor implements Visitor<Boolean, SymbolTable> {
 
   @Override
   public Boolean visit(Variable variable, SymbolTable arg) {
+    return !arg.probe(variable.getValue());
+  }
+
+  @Override
+  public Boolean visit(Id id, SymbolTable arg) {
     return true;
   }
+
 }

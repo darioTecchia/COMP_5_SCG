@@ -13,7 +13,8 @@ public interface SymbolTable {
   
   boolean probe(String lexeme);
   
-  Optional<SymbolTableRecord> lookup(String lexeme);
-  
+  Optional lookup(String lexeme);
+
   void addEntry(String lexeme, SymbolTableRecord str);
+
 }

@@ -17,6 +17,13 @@ public class StackErrorHandler implements ErrorHandler {
   }
 
   @Override
+  public void reportError(String msg) {
+    StringBuilder errorBuilder = new StringBuilder();
+    errorBuilder.append(msg);
+    this.catchedErrors.push(errorBuilder.toString());
+  }
+
+  @Override
   public void reportError(String msg, AstNode node) {
     StringBuilder errorBuilder = new StringBuilder();
     errorBuilder.append(msg);

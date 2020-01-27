@@ -44,8 +44,8 @@ public class ScopeCheckerVisitor implements Visitor<Boolean, SymbolTable> {
    */
   @Override
   public Boolean visit(Program program, SymbolTable arg) {
-    arg.enterScope();
-    boolean isGlobalSafe = program.getGlobal().accept(this, arg);
+    // arg.enterScope();
+    boolean isGlobalSafe = (program.getGlobal() != null) ? program.getGlobal().accept(this, arg) : true;
     boolean areFunctionsSafe = this.checkContext(program.getFunctions(), arg);
     boolean isProgramSafe = isGlobalSafe && areFunctionsSafe;
     if(!isProgramSafe) {
@@ -63,8 +63,7 @@ public class ScopeCheckerVisitor implements Visitor<Boolean, SymbolTable> {
    */
   @Override
   public Boolean visit(Global global, SymbolTable arg) {
-    boolean areVarDeclsSafe = this.checkContext(global.getVarDecls(), arg);
-    boolean isGlobalSafe = areVarDeclsSafe;
+    boolean isGlobalSafe = this.checkContext(global.getVarDecls(), arg);
     if(!isGlobalSafe) {
       this.errorHandler.reportError("Global Error", global);
     }
@@ -79,23 +78,15 @@ public class ScopeCheckerVisitor implements Visitor<Boolean, SymbolTable> {
    */
   @Override
   public Boolean visit(Function function, SymbolTable arg) {
-    boolean isFunctionSafe = function.getVariable().accept(this, arg);
+    arg.enterScope();
+    boolean areParDeclsSafe = this.checkContext(function.getParDecls(), arg);
+    boolean areStatementsSafe = this.checkContext(function.getStatements(), arg);
+    boolean areTypeDenoterSafe = function.getTypeDenoter().accept(this, arg);
+    boolean isFunctionSafe = areParDeclsSafe && areStatementsSafe && areTypeDenoterSafe;
     if(!isFunctionSafe) {
-      this.errorHandler.reportYetDefined(function);
-    } else {
-      arg.enterScope();
-      boolean areParDeclsSafe = this.checkContext(function.getParDecls(), arg);
-      boolean areStatementsSafe = this.checkContext(function.getStatements(), arg);
-      boolean areTypeDenoterSafe = function.getTypeDenoter().accept(this, arg);
-      isFunctionSafe = areParDeclsSafe && areStatementsSafe && areTypeDenoterSafe;
-      if(!isFunctionSafe) {
-        this.errorHandler.reportError("Function Declaration error", function);
-      } else {
-        arg.exitScope();
-        // String name = function.getVariable().getValue();
-        // arg.addEntry(name, new SymbolTableRecord(function.getTypeDenoter().typeFactory(), NodeKind.FUNCTION));
-      }
+      this.errorHandler.reportError("Function Declaration error", function);
     }
+    arg.exitScope();
     return isFunctionSafe;
   }
 
@@ -113,7 +104,7 @@ public class ScopeCheckerVisitor implements Visitor<Boolean, SymbolTable> {
     if(!isParDeclSafe) {
       this.errorHandler.reportError("Parameter Declaration Error", parDecl);
     } else {
-      arg.addEntry(parDecl.getVariable().getValue(), new SymbolTableRecord(parDecl.getTypeDenoter().typeFactory(), NodeKind.VARIABLE));
+      arg.addEntry(parDecl.getVariable().getValue(), new SymbolTableRecord(parDecl.getVariable().getName(), parDecl.getTypeDenoter().typeFactory(), NodeKind.VARIABLE));
     }
     return isParDeclSafe;
   }
@@ -128,12 +119,12 @@ public class ScopeCheckerVisitor implements Visitor<Boolean, SymbolTable> {
   public Boolean visit(VarDecl varDecl, SymbolTable arg) {
     boolean isVariableSafe = varDecl.getVariable().accept(this, arg);
     boolean isTypeDenoter = varDecl.getTypeDenoter().accept(this, arg);
-    boolean isVarInitValueSafe = varDecl.getVarInitValue().accept(this, arg);
+    boolean isVarInitValueSafe = (varDecl.getVarInitValue() != null) ? varDecl.getVarInitValue().accept(this, arg) : true;
     boolean isVarDeclSafe = isVariableSafe && isTypeDenoter && isVarInitValueSafe;
     if(!isVarDeclSafe) {
       this.errorHandler.reportError("Variable Declaration Error", varDecl);
     } else {
-      arg.addEntry(varDecl.getVariable().getValue(), new SymbolTableRecord(varDecl.getTypeDenoter().typeFactory(), NodeKind.VARIABLE));
+      arg.addEntry(varDecl.getVariable().getValue(), new SymbolTableRecord(varDecl.getVariable().getName(), varDecl.getTypeDenoter().typeFactory(), NodeKind.VARIABLE));
     }
     return isVarDeclSafe;
   }
@@ -720,7 +711,7 @@ public class ScopeCheckerVisitor implements Visitor<Boolean, SymbolTable> {
    */
   @Override
   public Boolean visit(Variable variable, SymbolTable arg) {
-    return  arg.lookup(variable.getValue()).isEmpty();
+    return arg.lookup(variable.getValue()).isEmpty();
   }
 
   /**
