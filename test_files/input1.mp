@@ -1,30 +1,30 @@
 global
-    result: float = 1.0;
-    buffer: float;
-    x: int
+    result : float = 0.0;
+    buffer : float = 0.0
 end
 
-function pluto(y: float): string
-    y = y - 1;
-    return y
+function main( ): nil
+    buffer, result <== ;
+    result = addInc( result+1, buffer );
+    "la somma risulta: ", result ==>
 end
 
-function main(): nil
-     buffer <==;
-     pluto(buffer);
-     result = addInc(result + 1, buffer);
-     "la somma risulta: ", result ==>
-end
-
-function addInc(i: float): float
-    x = x + 1;
+function addInc( x : float , y : float ): float
+    x = x +1;
     local
-        str: string = 2.0;
-        i = i + 1;
+        pippo : float = 3.0 ;
+        pippo = 1.0
+    end;
+    local
+        i : float = 2.0;
+        pluto : string = "ciao";
+        i = i + 1 ;
         local
-            pippo: float = 1.0;
-            pippo = pippo + 1
-         end;
-         return x
+            i : float = 1.0;
+            paperino : float;
+            y = y * i
+        end;
+        buffer ==>;
+        return x +y + i
     end
 end

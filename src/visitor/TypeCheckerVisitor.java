@@ -1,5 +1,7 @@
 package visitor;
 
+import error.ErrorHandler;
+import nodetype.PrimitiveNodeType;
 import semantic.SymbolTable;
 
 import nodetype.NodeType;
@@ -12,39 +14,61 @@ import syntax.expr.unaryexpr.*;
 import syntax.expr.binaryexpr.arithop.*;
 import syntax.expr.binaryexpr.relop.*;
 
+import java.util.function.Consumer;
+
 /**
  * TypeCheckingVisitor
  */
 public class TypeCheckerVisitor implements Visitor<NodeType, SymbolTable> {
 
+  private ErrorHandler errorHandler;
+
+  public TypeCheckerVisitor(ErrorHandler errorHandler) {
+  this.errorHandler = errorHandler;
+  }
+
+  private Consumer<? super AstNode> typeCheck(SymbolTable arg){
+    return (AstNode node) -> node.accept(this, arg);
+  }
+
   @Override
   public NodeType visit(Program program, SymbolTable arg) {
-    // TODO Auto-generated method stub
-    return null;
+    arg.enterScope();
+    program.getGlobal().accept(this, arg);
+    program.getFunctions().forEach(this.typeCheck(arg));
+    arg.exitScope();
+    return PrimitiveNodeType.NULL;
   }
 
   @Override
   public NodeType visit(Global global, SymbolTable arg) {
-    // TODO Auto-generated method stub
-    return null;
+    global.getVarDecls().forEach(this.typeCheck(arg));
+    return PrimitiveNodeType.NULL;
   }
 
   @Override
   public NodeType visit(Function function, SymbolTable arg) {
-    // TODO Auto-generated method stub
-    return null;
+    NodeType functionType = function.getVariable().accept(this, arg);
+    arg.enterScope();
+    function.getParDecls().forEach(this.typeCheck(arg));
+    function.getStatements().forEach(this.typeCheck(arg));
+    arg.exitScope();
+    return functionType;
   }
 
   @Override
   public NodeType visit(ParDecl parDecl, SymbolTable arg) {
-    // TODO Auto-generated method stub
-    return null;
+    NodeType parDeclType = parDecl.getTypeDenoter().accept(this, arg);
+    parDecl.getVariable().accept(this, arg);
+    return parDeclType;
   }
 
   @Override
   public NodeType visit(VarDecl varDecl, SymbolTable arg) {
-    // TODO Auto-generated method stub
-    return null;
+    NodeType varDeclType = varDecl.getTypeDenoter().accept(this, arg);
+    varDecl.getVariable().accept(this, arg);
+    varDecl.getVarInitValue().accept(this, arg);
+    return varDeclType;
   }
 
   @Override
