@@ -712,7 +712,6 @@ public class ScopeCheckerVisitor implements Visitor<Boolean, SymbolTable> {
   @Override
   public Boolean visit(Variable variable, SymbolTable arg) {
     return !arg.probe(variable.getValue());
-    // return arg.lookup(variable.getValue()).isEmpty();
   }
 
   /**
