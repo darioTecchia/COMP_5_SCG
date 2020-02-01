@@ -5,6 +5,7 @@ import java.util.List;
 import error.ErrorHandler;
 
 import nodekind.NodeKind;
+import nodetype.PrimitiveNodeType;
 import semantic.SymbolTable;
 
 import semantic.SymbolTableRecord;
@@ -222,6 +223,9 @@ public class ScopeCheckerVisitor implements Visitor<Boolean, SymbolTable> {
   public Boolean visit(ForStatement forStatement, SymbolTable arg) {
     arg.enterScope();
     boolean isVariableSafe = forStatement.getVariable().accept(this, arg);
+    if(isVariableSafe) {
+      arg.addEntry(forStatement.getVariable().getValue(), new SymbolTableRecord(forStatement.getVariable().getName(), PrimitiveNodeType.INT, NodeKind.VARIABLE));
+    }
     boolean isInitExprSafe = forStatement.getInitExpr().accept(this, arg);
     boolean isPostCondSafe = forStatement.getPostConditionExpr().accept(this, arg);
     boolean areStatementsSafe = this.checkContext(forStatement.getStatements(), arg);
