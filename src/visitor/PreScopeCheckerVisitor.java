@@ -70,7 +70,7 @@ public class PreScopeCheckerVisitor implements Visitor<Boolean, SymbolTable> {
       this.errorHandler.reportYetDefined(function);
     } else {
       String name = function.getVariable().getValue();
-      arg.addEntry(name, new SymbolTableRecord(function.getVariable().getName(), function.getTypeDenoter().typeFactory(), NodeKind.FUNCTION));
+      arg.addEntry(name, new SymbolTableRecord(function.getVariable().getName(), function.codomain(), NodeKind.FUNCTION));
     }
     return isFunctionSafe;
   }

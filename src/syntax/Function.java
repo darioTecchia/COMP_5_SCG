@@ -1,8 +1,10 @@
 package syntax;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 
 
+import nodetype.CompositeNodeType;
 import nodetype.PrimitiveNodeType;
 import syntax.expr.Id;
 import visitor.Visitor;
@@ -62,6 +64,16 @@ public class Function extends AstNode {
    */
   public TypeDenoter getTypeDenoter() {
     return typeDenoter;
+  }
+
+  public CompositeNodeType domain() {
+    CompositeNodeType compositeNodeType = new CompositeNodeType(new ArrayList<>());
+    this.getParDecls().forEach(parDecl -> compositeNodeType.addNodeType(parDecl.getTypeDenoter().typeFactory()));
+    return compositeNodeType;
+  }
+
+  public PrimitiveNodeType codomain() {
+    return this.getTypeDenoter().typeFactory();
   }
 
   @Override

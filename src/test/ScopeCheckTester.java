@@ -6,11 +6,13 @@ import error.ErrorHandler;
 import error.StackErrorHandler;
 import lexical.ArrayStringTable;
 import lexical.StringTable;
+import semantic.FakeSymbolTable;
 import semantic.StackSymbolTable;
 import semantic.SymbolTable;
 import syntax.Program;
 import visitor.PreScopeCheckerVisitor;
 import visitor.ScopeCheckerVisitor;
+import visitor.TypeCheckerVisitor;
 
 public class ScopeCheckTester {
 
@@ -36,6 +38,7 @@ public class ScopeCheckTester {
 
       PreScopeCheckerVisitor preScopeCheckerVisitor = new PreScopeCheckerVisitor(errorHandler);
       ScopeCheckerVisitor scopeCheckerVisitor = new ScopeCheckerVisitor(errorHandler);
+      TypeCheckerVisitor typeCheckerVisitor = new TypeCheckerVisitor(errorHandler);
 
       boolean psc = program.accept(preScopeCheckerVisitor, symbolTable);
       System.out.println("\nPre Scope checking result:\n" + psc + "\n");
@@ -46,6 +49,12 @@ public class ScopeCheckTester {
       boolean sc = program.accept(scopeCheckerVisitor, symbolTable);
       System.out.println("\nScope checking result:\n" + sc + "\n");
       System.out.println("Symbol table: \n" + symbolTable);
+      System.out.println("Errors:");
+      errorHandler.logErrors();
+
+      program.accept(typeCheckerVisitor, new FakeSymbolTable((StackSymbolTable) symbolTable, stringTable));
+      System.out.println("\nType checking");
+      System.out.println("Type Check Symbol table: \n" + symbolTable);
       System.out.println("Errors:");
       errorHandler.logErrors();
 

@@ -1,6 +1,7 @@
 package visitor;
 
 import error.ErrorHandler;
+import nodetype.CompositeNodeType;
 import nodetype.PrimitiveNodeType;
 import semantic.SymbolTable;
 
@@ -14,6 +15,7 @@ import syntax.expr.unaryexpr.*;
 import syntax.expr.binaryexpr.arithop.*;
 import syntax.expr.binaryexpr.relop.*;
 
+import java.util.ArrayList;
 import java.util.function.Consumer;
 
 /**
@@ -73,247 +75,367 @@ public class TypeCheckerVisitor implements Visitor<NodeType, SymbolTable> {
 
   @Override
   public NodeType visit(VarInitValue varInitValue, SymbolTable arg) {
-    // TODO Auto-generated method stub
-    return null;
+    NodeType varInitValueType = varInitValue.getExpr().accept(this, arg);
+    return varInitValueType;
   }
 
   @Override
   public NodeType visit(PrimitiveTypeDenoter primitiveType, SymbolTable arg) {
-    // TODO Auto-generated method stub
-    return null;
+    return primitiveType.typeFactory();
   }
 
   @Override
   public NodeType visit(ArrayTypeDenoter arrayType, SymbolTable arg) {
-    // TODO Auto-generated method stub
-    return null;
+    return arrayType.typeFactory();
   }
 
   @Override
   public NodeType visit(FunctionTypeDenoter functionType, SymbolTable arg) {
-    // TODO Auto-generated method stub
-    return null;
+    return functionType.typeFactory();
   }
 
   @Override
   public NodeType visit(IfThenStatement ifThenStatement, SymbolTable arg) {
-    // TODO Auto-generated method stub
-    return null;
+    NodeType condIf = ifThenStatement.getExpr().accept(this, arg);
+    if(!condIf.equals(PrimitiveNodeType.BOOL)) {
+      this.errorHandler.reportTypeMismatch(PrimitiveNodeType.BOOL, condIf, ifThenStatement);
+    }
+    ifThenStatement.getStatements().forEach(this.typeCheck(arg));
+    return PrimitiveNodeType.NULL;
   }
 
   @Override
   public NodeType visit(IfThenElseStatement ifThenElseStatement, SymbolTable arg) {
-    // TODO Auto-generated method stub
-    return null;
+    NodeType condIf = ifThenElseStatement.getExpr().accept(this, arg);
+    if(!condIf.equals(PrimitiveNodeType.BOOL)) {
+      this.errorHandler.reportTypeMismatch(PrimitiveNodeType.BOOL, condIf, ifThenElseStatement);
+    }
+    ifThenElseStatement.getThenStatements().forEach(this.typeCheck(arg));
+    ifThenElseStatement.getElseStatements().forEach(this.typeCheck(arg));
+    return PrimitiveNodeType.NULL;
   }
 
   @Override
   public NodeType visit(ForStatement forStatement, SymbolTable arg) {
-    // TODO Auto-generated method stub
-    return null;
+    arg.enterScope();
+    NodeType exprType = forStatement.getInitExpr().accept(this, arg);
+    NodeType postCondType = forStatement.getPostConditionExpr().accept(this, arg);
+    if(!exprType.equals(PrimitiveNodeType.INT) && !postCondType.equals(PrimitiveNodeType.INT)) {
+      this.errorHandler.reportTypeMismatch(PrimitiveNodeType.INT, exprType, forStatement);
+      this.errorHandler.reportTypeMismatch(PrimitiveNodeType.INT, postCondType, forStatement);
+    }
+    forStatement.getStatements().forEach(this.typeCheck(arg));
+    arg.exitScope();
+    return PrimitiveNodeType.NULL;
   }
 
   @Override
   public NodeType visit(AssignStatement assignStatement, SymbolTable arg) {
-    // TODO Auto-generated method stub
-    return null;
+    NodeType left = assignStatement.getId().accept(this, arg);
+    NodeType right = assignStatement.getExpr().accept(this, arg);
+    if(!left.equals(right))
+      this.errorHandler.reportTypeMismatch(left, right, assignStatement);
+    return right;
   }
 
   @Override
   public NodeType visit(FunctionCallStatement functionCallStatement, SymbolTable arg) {
-    // TODO Auto-generated method stub
-    return null;
+    CompositeNodeType input = new CompositeNodeType(new ArrayList<>());
+    functionCallStatement.getFunctionParams().forEach(e -> input.addNodeType(e.accept(this, arg)));
+    NodeType functionCallStatementType = functionCallStatement.getId().accept(this, arg);
+    if (!functionCallStatementType.equals(input)) {
+      this.errorHandler.reportTypeMismatch(functionCallStatementType, input, functionCallStatement);
+    }
+    return functionCallStatementType;
   }
 
   @Override
   public NodeType visit(ReadStatement readStatement, SymbolTable arg) {
-    // TODO Auto-generated method stub
-    return null;
+    readStatement.getVars().forEach(this.typeCheck(arg));
+    return PrimitiveNodeType.NULL;
   }
 
   @Override
-  public NodeType visit(WriteStatement writeStatements, SymbolTable arg) {
-    // TODO Auto-generated method stub
-    return null;
+  public NodeType visit(WriteStatement writeStatement, SymbolTable arg) {
+    writeStatement.getExprs().forEach(this.typeCheck(arg));
+    return PrimitiveNodeType.NULL;
   }
 
   @Override
   public NodeType visit(ReturnStatement returnStatement, SymbolTable arg) {
-    // TODO Auto-generated method stub
-    return null;
+    returnStatement.getExpr().accept(this, arg);
+    return PrimitiveNodeType.NULL;
   }
 
   @Override
   public NodeType visit(LocalStatement localStatement, SymbolTable arg) {
-    // TODO Auto-generated method stub
-    return null;
+    arg.enterScope();
+    localStatement.getVarDecls().forEach(this.typeCheck(arg));
+    localStatement.getStatements().forEach(this.typeCheck(arg));
+    arg.exitScope();
+    return PrimitiveNodeType.NULL;
   }
 
   @Override
   public NodeType visit(NilConst nilConst, SymbolTable arg) {
-    // TODO Auto-generated method stub
-    return null;
+    nilConst.setType(PrimitiveNodeType.NULL);
+    return nilConst.getType();
   }
 
   @Override
   public NodeType visit(BooleanConst booleanConst, SymbolTable arg) {
-    // TODO Auto-generated method stub
-    return null;
+    booleanConst.setType(PrimitiveNodeType.BOOL);
+    return booleanConst.getType();
   }
 
   @Override
   public NodeType visit(IntegerConst integerConst, SymbolTable arg) {
-    // TODO Auto-generated method stub
-    return null;
+    integerConst.setType(PrimitiveNodeType.INT);
+    return integerConst.getType();
   }
 
   @Override
   public NodeType visit(FloatConst floatConst, SymbolTable arg) {
-    // TODO Auto-generated method stub
-    return null;
+    floatConst.setType(PrimitiveNodeType.FLOAT);
+    return floatConst.getType();
   }
 
   @Override
   public NodeType visit(StringConst stringConst, SymbolTable arg) {
-    // TODO Auto-generated method stub
-    return null;
+    stringConst.setType(PrimitiveNodeType.STRING);
+    return stringConst.getType();
   }
 
   @Override
   public NodeType visit(ArrayElemAssignStatement arrayElemAssignStatement, SymbolTable arg) {
-    // TODO Auto-generated method stub
-    return null;
+    NodeType indexType = arrayElemAssignStatement.getArrayPointExpr().accept(this, arg);
+    if(!indexType.equals(PrimitiveNodeType.INT)) {
+      this.errorHandler.reportTypeMismatch(PrimitiveNodeType.INT, indexType, arrayElemAssignStatement);
+    }
+    NodeType arrayExprType = arrayElemAssignStatement.getArrayExpr().accept(this, arg);
+    if(!arrayExprType.equals(arrayElemAssignStatement.getArrayExpr().getType())) {
+      this.errorHandler.reportError("This is not an Array", arrayElemAssignStatement);
+    }
+    return  PrimitiveNodeType.NULL;
   }
 
   @Override
   public NodeType visit(ArrayRead arrayRead, SymbolTable arg) {
-    // TODO Auto-generated method stub
-    return null;
+    NodeType indexType = arrayRead.getArrayPointerExpr().accept(this, arg);
+    if(!indexType.equals(PrimitiveNodeType.INT)) {
+      this.errorHandler.reportTypeMismatch(PrimitiveNodeType.INT, indexType, arrayRead);
+    }
+    return PrimitiveNodeType.NULL;
   }
 
   @Override
   public NodeType visit(FunctionCall functionCall, SymbolTable arg) {
-    // TODO Auto-generated method stub
-    return null;
+    CompositeNodeType input = new CompositeNodeType(new ArrayList<>());
+    functionCall.getExprs().forEach(e -> input.addNodeType(e.accept(this, arg)));
+    NodeType functionCallType = functionCall.getId().accept(this, arg);
+    if (!functionCallType.equals(input)) {
+      this.errorHandler.reportTypeMismatch(functionCallType, input, functionCall);
+    }
+    return functionCallType;
   }
 
   @Override
   public NodeType visit(MinusOp minusOp, SymbolTable arg) {
-    // TODO Auto-generated method stub
-    return null;
+    NodeType lType = minusOp.getLeftOperand().accept(this, arg);
+    NodeType rType = minusOp.getRightOperand().accept(this, arg);
+    NodeType result = PrimitiveNodeType.NULL;
+    result = lType.checkSub((PrimitiveNodeType) rType);
+    if(result.equals(PrimitiveNodeType.NULL))
+      this.errorHandler.reportTypeMismatch(lType, result, minusOp);
+    minusOp.setType(result);
+    return result;
   }
 
   @Override
   public NodeType visit(PlusOp plusOp, SymbolTable arg) {
-    // TODO Auto-generated method stub
-    return null;
+    NodeType lType = plusOp.getLeftOperand().accept(this, arg);
+    NodeType rType = plusOp.getRightOperand().accept(this, arg);
+    NodeType result = PrimitiveNodeType.NULL;
+    result = lType.checkAdd((PrimitiveNodeType) rType);
+    if(result.equals(PrimitiveNodeType.NULL))
+      this.errorHandler.reportTypeMismatch(lType, result, plusOp);
+    plusOp.setType(result);
+    return result;
   }
 
   @Override
   public NodeType visit(TimesOp timesOp, SymbolTable arg) {
-    // TODO Auto-generated method stub
-    return null;
+    NodeType lType = timesOp.getLeftOperand().accept(this, arg);
+    NodeType rType = timesOp.getRightOperand().accept(this, arg);
+    NodeType result = PrimitiveNodeType.NULL;
+    result = lType.checkSub((PrimitiveNodeType) rType);
+    if(result.equals(PrimitiveNodeType.NULL))
+      this.errorHandler.reportTypeMismatch(lType, result, timesOp);
+    timesOp.setType(result);
+    return result;
   }
 
   @Override
   public NodeType visit(DivOp divOp, SymbolTable arg) {
-    // TODO Auto-generated method stub
-    return null;
+    NodeType lType = divOp.getLeftOperand().accept(this, arg);
+    NodeType rType = divOp.getRightOperand().accept(this, arg);
+    NodeType result = PrimitiveNodeType.NULL;
+    result = lType.checkSub((PrimitiveNodeType) rType);
+    if(result.equals(PrimitiveNodeType.NULL))
+      this.errorHandler.reportTypeMismatch(lType, result, divOp);
+    divOp.setType(result);
+    return result;
   }
 
   @Override
   public NodeType visit(AndRelop andRelop, SymbolTable arg) {
-    // TODO Auto-generated method stub
-    return null;
+    NodeType lType = andRelop.getLeftOperand().accept(this, arg);
+    NodeType rType = andRelop.getRightOperand().accept(this, arg);
+    NodeType result = PrimitiveNodeType.NULL;
+    result = lType.checkRel((PrimitiveNodeType) rType);
+    if(result.equals(PrimitiveNodeType.NULL))
+      this.errorHandler.reportTypeMismatch(lType, result, andRelop);
+    andRelop.setType(result);
+    return result;
   }
 
   @Override
   public NodeType visit(GreaterThanRelop greaterThanRelop, SymbolTable arg) {
-    // TODO Auto-generated method stub
-    return null;
+    NodeType lType = greaterThanRelop.getLeftOperand().accept(this, arg);
+    NodeType rType = greaterThanRelop.getRightOperand().accept(this, arg);
+    NodeType result = PrimitiveNodeType.NULL;
+    result = lType.checkRel((PrimitiveNodeType) rType);
+    if(result.equals(PrimitiveNodeType.NULL))
+      this.errorHandler.reportTypeMismatch(lType, result, greaterThanRelop);
+    greaterThanRelop.setType(result);
+    return result;
   }
 
   @Override
   public NodeType visit(OrRelop orRelop, SymbolTable arg) {
-    // TODO Auto-generated method stub
-    return null;
+    NodeType lType = orRelop.getLeftOperand().accept(this, arg);
+    NodeType rType = orRelop.getRightOperand().accept(this, arg);
+    NodeType result = PrimitiveNodeType.NULL;
+    result = lType.checkRel((PrimitiveNodeType) rType);
+    if(result.equals(PrimitiveNodeType.NULL))
+      this.errorHandler.reportTypeMismatch(lType, result, orRelop);
+    orRelop.setType(result);
+    return result;
   }
 
   @Override
   public NodeType visit(GreaterThanERelop greaterThanERelop, SymbolTable arg) {
-    // TODO Auto-generated method stub
-    return null;
+    NodeType lType = greaterThanERelop.getLeftOperand().accept(this, arg);
+    NodeType rType = greaterThanERelop.getRightOperand().accept(this, arg);
+    NodeType result = PrimitiveNodeType.NULL;
+    result = lType.checkRel((PrimitiveNodeType) rType);
+    if(result.equals(PrimitiveNodeType.NULL))
+      this.errorHandler.reportTypeMismatch(lType, result, greaterThanERelop);
+    greaterThanERelop.setType(result);
+    return result;
   }
 
   @Override
   public NodeType visit(LessThenRelop lessThenRelop, SymbolTable arg) {
-    // TODO Auto-generated method stub
-    return null;
+    NodeType lType = lessThenRelop.getLeftOperand().accept(this, arg);
+    NodeType rType = lessThenRelop.getRightOperand().accept(this, arg);
+    NodeType result = PrimitiveNodeType.NULL;
+    result = lType.checkRel((PrimitiveNodeType) rType);
+    if(result.equals(PrimitiveNodeType.NULL))
+      this.errorHandler.reportTypeMismatch(lType, result, lessThenRelop);
+    lessThenRelop.setType(result);
+    return result;
   }
 
   @Override
   public NodeType visit(LessThenERelop lessThenERelop, SymbolTable arg) {
-    // TODO Auto-generated method stub
-    return null;
+    NodeType lType = lessThenERelop.getLeftOperand().accept(this, arg);
+    NodeType rType = lessThenERelop.getRightOperand().accept(this, arg);
+    NodeType result = PrimitiveNodeType.NULL;
+    result = lType.checkRel((PrimitiveNodeType) rType);
+    if(result.equals(PrimitiveNodeType.NULL))
+      this.errorHandler.reportTypeMismatch(lType, result, lessThenERelop);
+    lessThenERelop.setType(result);
+    return result;
   }
 
   @Override
   public NodeType visit(EqualsRelop equalsRelop, SymbolTable arg) {
-    // TODO Auto-generated method stub
-    return null;
+    NodeType lType = equalsRelop.getLeftOperand().accept(this, arg);
+    NodeType rType = equalsRelop.getRightOperand().accept(this, arg);
+    NodeType result = PrimitiveNodeType.NULL;
+    result = lType.checkRel((PrimitiveNodeType) rType);
+    if(result.equals(PrimitiveNodeType.NULL))
+      this.errorHandler.reportTypeMismatch(lType, result, equalsRelop);
+    equalsRelop.setType(result);
+    return result;
   }
 
   @Override
   public NodeType visit(NotEqualsRelop notEqualsRelop, SymbolTable arg) {
-    // TODO Auto-generated method stub
-    return null;
+    NodeType lType = notEqualsRelop.getLeftOperand().accept(this, arg);
+    NodeType rType = notEqualsRelop.getRightOperand().accept(this, arg);
+    NodeType result = PrimitiveNodeType.NULL;
+    result = lType.checkRel((PrimitiveNodeType) rType);
+    if(result.equals(PrimitiveNodeType.NULL))
+      this.errorHandler.reportTypeMismatch(lType, result, notEqualsRelop);
+    notEqualsRelop.setType(result);
+    return result;
   }
 
   @Override
   public NodeType visit(UminusExpr uminusExpr, SymbolTable arg) {
-    // TODO Auto-generated method stub
-    return null;
+    NodeType type = uminusExpr.getExpr().accept(this, arg);
+    if(!type.equals(PrimitiveNodeType.INT) && !type.equals(PrimitiveNodeType.FLOAT))
+      this.errorHandler.reportTypeMismatch(PrimitiveNodeType.FLOAT, type, uminusExpr);
+    return type;
   }
 
   @Override
   public NodeType visit(NotExpr notExpr, SymbolTable arg) {
-    // TODO Auto-generated method stub
-    return null;
+    NodeType type = notExpr.getExpr().accept(this, arg);
+    if(!type.equals(PrimitiveNodeType.BOOL))
+      this.errorHandler.reportTypeMismatch(PrimitiveNodeType.BOOL, type, notExpr);
+    return type;
   }
 
   @Override
   public NodeType visit(SharpExpr sharpExpr, SymbolTable arg) {
+
     // TODO Auto-generated method stub
     return null;
   }
 
   @Override
   public NodeType visit(Variable variable, SymbolTable arg) {
-    return null;
+    System.out.println(arg.lookup(variable.getValue()).get());
+    return arg.lookup(variable.getValue()).get().getNodeType();
   }
 
   @Override
   public NodeType visit(Id id, SymbolTable arg) {
-    // TODO Auto-generated method stub
-    return null;
+    NodeType iType = arg.lookup(id.getValue()).get().getNodeType();
+    id.setType(iType);
+    return iType;
   }
 
   @Override
   public NodeType visit(ArrayConst arrayConst, SymbolTable arg) {
-    // TODO Auto-generated method stub
-    return null;
+    return PrimitiveNodeType.NULL;
   }
 
   @Override
   public NodeType visit(NopStatement nopStatement, SymbolTable arg) {
-    // TODO Auto-generated method stub
-    return null;
+    return PrimitiveNodeType.NULL;
   }
 
   @Override
   public NodeType visit(WhileStatement whileStatement, SymbolTable arg) {
-    // TODO Auto-generated method stub
-    return null;
+    NodeType condType = whileStatement.getExpr().accept(this, arg);
+    if(!condType.equals(PrimitiveNodeType.BOOL))
+      this.errorHandler.reportTypeMismatch(PrimitiveNodeType.BOOL, condType, whileStatement);
+    whileStatement.getStatements().forEach(this.typeCheck(arg));
+    return PrimitiveNodeType.NULL;
   }
 
 }

@@ -29,6 +29,11 @@ public class StackSymbolTable extends LinkedHashMap<Integer, HashMap<Integer, Sy
   }
 
   @Override
+  public int getScopeLevel() {
+    return this.currentLevel;
+  }
+
+  @Override
   public boolean probe(String lexeme) {
     int address = this.table.getAddress(lexeme);
     return this.get(this.scopeLevel.peek()).containsKey(address);

@@ -1,7 +1,9 @@
 package syntax.typedenoter;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 
+import nodetype.CompositeNodeType;
 import nodetype.PrimitiveNodeType;
 import syntax.TypeDenoter;
 import visitor.Visitor;
@@ -42,6 +44,15 @@ public class FunctionTypeDenoter extends TypeDenoter {
     return visitor.visit(this, arg);
   }
 
+  public CompositeNodeType domain() {
+    CompositeNodeType compositeNodeType = new CompositeNodeType(new ArrayList<>());
+    this.getTypes().forEach(typeDenoter -> compositeNodeType.addNodeType(typeDenoter.typeFactory()));
+    return compositeNodeType;
+  }
+
+  public PrimitiveNodeType codomain() {
+    return this.getReturnType().typeFactory();
+  }
 
   @Override
   public PrimitiveNodeType typeFactory() {
