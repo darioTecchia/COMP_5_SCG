@@ -408,7 +408,6 @@ public class TypeCheckerVisitor implements Visitor<NodeType, SymbolTable> {
 
   @Override
   public NodeType visit(Variable variable, SymbolTable arg) {
-    System.out.println(arg.lookup(variable.getValue()).get());
     return arg.lookup(variable.getValue()).get().getNodeType();
   }
 
