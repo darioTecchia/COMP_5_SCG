@@ -22,7 +22,9 @@ public class ConcreteXMLVisitor implements Visitor<Element, Document> {
   @Override
   public Element visit(Program program, Document arg) {
     Element element = arg.createElement("Program");
-    element.appendChild(program.getGlobal().accept(this, arg));
+    if(program.getGlobal() != null) {
+      element.appendChild(program.getGlobal().accept(this, arg));
+    }
     program.getFunctions().forEach(addParent(element, arg));
     arg.appendChild(element);
     return element;
@@ -58,7 +60,9 @@ public class ConcreteXMLVisitor implements Visitor<Element, Document> {
     Element element = arg.createElement("VarDecl");
     element.appendChild(varDecl.getVariable().accept(this, arg));
     element.appendChild(varDecl.getTypeDenoter().accept(this, arg));
-    element.appendChild(varDecl.getVarInitValue().accept(this, arg));
+    if(varDecl.getVarInitValue() != null) {
+      element.appendChild(varDecl.getVarInitValue().accept(this, arg));
+    }
     return element;
   }
 

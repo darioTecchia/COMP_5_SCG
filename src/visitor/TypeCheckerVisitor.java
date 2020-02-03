@@ -401,7 +401,6 @@ public class TypeCheckerVisitor implements Visitor<NodeType, SymbolTable> {
 
   @Override
   public NodeType visit(SharpExpr sharpExpr, SymbolTable arg) {
-
     // TODO Auto-generated method stub
     return null;
   }

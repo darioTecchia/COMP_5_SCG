@@ -15,7 +15,7 @@ function addInc( x : float , y : float ): float
         i ==>
     end;
 
-    x = x +1;
+    x = x + 1;
 
     local
         pippo : float = 3.0 ;

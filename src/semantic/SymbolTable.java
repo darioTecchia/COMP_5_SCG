@@ -12,7 +12,7 @@ public interface SymbolTable {
   void exitScope();
 
   int getScopeLevel();
-  
+
   boolean probe(String lexeme);
 
   Optional<SymbolTableRecord> lookup(String lexeme);

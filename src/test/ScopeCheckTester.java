@@ -6,10 +6,13 @@ import error.ErrorHandler;
 import error.StackErrorHandler;
 import lexical.ArrayStringTable;
 import lexical.StringTable;
+import org.w3c.dom.Document;
 import semantic.FakeSymbolTable;
 import semantic.StackSymbolTable;
 import semantic.SymbolTable;
 import syntax.Program;
+import template.XMLTemplate;
+import visitor.ConcreteXMLVisitor;
 import visitor.PreScopeCheckerVisitor;
 import visitor.ScopeCheckerVisitor;
 import visitor.TypeCheckerVisitor;
@@ -39,6 +42,12 @@ public class ScopeCheckTester {
       PreScopeCheckerVisitor preScopeCheckerVisitor = new PreScopeCheckerVisitor(errorHandler);
       ScopeCheckerVisitor scopeCheckerVisitor = new ScopeCheckerVisitor(errorHandler);
       TypeCheckerVisitor typeCheckerVisitor = new TypeCheckerVisitor(errorHandler);
+      ConcreteXMLVisitor xmlVisitor = new ConcreteXMLVisitor();
+
+      XMLTemplate xmlTemplate = new XMLTemplate();
+      Document xmlDocument = xmlTemplate.create().get();
+      program.accept(xmlVisitor, xmlDocument);
+      xmlTemplate.write(args[0] + ".xml", xmlDocument);
 
       boolean psc = program.accept(preScopeCheckerVisitor, symbolTable);
       System.out.println("\nPre Scope checking result:\n" + psc + "\n");

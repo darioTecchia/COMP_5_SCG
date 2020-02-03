@@ -6,7 +6,6 @@ import java.util.LinkedList;
 
 import nodetype.CompositeNodeType;
 import nodetype.PrimitiveNodeType;
-import syntax.expr.Id;
 import visitor.Visitor;
 
 public class Function extends AstNode {
