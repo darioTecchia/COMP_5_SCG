@@ -2,6 +2,7 @@ package visitor;
 
 import error.ErrorHandler;
 import nodekind.NodeKind;
+import nodetype.FunctionNodeType;
 import semantic.SymbolTable;
 import semantic.SymbolTableRecord;
 import syntax.*;
@@ -70,7 +71,7 @@ public class PreScopeCheckerVisitor implements Visitor<Boolean, SymbolTable> {
       this.errorHandler.reportYetDefined(function);
     } else {
       String name = function.getVariable().getValue();
-      arg.addEntry(name, new SymbolTableRecord(function.getVariable().getName(), function.codomain(), NodeKind.FUNCTION));
+      arg.addEntry(name, new SymbolTableRecord(function.getVariable().getName(), new FunctionNodeType(function.domain(), function.codomain()), NodeKind.FUNCTION));
     }
     return isFunctionSafe;
   }

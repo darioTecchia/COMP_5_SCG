@@ -24,10 +24,10 @@ public class SymbolTableRecord {
   public void setNodeType(NodeType nodeType) {
     this.nodeType = nodeType;
   }
+
   public NodeKind getKind() {
     return nodeKind;
   }
-
   public void setKind(NodeKind nodeKind) {
     this.nodeKind = nodeKind;
   }

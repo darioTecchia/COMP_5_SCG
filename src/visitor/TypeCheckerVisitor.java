@@ -1,7 +1,9 @@
 package visitor;
 
 import error.ErrorHandler;
+import nodekind.NodeKind;
 import nodetype.CompositeNodeType;
+import nodetype.FunctionNodeType;
 import nodetype.PrimitiveNodeType;
 import semantic.SymbolTable;
 
@@ -36,7 +38,9 @@ public class TypeCheckerVisitor implements Visitor<NodeType, SymbolTable> {
   @Override
   public NodeType visit(Program program, SymbolTable arg) {
     arg.enterScope();
-    program.getGlobal().accept(this, arg);
+    if(program.getGlobal() != null) {
+      program.getGlobal().accept(this, arg);
+    }
     program.getFunctions().forEach(this.typeCheck(arg));
     arg.exitScope();
     return PrimitiveNodeType.NULL;
@@ -69,7 +73,9 @@ public class TypeCheckerVisitor implements Visitor<NodeType, SymbolTable> {
   public NodeType visit(VarDecl varDecl, SymbolTable arg) {
     NodeType varDeclType = varDecl.getTypeDenoter().accept(this, arg);
     varDecl.getVariable().accept(this, arg);
-    varDecl.getVarInitValue().accept(this, arg);
+    if(varDecl.getVarInitValue() != null) {
+      varDecl.getVarInitValue().accept(this, arg);
+    }
     return varDeclType;
   }
 
@@ -142,11 +148,11 @@ public class TypeCheckerVisitor implements Visitor<NodeType, SymbolTable> {
   public NodeType visit(FunctionCallStatement functionCallStatement, SymbolTable arg) {
     CompositeNodeType input = new CompositeNodeType(new ArrayList<>());
     functionCallStatement.getFunctionParams().forEach(e -> input.addNodeType(e.accept(this, arg)));
-    NodeType functionCallStatementType = functionCallStatement.getId().accept(this, arg);
-    if (!functionCallStatementType.equals(input)) {
-      this.errorHandler.reportTypeMismatch(functionCallStatementType, input, functionCallStatement);
+    FunctionNodeType functionCallType = (FunctionNodeType) functionCallStatement.getId().accept(this, arg);
+    if (!functionCallType.getParamsType().equals(input)) {
+      this.errorHandler.reportTypeMismatch(functionCallType, input, functionCallStatement);
     }
-    return functionCallStatementType;
+    return functionCallType.getNodeType();
   }
 
   @Override
@@ -232,11 +238,11 @@ public class TypeCheckerVisitor implements Visitor<NodeType, SymbolTable> {
   public NodeType visit(FunctionCall functionCall, SymbolTable arg) {
     CompositeNodeType input = new CompositeNodeType(new ArrayList<>());
     functionCall.getExprs().forEach(e -> input.addNodeType(e.accept(this, arg)));
-    NodeType functionCallType = functionCall.getId().accept(this, arg);
-    if (!functionCallType.equals(input)) {
+    FunctionNodeType functionCallType = (FunctionNodeType) functionCall.getId().accept(this, arg);
+    if (!functionCallType.getParamsType().equals(input)) {
       this.errorHandler.reportTypeMismatch(functionCallType, input, functionCall);
     }
-    return functionCallType;
+    return functionCallType.getNodeType();
   }
 
   @Override
@@ -407,6 +413,7 @@ public class TypeCheckerVisitor implements Visitor<NodeType, SymbolTable> {
 
   @Override
   public NodeType visit(Variable variable, SymbolTable arg) {
+    System.out.println(variable.getValue() + ": " + arg.getScopeLevel());
     return arg.lookup(variable.getValue()).get().getNodeType();
   }
 

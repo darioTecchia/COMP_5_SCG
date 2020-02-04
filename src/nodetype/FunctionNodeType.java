@@ -1,49 +1,54 @@
 package nodetype;
 
-import java.util.List;
 import java.util.Objects;
 
-public class CompositeNodeType implements NodeType {
+public class FunctionNodeType implements NodeType {
 
-  private final List<NodeType> types;
+  private CompositeNodeType paramsType;
+  private PrimitiveNodeType nodeType;
 
-  public CompositeNodeType(List<NodeType> types) {
-    this.types = types;
+  public FunctionNodeType(CompositeNodeType paramsType, PrimitiveNodeType nodeType) {
+    this.paramsType = paramsType;
+    this.nodeType = nodeType;
   }
 
   @Override
   public PrimitiveNodeType checkAdd(PrimitiveNodeType type) {
-    return PrimitiveNodeType.NULL;
+    return null;
   }
 
   @Override
   public PrimitiveNodeType checkSub(PrimitiveNodeType type) {
-    return PrimitiveNodeType.NULL;
+    return null;
   }
 
   @Override
   public PrimitiveNodeType checkMul(PrimitiveNodeType type) {
-    return PrimitiveNodeType.NULL;
+    return null;
   }
 
   @Override
   public PrimitiveNodeType checkDiv(PrimitiveNodeType type) {
-    return PrimitiveNodeType.NULL;
+    return null;
   }
 
   @Override
   public PrimitiveNodeType checkRel(PrimitiveNodeType type) {
-    return PrimitiveNodeType.NULL;
+    return null;
   }
 
-  public void addNodeType(NodeType type){
-    this.types.add(type);
+  public CompositeNodeType getParamsType() {
+    return paramsType;
+  }
+
+  public PrimitiveNodeType getNodeType() {
+    return nodeType;
   }
 
   @Override
   public int hashCode() {
     int hash = 7;
-    hash = 11 * hash + Objects.hashCode(this.types);
+    hash = 11 * hash + Objects.hashCode(this.paramsType) + Objects.hashCode(this.nodeType);
     return hash;
   }
 
@@ -56,15 +61,17 @@ public class CompositeNodeType implements NodeType {
     } else if (getClass() != obj.getClass()) {
       return false;
     } else {
-      final CompositeNodeType other = (CompositeNodeType) obj;
-      return Objects.equals(this.types, other.types);
+      final FunctionNodeType other = (FunctionNodeType) obj;
+      return Objects.equals(this.nodeType, other.nodeType) && Objects.equals(this.paramsType, other.paramsType);
     }
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    this.types.forEach(t -> sb.append(t.toString()));
+    sb.append(this.paramsType.toString());
+    sb.append("->");
+    sb.append(this.nodeType.toString());
     return sb.toString();
   }
 }

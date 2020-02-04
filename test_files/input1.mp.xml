@@ -19,28 +19,20 @@
   <Function>
     <Variable lexeme="main"/>
     <PrimitiveTypeDenoter.java kind="NIL"/>
-    <ReadStatement>
-      <Id lexeme="buffer"/>
-      <Id lexeme="result"/>
-    </ReadStatement>
     <AssignStatement>
       <FunctionCall>
-        <Id lexeme="addInc"/>
-        <PlusOp>
-          <Id lexeme="result"/>
-          <IntegerConst value="1"/>
-        </PlusOp>
-        <Id lexeme="buffer"/>
+        <Id lexeme="add"/>
+        <FloatConst value="2.0"/>
+        <FloatConst value="1.0"/>
       </FunctionCall>
       <Id lexeme="result"/>
     </AssignStatement>
-    <WriteStatement>
-      <StringConst value="la somma risulta: "/>
-      <Id lexeme="result"/>
-    </WriteStatement>
+    <ReturnStatement>
+      <NilConst value="null"/>
+    </ReturnStatement>
   </Function>
   <Function>
-    <Variable lexeme="addInc"/>
+    <Variable lexeme="add"/>
     <ParDecl>
       <Variable lexeme="x"/>
       <PrimitiveTypeDenoter.java kind="FLOAT"/>
@@ -50,41 +42,14 @@
       <PrimitiveTypeDenoter.java kind="FLOAT"/>
     </ParDecl>
     <PrimitiveTypeDenoter.java kind="FLOAT"/>
-    <ForStatement>
-      <IntegerConst value="1"/>
-      <IntegerConst value="10"/>
-      <WriteStatement>
-        <Id lexeme="i"/>
-      </WriteStatement>
-    </ForStatement>
     <AssignStatement>
       <PlusOp>
         <Id lexeme="x"/>
-        <IntegerConst value="1"/>
+        <FloatConst value="2.0"/>
       </PlusOp>
       <Id lexeme="x"/>
     </AssignStatement>
     <LocalStatement>
-      <VarDecl>
-        <Variable lexeme="pippo"/>
-        <PrimitiveTypeDenoter.java kind="FLOAT"/>
-        <VarInitValue>
-          <FloatConst value="3.0"/>
-        </VarInitValue>
-      </VarDecl>
-      <AssignStatement>
-        <FloatConst value="1.0"/>
-        <Id lexeme="pippo"/>
-      </AssignStatement>
-    </LocalStatement>
-    <LocalStatement>
-      <VarDecl>
-        <Variable lexeme="pluto"/>
-        <PrimitiveTypeDenoter.java kind="STRING"/>
-        <VarInitValue>
-          <StringConst value="ciao"/>
-        </VarInitValue>
-      </VarDecl>
       <VarDecl>
         <Variable lexeme="i"/>
         <PrimitiveTypeDenoter.java kind="FLOAT"/>
@@ -99,38 +64,34 @@
         </PlusOp>
         <Id lexeme="i"/>
       </AssignStatement>
+      <ReturnStatement>
+        <IntegerConst value="1"/>
+      </ReturnStatement>
       <LocalStatement>
-        <VarDecl>
-          <Variable lexeme="paperino"/>
-          <PrimitiveTypeDenoter.java kind="FLOAT"/>
-        </VarDecl>
         <VarDecl>
           <Variable lexeme="i"/>
           <PrimitiveTypeDenoter.java kind="FLOAT"/>
           <VarInitValue>
-            <FloatConst value="1.0"/>
+            <FloatConst value="2.0"/>
           </VarInitValue>
         </VarDecl>
         <AssignStatement>
-          <TimesOp>
-            <Id lexeme="y"/>
-            <Id lexeme="i"/>
-          </TimesOp>
-          <Id lexeme="y"/>
-        </AssignStatement>
-      </LocalStatement>
-      <WriteStatement>
-        <Id lexeme="buffer"/>
-      </WriteStatement>
-      <ReturnStatement>
-        <PlusOp>
           <PlusOp>
-            <Id lexeme="x"/>
-            <Id lexeme="y"/>
+            <Id lexeme="i"/>
+            <IntegerConst value="1"/>
           </PlusOp>
           <Id lexeme="i"/>
-        </PlusOp>
-      </ReturnStatement>
+        </AssignStatement>
+        <ReturnStatement>
+          <PlusOp>
+            <PlusOp>
+              <Id lexeme="x"/>
+              <Id lexeme="y"/>
+            </PlusOp>
+            <Id lexeme="i"/>
+          </PlusOp>
+        </ReturnStatement>
+      </LocalStatement>
     </LocalStatement>
   </Function>
 </Program>
