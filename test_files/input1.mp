@@ -1,23 +1,40 @@
 global
-    result: float = 0.0;
-    buffer: float = 0.0
+    result : float = 0.0;
+    buffer : float = 0.0
 end
 
-function main():nil
-   result = add(2.0, 1.0);
-   return nil
+function main( ): nil
+    buffer, result <== ;
+    result = addInc( result + 1, buffer );
+    "la somma risulta: ", result ==>
 end
 
-function add(x: float, y: float):float
-        x = x + 2.0;
+function addInc( x : float , y : float ): float
+
+    for i = 1, 10 do
+        i ==>
+    end;
+
+    x = x + 1;
+
+    local
+        pippo : float = 3.0 ;
+        pippo = 1.0
+    end;
+
+    local
+        i : float = 2.0;
+        pluto : string = "ciao";
+        i = i + 1 ;
+
         local
-            i: float = 2.0;
-            i = i + 1;
-            return 1;
-            local
-                i: float = 2.0;
-                i = i + 1;
-                return x + y + i
-            end
-        end
+            i : float = 1.0;
+            paperino : float;
+            y = y * i
+        end;
+
+        buffer ==>;
+
+        return x +y + i
+    end
 end
