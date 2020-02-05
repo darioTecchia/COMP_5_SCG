@@ -18,6 +18,7 @@ public class XMLTemplate implements Template<Document> {
   @Override
   public void write(String filePath, Document model) {
     try {
+      filePath = filePath.replace(".mp", ".xml");
       TransformerFactory transformerFactory = TransformerFactory.newInstance();
       Transformer transformer = transformerFactory.newTransformer();
       transformer.setOutputProperty(OutputKeys.INDENT, "yes");

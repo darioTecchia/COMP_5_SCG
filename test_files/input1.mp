@@ -11,14 +11,15 @@ end
 
 function addInc( x : float , y : float ): float
 
+    x = x + 1;
+
     for i = 1, 10 do
         i ==>
     end;
 
-    x = x + 1;
-
     local
         pippo : float = 3.0 ;
+        i: int = 1;
         pippo = 1.0
     end;
 

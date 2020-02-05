@@ -50,13 +50,6 @@
       <PrimitiveTypeDenoter.java kind="FLOAT"/>
     </ParDecl>
     <PrimitiveTypeDenoter.java kind="FLOAT"/>
-    <ForStatement>
-      <IntegerConst value="1"/>
-      <IntegerConst value="10"/>
-      <WriteStatement>
-        <Id lexeme="i"/>
-      </WriteStatement>
-    </ForStatement>
     <AssignStatement>
       <PlusOp>
         <Id lexeme="x"/>
@@ -64,7 +57,21 @@
       </PlusOp>
       <Id lexeme="x"/>
     </AssignStatement>
+    <ForStatement>
+      <IntegerConst value="1"/>
+      <IntegerConst value="10"/>
+      <WriteStatement>
+        <Id lexeme="i"/>
+      </WriteStatement>
+    </ForStatement>
     <LocalStatement>
+      <VarDecl>
+        <Variable lexeme="i"/>
+        <PrimitiveTypeDenoter.java kind="INT"/>
+        <VarInitValue>
+          <IntegerConst value="1"/>
+        </VarInitValue>
+      </VarDecl>
       <VarDecl>
         <Variable lexeme="pippo"/>
         <PrimitiveTypeDenoter.java kind="FLOAT"/>
