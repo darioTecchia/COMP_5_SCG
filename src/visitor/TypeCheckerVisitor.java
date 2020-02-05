@@ -1,7 +1,6 @@
 package visitor;
 
 import error.ErrorHandler;
-import nodekind.NodeKind;
 import nodetype.CompositeNodeType;
 import nodetype.FunctionNodeType;
 import nodetype.PrimitiveNodeType;
@@ -413,7 +412,6 @@ public class TypeCheckerVisitor implements Visitor<NodeType, SymbolTable> {
 
   @Override
   public NodeType visit(Variable variable, SymbolTable arg) {
-    System.out.println(variable.getValue() + ": " + arg.getScopeLevel());
     return arg.lookup(variable.getValue()).get().getNodeType();
   }
 

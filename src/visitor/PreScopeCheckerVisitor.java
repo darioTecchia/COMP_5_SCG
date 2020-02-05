@@ -45,7 +45,7 @@ public class PreScopeCheckerVisitor implements Visitor<Boolean, SymbolTable> {
   public Boolean visit(Program program, SymbolTable arg) {
     arg.enterScope();
     boolean areFunctionsSafe = this.checkContext(program.getFunctions(), arg);
-    //arg.exitScope();
+    arg.exitScope();
 
     if(this.mainCounter >= 2) {
       this.errorHandler.reportError("Too many main method, only one can be present");

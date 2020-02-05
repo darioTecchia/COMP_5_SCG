@@ -7,9 +7,7 @@ import error.StackErrorHandler;
 import lexical.ArrayStringTable;
 import lexical.StringTable;
 import org.w3c.dom.Document;
-import semantic.FakeSymbolTable;
 import semantic.StackSymbolTable;
-import semantic.SymbolTable;
 import syntax.Program;
 import template.XMLTemplate;
 import visitor.ConcreteXMLVisitor;
@@ -25,7 +23,7 @@ public class ScopeCheckTester {
     Lexer lexer;
     Parser parser;
     StringTable stringTable = new ArrayStringTable();
-    SymbolTable symbolTable = new StackSymbolTable(stringTable);
+    StackSymbolTable symbolTable = new StackSymbolTable(stringTable);
     ErrorHandler errorHandler = new StackErrorHandler();
 
     lexer = new Lexer(stringTable);
@@ -55,17 +53,23 @@ public class ScopeCheckTester {
       System.out.println("Errors:");
       errorHandler.logErrors();
 
+      symbolTable.resetLevel();
+
       boolean sc = program.accept(scopeCheckerVisitor, symbolTable);
       System.out.println("\nScope checking result:\n" + sc + "\n");
       System.out.println("Symbol table: \n" + symbolTable);
       System.out.println("Errors:");
       errorHandler.logErrors();
 
-      program.accept(typeCheckerVisitor, new FakeSymbolTable((StackSymbolTable) symbolTable, stringTable));
+      symbolTable.resetLevel();
+
+      program.accept(typeCheckerVisitor, symbolTable);
       System.out.println("\nType checking");
       System.out.println("Type Check Symbol table: \n" + symbolTable);
       System.out.println("Errors:");
       errorHandler.logErrors();
+
+      symbolTable.resetLevel();
 
     } else {
       System.out.println("File not found!");
