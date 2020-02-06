@@ -83,6 +83,16 @@ public class ScopeCheckTester {
       System.out.println("\nCode: \n" + model.toString());
       System.out.println("\nErrors:");
       errorHandler.logErrors();
+
+      symbolTable.resetLevel();
+
+      PostCodeGenerationVisitor postCodeGenerationVisitor  = new PostCodeGenerationVisitor(model);
+      model = program.accept(postCodeGenerationVisitor, symbolTable);
+      System.out.println("\nCode generation");
+      System.out.println("Code Generation Symbol table: \n" + symbolTable);
+      System.out.println("\nCode: \n" + model.toString());
+      System.out.println("\nErrors:");
+      errorHandler.logErrors();
       cTemplate.write(args[0], model.toString());
 
       symbolTable.resetLevel();

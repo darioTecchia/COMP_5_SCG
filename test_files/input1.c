@@ -8,7 +8,8 @@ float buffer = 0.0;
 float result = 0.0;
 
 /********************* Functions declaration *******/
-$functionsDeclarations$
+
+float addInc(float x, float y);
 
 /********************* Functions definition  *******/
 int main(){
