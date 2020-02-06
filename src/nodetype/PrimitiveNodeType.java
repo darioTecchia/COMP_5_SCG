@@ -118,6 +118,7 @@ public enum PrimitiveNodeType implements NodeType {
     }
 
   },
+
   INT {
     @Override
     public PrimitiveNodeType checkAdd(PrimitiveNodeType type) {
@@ -178,6 +179,7 @@ public enum PrimitiveNodeType implements NodeType {
     }
 
   },
+
   NULL {
     @Override
     public PrimitiveNodeType checkAdd(PrimitiveNodeType type) {
@@ -205,6 +207,7 @@ public enum PrimitiveNodeType implements NodeType {
     }
 
   },
+
   STRING {
     @Override
     public PrimitiveNodeType checkAdd(PrimitiveNodeType type) {
@@ -242,7 +245,7 @@ public enum PrimitiveNodeType implements NodeType {
       case STRING:
         return "char *";
       case FLOAT:
-        return "double";
+        return "float";
       case BOOL:
         return "bool";
       case INT:
@@ -260,7 +263,7 @@ public enum PrimitiveNodeType implements NodeType {
       case INT:
         return "int";
       case FLOAT:
-        return "double";
+        return "float";
       case STRING:
         return "string";
       default:

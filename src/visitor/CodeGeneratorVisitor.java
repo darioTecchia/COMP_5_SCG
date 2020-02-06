@@ -137,7 +137,7 @@ public class CodeGeneratorVisitor implements Visitor<String, SymbolTable> {
     String condition = ifThenElseStatement.getExpr().accept(this, arg);
     String then = this.beautify(ifThenElseStatement.getThenStatements(), new StringJoiner("\n"), arg);
     String thenElse = this.beautify(ifThenElseStatement.getElseStatements(), new StringJoiner("\n"), arg);
-    return String.format("if(%s){\n%s\n}else{\n%s\n}", condition, then, thenElse);
+    return String.format("if(%s){\n%s\n} else {\n%s\n}", condition, then, thenElse);
   }
 
   @Override
@@ -172,20 +172,20 @@ public class CodeGeneratorVisitor implements Visitor<String, SymbolTable> {
     readStatement.getVars().forEach(var -> {
       String type = this.formatType(arg.lookup(var.getValue()).get().getNodeType());
       String varName = (type == "%s" ? "&" + var.getName() : var.getName());
-      scanfs.add(String.format("scanf(\"%s\", %s);", type, varName));
+      scanfs.add(String.format("scanf(\"%s\", &%s);", type, varName));
     });
     return scanfs.toString();
   }
 
   @Override
   public String visit(WriteStatement writeStatements, SymbolTable arg) {
-    StringJoiner scanfs = new StringJoiner("\n");
+    StringJoiner printfs = new StringJoiner("\n");
     writeStatements.getExprs().forEach(expr -> {
       String type = this.formatType(expr.getType());
       String toPrint = expr.accept(this, arg);
-      scanfs.add(String.format("printf(\"%s\", %s);", type, toPrint));
+      printfs.add(String.format("printf(\"%s\", %s);", type, toPrint));
     });
-    return scanfs.toString();
+    return printfs.toString();
   }
 
   @Override

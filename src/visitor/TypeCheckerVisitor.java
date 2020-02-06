@@ -406,8 +406,10 @@ public class TypeCheckerVisitor implements Visitor<NodeType, SymbolTable> {
 
   @Override
   public NodeType visit(SharpExpr sharpExpr, SymbolTable arg) {
-    // TODO Auto-generated method stub
-    return null;
+    NodeType type = sharpExpr.getExpr().accept(this, arg);
+    if(!type.equals(PrimitiveNodeType.STRING))
+      this.errorHandler.reportError(String.format("Type mismatch: Expected %s or %s but found %s", PrimitiveNodeType.STRING, "Array", type), sharpExpr);
+    return PrimitiveNodeType.INT;
   }
 
   @Override

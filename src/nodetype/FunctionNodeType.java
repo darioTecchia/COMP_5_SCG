@@ -69,8 +69,8 @@ public class FunctionNodeType implements NodeType {
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append(this.paramsType.toString());
-    sb.append("->");
+    sb.append("(" + this.paramsType.toString() + ")");
+    sb.append(" -> ");
     sb.append(this.nodeType.toString());
     return sb.toString();
   }

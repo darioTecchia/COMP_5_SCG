@@ -119,9 +119,9 @@ public class ScopeCheckerVisitor implements Visitor<Boolean, SymbolTable> {
   @Override
   public Boolean visit(VarDecl varDecl, SymbolTable arg) {
     boolean isVariableSafe = varDecl.getVariable().accept(this, arg);
-    boolean isTypeDenoter = varDecl.getTypeDenoter().accept(this, arg);
+    boolean isTypeDenoterSafe = varDecl.getTypeDenoter().accept(this, arg);
     boolean isVarInitValueSafe = (varDecl.getVarInitValue() != null) ? varDecl.getVarInitValue().accept(this, arg) : true;
-    boolean isVarDeclSafe = isVariableSafe && isTypeDenoter && isVarInitValueSafe;
+    boolean isVarDeclSafe = isVariableSafe && isTypeDenoterSafe && isVarInitValueSafe;
     if(!isVarDeclSafe) {
       this.errorHandler.reportError("Variable Declaration Error", varDecl);
     } else {
