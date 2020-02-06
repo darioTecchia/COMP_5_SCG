@@ -82,6 +82,7 @@ public class CodeGeneratorVisitor implements Visitor<String, SymbolTable> {
     String returnType = function.getTypeDenoter().accept(this, arg);
     String body = this.beautify(function.getStatements(), new StringJoiner("\n"), arg);
     arg.exitScope();
+    if(functionName.equalsIgnoreCase("main")) returnType = "int";
     return String.format("%s %s(%s){\n%s\n}\n", returnType, functionName, arguments.toString(), body);
   }
 

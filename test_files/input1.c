@@ -11,7 +11,7 @@ float result = 0.0;
 $functionsDeclarations$
 
 /********************* Functions definition  *******/
- main(){
+int main(){
 buffer = array[0];
 array[0] = buffer;
 scanf("%f", &buffer);
