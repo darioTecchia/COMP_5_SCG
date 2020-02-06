@@ -2,7 +2,7 @@
 
 Programming language definited for the Compiler course from University.
 
-## Project Part 4
+## Full Project
 JFlex and JavaCup integration for MyPallene language implementation.
 
 ## Lexical Specification
@@ -114,6 +114,7 @@ Stat ::= NOP
       | ID ASSIGN Expr
       | Expr SLPAR Expr SRPAR ASSIGN Expr
       | ID LPAR Exprs RPAR
+      | ID LPAR RPAR
       | Vars READ
       | Exprs WRITE
       | RETURN Expr
@@ -137,7 +138,8 @@ Expr ::=  NIL
       | BLPAR BRPAR COLON TypeDenoter 
       | ID 
       | Expr SLPAR Expr SRPAR 
-      | ID LPAR Exprs RPAR 
+      | ID LPAR Exprs RPAR
+      | ID LPAR RPAR
       | Expr PLUS Expr 
       | Expr MINUS Expr 
       | Expr TIMES Expr 
