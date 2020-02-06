@@ -96,6 +96,7 @@ public class CodeGeneratorVisitor implements Visitor<String, SymbolTable> {
   public String visit(VarDecl varDecl, SymbolTable arg) {
     String type = varDecl.getTypeDenoter().accept(this, arg);
     String varName = varDecl.getVariable().accept(this, arg);
+    if(varDecl.getTypeDenoter() instanceof ArrayTypeDenoter) varName = varName + "[50]";
     if(varDecl.getVarInitValue() != null) {
       String varInitValue = varDecl.getVarInitValue().accept(this, arg);
       return String.format("%s %s = %s;", type, varName, varInitValue);
@@ -117,7 +118,7 @@ public class CodeGeneratorVisitor implements Visitor<String, SymbolTable> {
 
   @Override
   public String visit(ArrayTypeDenoter arrayType, SymbolTable arg) {
-    return "null";
+    return arrayType.getElementsType().cType();
   }
 
   @Override
@@ -230,12 +231,17 @@ public class CodeGeneratorVisitor implements Visitor<String, SymbolTable> {
 
   @Override
   public String visit(ArrayElemAssignStatement arrayElemAssignStatement, SymbolTable arg) {
-    return "null";
+    String array = arrayElemAssignStatement.getArrayExpr().accept(this, arg);
+    String index = arrayElemAssignStatement.getArrayPointExpr().accept(this, arg);
+    String assignee = arrayElemAssignStatement.getAssigneeExpr().accept(this, arg);
+    return String.format("%s[%s] = %s;", array, index, assignee);
   }
 
   @Override
   public String visit(ArrayRead arrayRead, SymbolTable arg) {
-    return "null";
+    String array = arrayRead.getArrayExpr().accept(this, arg);
+    String index = arrayRead.getArrayPointerExpr().accept(this, arg);
+    return String.format("%s[%s]", array, index, index);
   }
 
   @Override
@@ -355,7 +361,7 @@ public class CodeGeneratorVisitor implements Visitor<String, SymbolTable> {
 
   @Override
   public String visit(ArrayConst arrayConst, SymbolTable arg) {
-    return "TODO";
+    return "{ }";
   }
 
   @Override

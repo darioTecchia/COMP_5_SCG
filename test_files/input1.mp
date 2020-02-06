@@ -1,9 +1,12 @@
 global
     result : float = 0.0;
-    buffer : float = 0.0
+    buffer : float = 0.0;
+    array : {float} = {}: float
 end
 
 function main( ): nil
+    buffer = array[0];
+    array[0] = buffer;
     buffer, result <== ;
     result = addInc( result + 1, buffer );
     "la somma risulta: ", result ==>

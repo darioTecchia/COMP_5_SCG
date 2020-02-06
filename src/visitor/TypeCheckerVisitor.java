@@ -1,12 +1,9 @@
 package visitor;
 
 import error.ErrorHandler;
-import nodetype.CompositeNodeType;
-import nodetype.FunctionNodeType;
-import nodetype.PrimitiveNodeType;
+import nodetype.*;
+import org.w3c.dom.Node;
 import semantic.SymbolTable;
-
-import nodetype.NodeType;
 
 import syntax.*;
 import syntax.expr.*;
@@ -217,11 +214,17 @@ public class TypeCheckerVisitor implements Visitor<NodeType, SymbolTable> {
     if(!indexType.equals(PrimitiveNodeType.INT)) {
       this.errorHandler.reportTypeMismatch(PrimitiveNodeType.INT, indexType, arrayElemAssignStatement);
     }
-    NodeType arrayExprType = arrayElemAssignStatement.getArrayExpr().accept(this, arg);
-    if(!arrayExprType.equals(arrayElemAssignStatement.getArrayExpr().getType())) {
-      this.errorHandler.reportError("This is not an Array", arrayElemAssignStatement);
+
+    ArrayNodeType arrayNodeType = (ArrayNodeType) arrayElemAssignStatement.getArrayExpr().accept(this, arg);
+    if(!arrayNodeType.equals(arrayElemAssignStatement.getArrayExpr().getType())) {
+      this.errorHandler.reportTypeMismatch(arrayNodeType, arrayElemAssignStatement.getArrayExpr().getType(), arrayElemAssignStatement);
     }
-    return  PrimitiveNodeType.NULL;
+
+    NodeType assigneeType = arrayElemAssignStatement.getAssigneeExpr().accept(this, arg);
+    if(!assigneeType.equals(arrayNodeType.getElementType())) {
+      this.errorHandler.reportTypeMismatch(arrayNodeType.getElementType(), assigneeType, arrayElemAssignStatement);
+    }
+    return PrimitiveNodeType.NULL;
   }
 
   @Override
@@ -230,7 +233,8 @@ public class TypeCheckerVisitor implements Visitor<NodeType, SymbolTable> {
     if(!indexType.equals(PrimitiveNodeType.INT)) {
       this.errorHandler.reportTypeMismatch(PrimitiveNodeType.INT, indexType, arrayRead);
     }
-    return PrimitiveNodeType.NULL;
+    ArrayNodeType arrayNodeType = (ArrayNodeType) arrayRead.getArrayExpr().accept(this, arg);
+    return arrayNodeType.getElementType();
   }
 
   @Override
@@ -426,7 +430,7 @@ public class TypeCheckerVisitor implements Visitor<NodeType, SymbolTable> {
 
   @Override
   public NodeType visit(ArrayConst arrayConst, SymbolTable arg) {
-    return PrimitiveNodeType.NULL;
+    return arrayConst.getTypeDenoter().typeFactory();
   }
 
   @Override

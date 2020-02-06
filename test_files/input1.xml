@@ -2,6 +2,17 @@
 <Program>
   <Global>
     <VarDecl>
+      <Variable lexeme="array"/>
+      <ArrayTypeDenoter>
+        <PrimitiveTypeDenoter.java kind="FLOAT"/>
+      </ArrayTypeDenoter>
+      <VarInitValue>
+        <ArrayConst>
+          <PrimitiveTypeDenoter.java kind="FLOAT"/>
+        </ArrayConst>
+      </VarInitValue>
+    </VarDecl>
+    <VarDecl>
       <Variable lexeme="buffer"/>
       <PrimitiveTypeDenoter.java kind="FLOAT"/>
       <VarInitValue>
@@ -19,6 +30,17 @@
   <Function>
     <Variable lexeme="main"/>
     <PrimitiveTypeDenoter.java kind="NIL"/>
+    <AssignStatement>
+      <ArrayRead>
+        <Id lexeme="array"/>
+        <IntegerConst value="0"/>
+      </ArrayRead>
+      <Id lexeme="buffer"/>
+    </AssignStatement>
+    <ArrayElemAssignStatement>
+      <Id lexeme="array"/>
+      <Id lexeme="buffer"/>
+    </ArrayElemAssignStatement>
     <ReadStatement>
       <Id lexeme="buffer"/>
       <Id lexeme="result"/>

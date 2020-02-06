@@ -3,6 +3,7 @@
 #define nop(){;}
 
 /********************* Declarations ****************/
+float array[50] = { };
 float buffer = 0.0;
 float result = 0.0;
 
@@ -11,6 +12,8 @@ $functionsDeclarations$
 
 /********************* Functions definition  *******/
  main(){
+buffer = array[0];
+array[0] = buffer;
 scanf("%f", &buffer);
 scanf("%f", &result);
 result = addInc(result + 1, buffer);
