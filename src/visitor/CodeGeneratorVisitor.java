@@ -193,7 +193,7 @@ public class CodeGeneratorVisitor implements Visitor<String, SymbolTable> {
   @Override
   public String visit(ReturnStatement returnStatement, SymbolTable arg) {
     String toReturn = returnStatement.getExpr().accept(this, arg);
-    return toReturn;
+    return String.format("return %s;", toReturn);
   }
 
   @Override
