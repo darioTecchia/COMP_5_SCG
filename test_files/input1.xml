@@ -64,6 +64,19 @@
         <Id lexeme="i"/>
       </WriteStatement>
     </ForStatement>
+    <WhileStatement>
+      <BooleanConst value="true"/>
+      <NopStatement/>
+    </WhileStatement>
+    <IfThenStatement>
+      <BooleanConst value="true"/>
+      <NopStatement/>
+    </IfThenStatement>
+    <IfThenElseStatement>
+      <BooleanConst value="true"/>
+      <NopStatement/>
+      <NopStatement/>
+    </IfThenElseStatement>
     <LocalStatement>
       <VarDecl>
         <Variable lexeme="i"/>

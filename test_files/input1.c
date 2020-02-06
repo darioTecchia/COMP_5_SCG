@@ -3,22 +3,22 @@
 #define nop(){;}
 
 /********************* Declarations ****************/
-double buffer = 0.0;
-double result = 0.0;
+float buffer = 0.0;
+float result = 0.0;
 
 /********************* Functions declaration *******/
 $functionsDeclarations$
 
 /********************* Functions definition  *******/
  main(){
-scanf("%f", buffer);
-scanf("%f", result);
+scanf("%f", &buffer);
+scanf("%f", &result);
 result = addInc(result + 1, buffer);
 printf("%s", "la somma risulta: ");
 printf("%f", result);
 }
 
-double addInc(double x, double y){
+float addInc(float x, float y){
 x = x + 1;
 {
 int i;
@@ -26,18 +26,29 @@ for(i = 1; i < 10; i++){
 printf("%d", i);
 }
 }
+while(true){
+nop();
+}
+if(true){
+nop();
+}
+if(true){
+nop();
+} else {
+nop();
+}
 {
 int i = 1;
-double pippo = 3.0;
+float pippo = 3.0;
 pippo = 1.0;
 }
 {
 char * pluto = "ciao";
-double i = 2.0;
+float i = 2.0;
 i = i + 1;
 {
-double paperino;
-double i = 1.0;
+float paperino;
+float i = 1.0;
 y = y * i;
 }
 printf("%f", buffer);

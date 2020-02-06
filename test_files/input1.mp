@@ -17,6 +17,20 @@ function addInc( x : float , y : float ): float
         i ==>
     end;
 
+    while true do
+        nop
+    end;
+
+    if true then
+        nop
+    end;
+
+    if true then
+        nop
+    else
+      nop
+     end;
+
     local
         pippo : float = 3.0 ;
         i: int = 1;
