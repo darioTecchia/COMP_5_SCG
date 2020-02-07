@@ -6,10 +6,10 @@ end
 
 function main( ): nil
     a, b <== ;
-    result = addInc( a, b );
+    result = add( a, b );
     "la somma risulta: ", result ==>
 end
 
-function addInc( x : int , y : int ): int
+function add( x : int , y : int ): int
   return x + y
 end

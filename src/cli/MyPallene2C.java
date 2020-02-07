@@ -28,7 +28,7 @@ public class MyPallene2C {
     if (args.length == 0) {
       System.out.println(startMessage);
 //      String filePath = manageChoice(new Scanner(System.in).nextInt());
-      String filePath = manageChoice(1);
+      String filePath = manageChoice(3);
       compiler = new MyPallene(filePath, true);
       compiler.compile();
     }

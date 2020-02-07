@@ -29,19 +29,19 @@
     </ReadStatement>
     <AssignStatement>
       <FunctionCall>
-        <Id lexeme="add"/>
+        <Id lexeme="power"/>
         <Id lexeme="a"/>
         <Id lexeme="b"/>
       </FunctionCall>
       <Id lexeme="result"/>
     </AssignStatement>
     <WriteStatement>
-      <StringConst value="la somma risulta: "/>
+      <StringConst value="risultato: "/>
       <Id lexeme="result"/>
     </WriteStatement>
   </Function>
   <Function>
-    <Variable lexeme="add"/>
+    <Variable lexeme="power"/>
     <ParDecl>
       <Variable lexeme="x"/>
       <PrimitiveTypeDenoter.java kind="INT"/>
@@ -51,11 +51,28 @@
       <PrimitiveTypeDenoter.java kind="INT"/>
     </ParDecl>
     <PrimitiveTypeDenoter.java kind="INT"/>
-    <ReturnStatement>
-      <PlusOp>
-        <Id lexeme="x"/>
+    <LocalStatement>
+      <VarDecl>
+        <Variable lexeme="toReturn"/>
+        <PrimitiveTypeDenoter.java kind="INT"/>
+        <VarInitValue>
+          <IntegerConst value="1"/>
+        </VarInitValue>
+      </VarDecl>
+      <ForStatement>
+        <IntegerConst value="0"/>
         <Id lexeme="y"/>
-      </PlusOp>
-    </ReturnStatement>
+        <AssignStatement>
+          <TimesOp>
+            <Id lexeme="toReturn"/>
+            <Id lexeme="x"/>
+          </TimesOp>
+          <Id lexeme="toReturn"/>
+        </AssignStatement>
+      </ForStatement>
+      <ReturnStatement>
+        <Id lexeme="toReturn"/>
+      </ReturnStatement>
+    </LocalStatement>
   </Function>
 </Program>

@@ -3,23 +3,23 @@
 #define nop(){;}
 
 /********************* Declarations ****************/
-int result;
+float result;
 int b = 0;
 int a = 0;
 
 /********************* Functions declaration *******/
 
-int add(int x, int y);
+float division(int x, int y);
 
 /********************* Functions definition  *******/
 int main(){
 scanf("%d", &a);
 scanf("%d", &b);
-result = add(a, b);
-printf("%s", "la somma risulta: ");
-printf("%d", result);
+result = division(a, b);
+printf("%s", "la divisione risulta: ");
+printf("%f", result);
 }
 
-int add(int x, int y){
-return x + y;
+float division(int x, int y){
+return x / y;
 }

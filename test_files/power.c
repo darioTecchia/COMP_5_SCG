@@ -9,17 +9,26 @@ int a = 0;
 
 /********************* Functions declaration *******/
 
-int add(int x, int y);
+int power(int x, int y);
 
 /********************* Functions definition  *******/
 int main(){
 scanf("%d", &a);
 scanf("%d", &b);
-result = add(a, b);
-printf("%s", "la somma risulta: ");
+result = power(a, b);
+printf("%s", "risultato: ");
 printf("%d", result);
 }
 
-int add(int x, int y){
-return x + y;
+int power(int x, int y){
+{
+int toReturn = 1;
+{
+int i;
+for(i = 0; i < y; i++){
+toReturn = toReturn * x;
+}
+}
+return toReturn;
+}
 }

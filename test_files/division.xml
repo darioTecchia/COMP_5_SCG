@@ -3,7 +3,7 @@
   <Global>
     <VarDecl>
       <Variable lexeme="result"/>
-      <PrimitiveTypeDenoter.java kind="INT"/>
+      <PrimitiveTypeDenoter.java kind="FLOAT"/>
     </VarDecl>
     <VarDecl>
       <Variable lexeme="b"/>
@@ -29,19 +29,19 @@
     </ReadStatement>
     <AssignStatement>
       <FunctionCall>
-        <Id lexeme="add"/>
+        <Id lexeme="division"/>
         <Id lexeme="a"/>
         <Id lexeme="b"/>
       </FunctionCall>
       <Id lexeme="result"/>
     </AssignStatement>
     <WriteStatement>
-      <StringConst value="la somma risulta: "/>
+      <StringConst value="la divisione risulta: "/>
       <Id lexeme="result"/>
     </WriteStatement>
   </Function>
   <Function>
-    <Variable lexeme="add"/>
+    <Variable lexeme="division"/>
     <ParDecl>
       <Variable lexeme="x"/>
       <PrimitiveTypeDenoter.java kind="INT"/>
@@ -50,12 +50,12 @@
       <Variable lexeme="y"/>
       <PrimitiveTypeDenoter.java kind="INT"/>
     </ParDecl>
-    <PrimitiveTypeDenoter.java kind="INT"/>
+    <PrimitiveTypeDenoter.java kind="FLOAT"/>
     <ReturnStatement>
-      <PlusOp>
+      <DivOp>
         <Id lexeme="x"/>
         <Id lexeme="y"/>
-      </PlusOp>
+      </DivOp>
     </ReturnStatement>
   </Function>
 </Program>
