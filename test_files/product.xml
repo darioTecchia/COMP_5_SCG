@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Program>
+  <Global>
+    <VarDecl>
+      <Variable lexeme="result"/>
+      <PrimitiveTypeDenoter.java kind="INT"/>
+    </VarDecl>
+    <VarDecl>
+      <Variable lexeme="b"/>
+      <PrimitiveTypeDenoter.java kind="INT"/>
+      <VarInitValue>
+        <IntegerConst value="0"/>
+      </VarInitValue>
+    </VarDecl>
+    <VarDecl>
+      <Variable lexeme="a"/>
+      <PrimitiveTypeDenoter.java kind="INT"/>
+      <VarInitValue>
+        <IntegerConst value="0"/>
+      </VarInitValue>
+    </VarDecl>
+  </Global>
+  <Function>
+    <Variable lexeme="main"/>
+    <PrimitiveTypeDenoter.java kind="NIL"/>
+    <ReadStatement>
+      <Id lexeme="a"/>
+      <Id lexeme="b"/>
+    </ReadStatement>
+    <AssignStatement>
+      <FunctionCall>
+        <Id lexeme="mul"/>
+        <Id lexeme="a"/>
+        <Id lexeme="b"/>
+      </FunctionCall>
+      <Id lexeme="result"/>
+    </AssignStatement>
+    <WriteStatement>
+      <StringConst value="la moltiplicazione risulta: "/>
+      <Id lexeme="result"/>
+    </WriteStatement>
+  </Function>
+  <Function>
+    <Variable lexeme="mul"/>
+    <ParDecl>
+      <Variable lexeme="x"/>
+      <PrimitiveTypeDenoter.java kind="INT"/>
+    </ParDecl>
+    <ParDecl>
+      <Variable lexeme="y"/>
+      <PrimitiveTypeDenoter.java kind="INT"/>
+    </ParDecl>
+    <PrimitiveTypeDenoter.java kind="INT"/>
+    <LocalStatement>
+      <VarDecl>
+        <Variable lexeme="toReturn"/>
+        <PrimitiveTypeDenoter.java kind="INT"/>
+        <VarInitValue>
+          <IntegerConst value="0"/>
+        </VarInitValue>
+      </VarDecl>
+      <ForStatement>
+        <IntegerConst value="0"/>
+        <Id lexeme="y"/>
+        <AssignStatement>
+          <PlusOp>
+            <Id lexeme="toReturn"/>
+            <Id lexeme="x"/>
+          </PlusOp>
+          <Id lexeme="toReturn"/>
+        </AssignStatement>
+      </ForStatement>
+      <ReturnStatement>
+        <Id lexeme="toReturn"/>
+      </ReturnStatement>
+    </LocalStatement>
+  </Function>
+</Program>
