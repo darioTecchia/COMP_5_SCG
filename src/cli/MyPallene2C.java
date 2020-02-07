@@ -1,10 +1,18 @@
 package cli;
 
+import java.io.File;
 import java.util.Scanner;
+import java.util.concurrent.Executors;
 
 public class MyPallene2C {
 
   private static MyPallene compiler;
+  private static String finalFileName;
+  private static ProcessBuilder builder = new ProcessBuilder();
+
+  private static boolean isWindows = System.getProperty("os.name").toLowerCase().contains("windows");
+
+  private static String workingDir = System.getProperty("user.dir");
 
   public static void main(String[] args) throws Exception {
 
@@ -28,10 +36,30 @@ public class MyPallene2C {
     if (args.length == 0) {
       System.out.println(startMessage);
 //      String filePath = manageChoice(new Scanner(System.in).nextInt());
-      String filePath = manageChoice(4);
+      String filePath = manageChoice(0);
       compiler = new MyPallene(filePath, true);
       compiler.compile();
+      finalFileName = filePath.replace(".mp", ".c");
+    } else {
+      compiler = new MyPallene(args[0], true);
+      compiler.compile();
+      finalFileName = args[0].replace(".mp", ".c");
     }
+
+    if (isWindows) {
+      //      builder.command("cmd.exe", "/c", "wsl", "clang-format", "-style=google", finalFileName.replace("\\", "/"), "-i");
+      builder.command("cmd.exe", "/c", "wsl", "./launch.sh", finalFileName.replace("\\", "/"));
+    } else {
+//      builder.command("sh", "-c", "clang-format", "-style=google", finalFileName.replace("\\", "/"), "-i");
+    }
+
+    builder.directory(new File(workingDir));
+    Process process = builder.start();
+    StreamGobbler streamGobbler = new StreamGobbler(process.getInputStream(), System.out::println);
+    Executors.newSingleThreadExecutor().submit(streamGobbler);
+    int exitCode = process.waitFor();
+    assert exitCode == 0;
+    System.exit(0);
 
   }
 
