@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Program>
+  <Global>
+    <VarDecl>
+      <Variable lexeme="result"/>
+      <PrimitiveTypeDenoter.java kind="INT"/>
+    </VarDecl>
+    <VarDecl>
+      <Variable lexeme="a"/>
+      <PrimitiveTypeDenoter.java kind="INT"/>
+      <VarInitValue>
+        <IntegerConst value="0"/>
+      </VarInitValue>
+    </VarDecl>
+  </Global>
+  <Function>
+    <Variable lexeme="main"/>
+    <PrimitiveTypeDenoter.java kind="NIL"/>
+    <ReadStatement>
+      <Id lexeme="a"/>
+    </ReadStatement>
+    <AssignStatement>
+      <FunctionCall>
+        <Id lexeme="fibonacci"/>
+        <Id lexeme="a"/>
+      </FunctionCall>
+      <Id lexeme="result"/>
+    </AssignStatement>
+    <WriteStatement>
+      <StringConst value="risultato: "/>
+      <Id lexeme="result"/>
+    </WriteStatement>
+  </Function>
+  <Function>
+    <Variable lexeme="fibonacci"/>
+    <ParDecl>
+      <Variable lexeme="x"/>
+      <PrimitiveTypeDenoter.java kind="INT"/>
+    </ParDecl>
+    <PrimitiveTypeDenoter.java kind="INT"/>
+    <IfThenStatement>
+      <LessThenRelop>
+        <Id lexeme="x"/>
+        <IntegerConst value="0"/>
+      </LessThenRelop>
+      <ReturnStatement>
+        <UminusExpr>
+          <IntegerConst value="1"/>
+        </UminusExpr>
+      </ReturnStatement>
+    </IfThenStatement>
+    <IfThenStatement>
+      <EqualsRelop>
+        <Id lexeme="x"/>
+        <IntegerConst value="0"/>
+      </EqualsRelop>
+      <ReturnStatement>
+        <IntegerConst value="0"/>
+      </ReturnStatement>
+    </IfThenStatement>
+    <IfThenStatement>
+      <EqualsRelop>
+        <Id lexeme="x"/>
+        <IntegerConst value="1"/>
+      </EqualsRelop>
+      <ReturnStatement>
+        <IntegerConst value="1"/>
+      </ReturnStatement>
+    </IfThenStatement>
+    <ReturnStatement>
+      <PlusOp>
+        <FunctionCall>
+          <Id lexeme="fibonacci"/>
+          <MinusOp>
+            <Id lexeme="x"/>
+            <IntegerConst value="1"/>
+          </MinusOp>
+        </FunctionCall>
+        <FunctionCall>
+          <Id lexeme="fibonacci"/>
+          <MinusOp>
+            <Id lexeme="x"/>
+            <IntegerConst value="2"/>
+          </MinusOp>
+        </FunctionCall>
+      </PlusOp>
+    </ReturnStatement>
+  </Function>
+</Program>
