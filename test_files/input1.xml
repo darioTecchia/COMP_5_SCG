@@ -72,6 +72,12 @@
       <PrimitiveTypeDenoter.java kind="FLOAT"/>
     </ParDecl>
     <PrimitiveTypeDenoter.java kind="FLOAT"/>
+    <ReturnStatement>
+      <PlusOp>
+        <Id lexeme="x"/>
+        <Id lexeme="y"/>
+      </PlusOp>
+    </ReturnStatement>
     <AssignStatement>
       <PlusOp>
         <Id lexeme="x"/>

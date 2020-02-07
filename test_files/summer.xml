@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Program>
+  <Global>
+    <VarDecl>
+      <Variable lexeme="result"/>
+      <PrimitiveTypeDenoter.java kind="INT"/>
+    </VarDecl>
+    <VarDecl>
+      <Variable lexeme="b"/>
+      <PrimitiveTypeDenoter.java kind="INT"/>
+      <VarInitValue>
+        <IntegerConst value="0"/>
+      </VarInitValue>
+    </VarDecl>
+    <VarDecl>
+      <Variable lexeme="a"/>
+      <PrimitiveTypeDenoter.java kind="INT"/>
+      <VarInitValue>
+        <IntegerConst value="0"/>
+      </VarInitValue>
+    </VarDecl>
+  </Global>
+  <Function>
+    <Variable lexeme="main"/>
+    <PrimitiveTypeDenoter.java kind="NIL"/>
+    <ReadStatement>
+      <Id lexeme="a"/>
+      <Id lexeme="b"/>
+    </ReadStatement>
+    <AssignStatement>
+      <FunctionCall>
+        <Id lexeme="addInc"/>
+        <Id lexeme="a"/>
+        <Id lexeme="b"/>
+      </FunctionCall>
+      <Id lexeme="result"/>
+    </AssignStatement>
+    <WriteStatement>
+      <StringConst value="la somma risulta: "/>
+      <Id lexeme="result"/>
+    </WriteStatement>
+  </Function>
+  <Function>
+    <Variable lexeme="addInc"/>
+    <ParDecl>
+      <Variable lexeme="x"/>
+      <PrimitiveTypeDenoter.java kind="INT"/>
+    </ParDecl>
+    <ParDecl>
+      <Variable lexeme="y"/>
+      <PrimitiveTypeDenoter.java kind="INT"/>
+    </ParDecl>
+    <PrimitiveTypeDenoter.java kind="INT"/>
+    <ReturnStatement>
+      <PlusOp>
+        <Id lexeme="x"/>
+        <Id lexeme="y"/>
+      </PlusOp>
+    </ReturnStatement>
+  </Function>
+</Program>

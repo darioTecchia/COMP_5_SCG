@@ -14,6 +14,8 @@ end
 
 function addInc( x : float , y : float ): float
 
+    return x + y;
+
     x = x + 1;
 
     for i = 1, 10 do
@@ -53,6 +55,6 @@ function addInc( x : float , y : float ): float
 
         buffer ==>;
 
-        return x +y + i
+        return x + y + i
     end
 end

@@ -23,6 +23,7 @@ printf("%f", result);
 }
 
 float addInc(float x, float y){
+return x + y;
 x = x + 1;
 {
 int i;
@@ -56,6 +57,6 @@ float i = 1.0;
 y = y * i;
 }
 printf("%f", buffer);
-x + y + i
+return x + y + i;
 }
 }
