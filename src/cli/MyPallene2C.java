@@ -51,6 +51,7 @@ public class MyPallene2C {
       builder.command("cmd.exe", "/c", "wsl", "./launch.sh", finalFileName.replace("\\", "/"));
     } else {
 //      builder.command("sh", "-c", "clang-format", "-style=google", finalFileName.replace("\\", "/"), "-i");
+      builder.command("sh", "-c", "./launch.sh", finalFileName.replace("\\", "/"));
     }
 
     builder.directory(new File(workingDir));
