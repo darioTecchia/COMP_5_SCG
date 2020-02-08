@@ -1,5 +1,6 @@
 package syntax.typedenoter;
 
+import nodetype.ArrayNodeType;
 import nodetype.PrimitiveNodeType;
 import syntax.TypeDenoter;
 import visitor.Visitor;
@@ -29,8 +30,12 @@ public class ArrayTypeDenoter extends TypeDenoter {
     return visitor.visit(this, arg);
   }
 
+  public ArrayNodeType arrayTypeFactory() {
+    return new ArrayNodeType(this.typeDenoter.typeFactory());
+  }
+
   @Override
   public PrimitiveNodeType typeFactory() {
-    return null;
+    return this.typeDenoter.typeFactory();
   }
 }

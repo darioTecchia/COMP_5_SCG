@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Program>
+  <Global>
+    <VarDecl>
+      <Variable lexeme="result"/>
+      <PrimitiveTypeDenoter.java kind="INT"/>
+    </VarDecl>
+    <VarDecl>
+      <Variable lexeme="array"/>
+      <ArrayTypeDenoter>
+        <PrimitiveTypeDenoter.java kind="INT"/>
+      </ArrayTypeDenoter>
+      <VarInitValue>
+        <ArrayConst>
+          <PrimitiveTypeDenoter.java kind="INT"/>
+        </ArrayConst>
+      </VarInitValue>
+    </VarDecl>
+  </Global>
+  <Function>
+    <Variable lexeme="main"/>
+    <PrimitiveTypeDenoter.java kind="NIL"/>
+    <AssignStatement>
+      <FunctionCall>
+        <Id lexeme="count"/>
+        <Id lexeme="array"/>
+      </FunctionCall>
+      <Id lexeme="result"/>
+    </AssignStatement>
+    <WriteStatement>
+      <StringConst value="risultato: "/>
+      <Id lexeme="result"/>
+    </WriteStatement>
+  </Function>
+  <Function>
+    <Variable lexeme="count"/>
+    <ParDecl>
+      <Variable lexeme="a"/>
+      <ArrayTypeDenoter>
+        <PrimitiveTypeDenoter.java kind="INT"/>
+      </ArrayTypeDenoter>
+    </ParDecl>
+    <PrimitiveTypeDenoter.java kind="INT"/>
+    <ReturnStatement>
+      <SharpExpr>
+        <StringConst value="ciao"/>
+      </SharpExpr>
+    </ReturnStatement>
+  </Function>
+</Program>

@@ -33,10 +33,13 @@ public class MyPallene2C {
     startMessage.append("4.\tfibonacci.mp\n");
     startMessage.append("\t\tFibonacci sequence.\n");
 
+    startMessage.append("5.\ttest.mp\n");
+    startMessage.append("\t\tTest file.\n");
+
     if (args.length == 0) {
       System.out.println(startMessage);
-      String filePath = manageChoice(new Scanner(System.in).nextInt());
-      // String filePath = manageChoice(0);
+      // String filePath = manageChoice(new Scanner(System.in).nextInt());
+      String filePath = manageChoice(5);
       compiler = new MyPallene(filePath, true);
       compiler.compile();
       finalFileName = filePath.replace(".mp", ".c");
@@ -65,7 +68,7 @@ public class MyPallene2C {
   }
 
   private static String manageChoice(int choice) {
-    String[] choices = {"summer.mp", "product.mp", "division.mp", "power.mp", "fibonacci.mp"};
+    String[] choices = {"summer.mp", "product.mp", "division.mp", "power.mp", "fibonacci.mp", "test.mp"};
     return "test_files\\"  + choices[choice];
   }
 

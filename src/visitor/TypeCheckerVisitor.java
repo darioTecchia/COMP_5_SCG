@@ -412,7 +412,9 @@ public class TypeCheckerVisitor implements Visitor<NodeType, SymbolTable> {
   public NodeType visit(SharpExpr sharpExpr, SymbolTable arg) {
     NodeType type = sharpExpr.getExpr().accept(this, arg);
     if(!type.equals(PrimitiveNodeType.STRING))
-      this.errorHandler.reportError(String.format("Type mismatch: Expected %s or %s but found %s", PrimitiveNodeType.STRING, "Array", type), sharpExpr);
+      {
+        this.errorHandler.reportError(String.format("Type mismatch: Expected %s or %s but found %s", PrimitiveNodeType.STRING, "Array", type), sharpExpr);
+      }
     return PrimitiveNodeType.INT;
   }
 
@@ -430,7 +432,8 @@ public class TypeCheckerVisitor implements Visitor<NodeType, SymbolTable> {
 
   @Override
   public NodeType visit(ArrayConst arrayConst, SymbolTable arg) {
-    return arrayConst.getTypeDenoter().typeFactory();
+    arrayConst.setType(new ArrayNodeType(arrayConst.getTypeDenoter().typeFactory()));
+    return arrayConst.getType();
   }
 
   @Override

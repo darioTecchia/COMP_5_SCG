@@ -4,8 +4,10 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 
 
+import nodetype.ArrayNodeType;
 import nodetype.CompositeNodeType;
 import nodetype.PrimitiveNodeType;
+import syntax.typedenoter.ArrayTypeDenoter;
 import visitor.Visitor;
 
 public class Function extends AstNode {
@@ -67,7 +69,15 @@ public class Function extends AstNode {
 
   public CompositeNodeType domain() {
     CompositeNodeType compositeNodeType = new CompositeNodeType(new ArrayList<>());
-    this.getParDecls().forEach(parDecl -> compositeNodeType.addNodeType(parDecl.getTypeDenoter().typeFactory()));
+    this.getParDecls().forEach(parDecl -> {
+      if(parDecl.getTypeDenoter() instanceof ArrayTypeDenoter) {
+        System.out.println(parDecl.getVariable());
+        ArrayNodeType arrayNodeType = new ArrayNodeType(parDecl.getTypeDenoter().typeFactory());
+        compositeNodeType.addNodeType(arrayNodeType);
+      } else {
+        compositeNodeType.addNodeType(parDecl.getTypeDenoter().typeFactory());
+      }
+    });
     return compositeNodeType;
   }
 
