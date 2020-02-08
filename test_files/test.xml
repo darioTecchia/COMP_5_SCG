@@ -2,49 +2,29 @@
 <Program>
   <Global>
     <VarDecl>
-      <Variable lexeme="result"/>
-      <PrimitiveTypeDenoter.java kind="INT"/>
+      <Variable lexeme="b"/>
+      <PrimitiveTypeDenoter.java kind="BOOL"/>
+      <VarInitValue>
+        <BooleanConst value="false"/>
+      </VarInitValue>
     </VarDecl>
     <VarDecl>
-      <Variable lexeme="array"/>
-      <ArrayTypeDenoter>
-        <PrimitiveTypeDenoter.java kind="INT"/>
-      </ArrayTypeDenoter>
+      <Variable lexeme="a"/>
+      <PrimitiveTypeDenoter.java kind="BOOL"/>
       <VarInitValue>
-        <ArrayConst>
-          <PrimitiveTypeDenoter.java kind="INT"/>
-        </ArrayConst>
+        <BooleanConst value="true"/>
       </VarInitValue>
     </VarDecl>
   </Global>
   <Function>
     <Variable lexeme="main"/>
     <PrimitiveTypeDenoter.java kind="NIL"/>
-    <AssignStatement>
-      <FunctionCall>
-        <Id lexeme="conta"/>
-        <Id lexeme="array"/>
-      </FunctionCall>
-      <Id lexeme="result"/>
-    </AssignStatement>
     <WriteStatement>
       <StringConst value="risultato: "/>
-      <Id lexeme="result"/>
-    </WriteStatement>
-  </Function>
-  <Function>
-    <Variable lexeme="conta"/>
-    <ParDecl>
-      <Variable lexeme="a"/>
-      <ArrayTypeDenoter>
-        <PrimitiveTypeDenoter.java kind="INT"/>
-      </ArrayTypeDenoter>
-    </ParDecl>
-    <PrimitiveTypeDenoter.java kind="INT"/>
-    <ReturnStatement>
-      <SharpExpr>
+      <PlusOp>
         <Id lexeme="a"/>
-      </SharpExpr>
-    </ReturnStatement>
+        <Id lexeme="b"/>
+      </PlusOp>
+    </WriteStatement>
   </Function>
 </Program>

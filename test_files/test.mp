@@ -1,13 +1,8 @@
 global
-    array : {int} = {}: int;
-    result: int
+    a: bool = true;
+    b: bool = false
 end
 
 function main( ): nil
-    result = conta( array );
-    "risultato: ", result ==>
-end
-
-function conta( a: {int} ): int
-  return #a
+    "risultato: ", a + b ==>
 end
