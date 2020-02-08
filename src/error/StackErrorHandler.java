@@ -4,10 +4,6 @@ import syntax.AstNode;
 
 import java.util.Stack;
 
-/**
- *
- * @author didacus
- */
 public class StackErrorHandler implements ErrorHandler {
 
   private final Stack<String> catchedErrors;

@@ -4,10 +4,6 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Optional;
 
-/**
- *
- * @author didacus
- */
 public class CTemplate implements Template<String> {
 
   @Override

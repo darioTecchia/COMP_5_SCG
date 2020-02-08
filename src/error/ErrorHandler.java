@@ -4,10 +4,6 @@ import syntax.AstNode;
 
 import nodetype.NodeType;
 
-/**
- *
- * @author didacus
- */
 public interface ErrorHandler {
 
   static final String TYPE_MISMATCH = "Type mismatch: Expected %s but found %s";
