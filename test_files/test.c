@@ -9,7 +9,7 @@ int array[50] = {};
 
 /********************* Functions declaration *******/
 
-int conta(int a);
+int conta(int a[]);
 
 /********************* Functions definition  *******/
 int main() {
@@ -18,4 +18,4 @@ int main() {
   printf("%d", result);
 }
 
-int conta(int a) { return count(a); }
+int conta(int a[]) { return count(a); }

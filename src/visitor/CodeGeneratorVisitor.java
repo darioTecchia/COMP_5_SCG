@@ -39,7 +39,11 @@ public class CodeGeneratorVisitor implements Visitor<String, SymbolTable> {
     return new Consumer<ParDecl>() {
       @Override
       public void accept(ParDecl t) {
-        joiner.add(String.format("%s", t.accept(CodeGeneratorVisitor.this, table)));
+        if(t.getTypeDenoter() instanceof ArrayTypeDenoter) {
+          joiner.add(String.format("%s[]", t.accept(CodeGeneratorVisitor.this, table)));
+        } else {
+          joiner.add(String.format("%s", t.accept(CodeGeneratorVisitor.this, table)));
+        }
       }
     };
   }
@@ -358,7 +362,6 @@ public class CodeGeneratorVisitor implements Visitor<String, SymbolTable> {
     } else {
       return String.format("count(%s)", a);
     }
-
   }
 
   @Override

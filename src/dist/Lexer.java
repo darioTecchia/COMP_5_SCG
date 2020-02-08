@@ -3,7 +3,6 @@
 /* JFlex example: part of Java language lexer specification */
 package dist;
 
-
 import java_cup.runtime.Symbol;
 import lexical.StringTable;
 /**
