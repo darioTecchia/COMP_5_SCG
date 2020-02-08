@@ -1,6 +1,7 @@
-#include <stdio.h>
 #include <stdbool.h>
-#define nop(){;}
+#include <stdio.h>
+#define nop() \
+  { ; }
 
 /********************* Declarations ****************/
 int result;
@@ -12,23 +13,23 @@ int a = 0;
 int mul(int x, int y);
 
 /********************* Functions definition  *******/
-int main(){
-scanf("%d", &a);
-scanf("%d", &b);
-result = mul(a, b);
-printf("%s", "la moltiplicazione risulta: ");
-printf("%d", result);
+int main() {
+  scanf("%d", &a);
+  scanf("%d", &b);
+  result = mul(a, b);
+  printf("%s", "la moltiplicazione risulta: ");
+  printf("%d", result);
 }
 
-int mul(int x, int y){
-{
-int toReturn = 0;
-{
-int i;
-for(i = 0; i < y; i++){
-toReturn = toReturn + x;
-}
-}
-return toReturn;
-}
+int mul(int x, int y) {
+  {
+    int toReturn = 0;
+    {
+      int i;
+      for (i = 0; i < y; i++) {
+        toReturn = toReturn + x;
+      }
+    }
+    return toReturn;
+  }
 }

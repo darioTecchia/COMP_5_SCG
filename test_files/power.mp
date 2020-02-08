@@ -1,5 +1,6 @@
 global
     a : int = 0;
+    b : int = 0;
     result: int
 end
 

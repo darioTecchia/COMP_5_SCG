@@ -35,8 +35,8 @@ public class MyPallene2C {
 
     if (args.length == 0) {
       System.out.println(startMessage);
-//      String filePath = manageChoice(new Scanner(System.in).nextInt());
-      String filePath = manageChoice(0);
+      String filePath = manageChoice(new Scanner(System.in).nextInt());
+      // String filePath = manageChoice(0);
       compiler = new MyPallene(filePath, true);
       compiler.compile();
       finalFileName = filePath.replace(".mp", ".c");

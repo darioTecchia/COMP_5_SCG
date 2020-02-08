@@ -1,6 +1,7 @@
-#include <stdio.h>
 #include <stdbool.h>
-#define nop(){;}
+#include <stdio.h>
+#define nop() \
+  { ; }
 
 /********************* Declarations ****************/
 float result;
@@ -12,14 +13,12 @@ int a = 0;
 float division(int x, int y);
 
 /********************* Functions definition  *******/
-int main(){
-scanf("%d", &a);
-scanf("%d", &b);
-result = division(a, b);
-printf("%s", "la divisione risulta: ");
-printf("%f", result);
+int main() {
+  scanf("%d", &a);
+  scanf("%d", &b);
+  result = division(a, b);
+  printf("%s", "la divisione risulta: ");
+  printf("%f", result);
 }
 
-float division(int x, int y){
-return x / y;
-}
+float division(int x, int y) { return x / y; }
