@@ -14,6 +14,8 @@ bool b = false;
 
 /********************* Functions declaration *******/
 
+void zozo(int a, int b);
+
 /********************* Functions definition  *******/
 int main() {
   {
@@ -24,3 +26,5 @@ int main() {
   printf("%s", "risultato: ");
   printf("%d", a > b);
 }
+
+void zozo(int a, int b) { nop(); }

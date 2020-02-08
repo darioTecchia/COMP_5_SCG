@@ -44,4 +44,17 @@
       </GreaterThanRelop>
     </WriteStatement>
   </Function>
+  <Function>
+    <Variable lexeme="zozo"/>
+    <ParDecl>
+      <Variable lexeme="a"/>
+      <PrimitiveTypeDenoter.java kind="INT"/>
+    </ParDecl>
+    <ParDecl>
+      <Variable lexeme="b"/>
+      <PrimitiveTypeDenoter.java kind="INT"/>
+    </ParDecl>
+    <PrimitiveTypeDenoter.java kind="NIL"/>
+    <NopStatement/>
+  </Function>
 </Program>
