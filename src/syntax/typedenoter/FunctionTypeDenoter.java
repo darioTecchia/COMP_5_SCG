@@ -4,7 +4,9 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 
 import nodetype.CompositeNodeType;
+import nodetype.NodeType;
 import nodetype.PrimitiveNodeType;
+import org.w3c.dom.Node;
 import syntax.TypeDenoter;
 import visitor.Visitor;
 
@@ -50,7 +52,7 @@ public class FunctionTypeDenoter extends TypeDenoter {
     return compositeNodeType;
   }
 
-  public PrimitiveNodeType codomain() {
+  public NodeType codomain() {
     return this.getReturnType().typeFactory();
   }
 

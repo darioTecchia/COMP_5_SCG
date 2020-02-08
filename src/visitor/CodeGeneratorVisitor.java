@@ -119,7 +119,7 @@ public class CodeGeneratorVisitor implements Visitor<String, SymbolTable> {
 
   @Override
   public String visit(ArrayTypeDenoter arrayType, SymbolTable arg) {
-    return arrayType.getElementsType().cType();
+    return arrayType.cType();
   }
 
   @Override
@@ -351,7 +351,14 @@ public class CodeGeneratorVisitor implements Visitor<String, SymbolTable> {
 
   @Override
   public String visit(SharpExpr sharpExpr, SymbolTable arg) {
-    return "# TODO";
+    String a = sharpExpr.getExpr().accept(this, arg);
+    sharpExpr.setType(PrimitiveNodeType.INT);
+    if (sharpExpr.getExpr().getType().toString().equalsIgnoreCase("string")) {
+      return String.format("strlen(%s)", a);
+    } else {
+      return String.format("count(%s)", a);
+    }
+
   }
 
   @Override

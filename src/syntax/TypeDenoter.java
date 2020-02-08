@@ -1,7 +1,7 @@
 package syntax;
 
 
-import nodetype.PrimitiveNodeType;
+import nodetype.NodeType;
 
 public abstract class TypeDenoter extends AstNode {
 
@@ -9,6 +9,6 @@ public abstract class TypeDenoter extends AstNode {
     super(leftLocation, rightLocation);
   }
 
-  public abstract PrimitiveNodeType typeFactory();
+  public abstract NodeType typeFactory();
   
 }

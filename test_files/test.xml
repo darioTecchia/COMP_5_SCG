@@ -22,7 +22,7 @@
     <PrimitiveTypeDenoter.java kind="NIL"/>
     <AssignStatement>
       <FunctionCall>
-        <Id lexeme="count"/>
+        <Id lexeme="conta"/>
         <Id lexeme="array"/>
       </FunctionCall>
       <Id lexeme="result"/>
@@ -33,7 +33,7 @@
     </WriteStatement>
   </Function>
   <Function>
-    <Variable lexeme="count"/>
+    <Variable lexeme="conta"/>
     <ParDecl>
       <Variable lexeme="a"/>
       <ArrayTypeDenoter>
@@ -43,7 +43,7 @@
     <PrimitiveTypeDenoter.java kind="INT"/>
     <ReturnStatement>
       <SharpExpr>
-        <StringConst value="ciao"/>
+        <Id lexeme="a"/>
       </SharpExpr>
     </ReturnStatement>
   </Function>

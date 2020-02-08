@@ -1,7 +1,9 @@
 package syntax.typedenoter;
 
 import nodetype.ArrayNodeType;
+import nodetype.NodeType;
 import nodetype.PrimitiveNodeType;
+import org.w3c.dom.Node;
 import syntax.TypeDenoter;
 import visitor.Visitor;
 
@@ -21,7 +23,7 @@ public class ArrayTypeDenoter extends TypeDenoter {
     return typeDenoter;
   }
 
-  public PrimitiveNodeType getElementsType() {
+  public NodeType getElementsType() {
     return this.typeDenoter.typeFactory();
   }
 
@@ -30,12 +32,23 @@ public class ArrayTypeDenoter extends TypeDenoter {
     return visitor.visit(this, arg);
   }
 
-  public ArrayNodeType arrayTypeFactory() {
-    return new ArrayNodeType(this.typeDenoter.typeFactory());
+  @Override
+  public NodeType typeFactory() {
+    return new ArrayNodeType((PrimitiveNodeType) this.typeDenoter.typeFactory());
   }
 
-  @Override
-  public PrimitiveNodeType typeFactory() {
-    return this.typeDenoter.typeFactory();
+  public String cType(){
+    switch((PrimitiveNodeType) this.getElementsType()){
+      case STRING:
+        return "char *";
+      case FLOAT:
+        return "float";
+      case BOOL:
+        return "bool";
+      case INT:
+        return "int";
+      default:
+        return "";
+    }
   }
 }

@@ -1,13 +1,15 @@
 package nodetype;
 
+import org.w3c.dom.Node;
+
 import java.util.Objects;
 
 public class FunctionNodeType implements NodeType {
 
   private CompositeNodeType paramsType;
-  private PrimitiveNodeType nodeType;
+  private NodeType nodeType;
 
-  public FunctionNodeType(CompositeNodeType paramsType, PrimitiveNodeType nodeType) {
+  public FunctionNodeType(CompositeNodeType paramsType, NodeType nodeType) {
     this.paramsType = paramsType;
     this.nodeType = nodeType;
   }
@@ -41,7 +43,7 @@ public class FunctionNodeType implements NodeType {
     return paramsType;
   }
 
-  public PrimitiveNodeType getNodeType() {
+  public NodeType getNodeType() {
     return nodeType;
   }
 

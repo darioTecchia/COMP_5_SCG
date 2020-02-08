@@ -4,10 +4,10 @@ global
 end
 
 function main( ): nil
-    result = count( array );
+    result = conta( array );
     "risultato: ", result ==>
 end
 
-function count( a: {int} ): int
-  return #"ciao"
+function conta( a: {int} ): int
+  return #a
 end

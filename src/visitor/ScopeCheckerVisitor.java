@@ -127,12 +127,7 @@ public class ScopeCheckerVisitor implements Visitor<Boolean, SymbolTable> {
     if(!isVarDeclSafe) {
       this.errorHandler.reportError("Variable Declaration Error", varDecl);
     } else {
-      if(varDecl.getTypeDenoter() instanceof ArrayTypeDenoter) {
-        ArrayNodeType arrayNodeType = new ArrayNodeType(((ArrayTypeDenoter) varDecl.getTypeDenoter()).getTypeDenoter().typeFactory());
-        arg.addEntry(varDecl.getVariable().getValue(), new SymbolTableRecord(varDecl.getVariable().getName(), arrayNodeType, NodeKind.VARIABLE));
-      } else {
-        arg.addEntry(varDecl.getVariable().getValue(), new SymbolTableRecord(varDecl.getVariable().getName(), varDecl.getTypeDenoter().typeFactory(), NodeKind.VARIABLE));
-      }
+      arg.addEntry(varDecl.getVariable().getValue(), new SymbolTableRecord(varDecl.getVariable().getName(), varDecl.getTypeDenoter().typeFactory(), NodeKind.VARIABLE));
     }
     return isVarDeclSafe;
   }

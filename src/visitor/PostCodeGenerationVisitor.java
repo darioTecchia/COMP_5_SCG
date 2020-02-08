@@ -93,7 +93,7 @@ public class PostCodeGenerationVisitor implements Visitor<String, SymbolTable> {
 
   @Override
   public String visit(ArrayTypeDenoter arrayType, SymbolTable arg) {
-    return arrayType.getElementsType().cType();
+    return arrayType.cType();
   }
 
   @Override

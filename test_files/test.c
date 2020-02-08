@@ -1,7 +1,7 @@
 #include <stdbool.h>
 #include <stdio.h>
-#define nop() \
-  { ; }
+#define nop() ;
+#define count(x) (sizeof(x) / sizeof((x)[0]))
 
 /********************* Declarations ****************/
 int result;
@@ -9,13 +9,13 @@ int array[50] = {};
 
 /********************* Functions declaration *******/
 
-int count(int a);
+int conta(int a);
 
 /********************* Functions definition  *******/
 int main() {
-  result = count(array);
+  result = conta(array);
   printf("%s", "risultato: ");
   printf("%d", result);
 }
 
-int count(int a) { return #TODO; }
+int conta(int a) { return count(a); }

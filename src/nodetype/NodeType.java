@@ -1,9 +1,5 @@
 package nodetype;
 
-/**
- * This is a singleton base class
- * @author didacus
- */
 public interface NodeType {
   
   PrimitiveNodeType checkAdd(PrimitiveNodeType type);
