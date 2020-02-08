@@ -9,13 +9,18 @@ typedef int bool;
 #define false 0
 
 /********************* Declarations ****************/
-bool b = false;
 bool a = true;
+bool b = false;
 
 /********************* Functions declaration *******/
 
 /********************* Functions definition  *******/
 int main() {
+  {
+    bool a = true;
+    bool b = false;
+    nop();
+  }
   printf("%s", "risultato: ");
-  printf("%d", a + b);
+  printf("%d", a > b);
 }

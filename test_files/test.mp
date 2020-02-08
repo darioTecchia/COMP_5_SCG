@@ -1,8 +1,13 @@
 global
-    a: bool = true;
-    b: bool = false
+  a: bool = true;
+  b: bool = false
 end
 
 function main( ): nil
-    "risultato: ", a + b ==>
+  local
+    a: bool = true;
+    b: bool = false;
+    nop
+  end;
+  "risultato: ", a > b ==>
 end

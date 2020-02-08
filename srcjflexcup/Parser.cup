@@ -111,14 +111,14 @@ Par_decls ::= ID:id COLON TypeDenoter:t COMMA Par_decls:ps
 
 Var_decls ::= Var_decls:vs SEMI ID:id COLON TypeDenoter:t Var_init_value:varInit  
               {: 
-                vs.addFirst(new VarDecl(idleft, idright, new Variable(idleft, idright, id), t, varInit));
+                vs.addLast(new VarDecl(idleft, idright, new Variable(idleft, idright, id), t, varInit));
                 RESULT = vs;
               :}
               |
               ID:id COLON TypeDenoter:t Var_init_value:varInit
               {: 
                 RESULT = new LinkedList<VarDecl>();
-                RESULT.addFirst(new VarDecl(idleft, idright, new Variable(idleft, idright, id), t, varInit));
+                RESULT.addLast(new VarDecl(idleft, idright, new Variable(idleft, idright, id), t, varInit));
               :}
 ;
 

@@ -740,7 +740,7 @@ class CUP$Parser$actions {
 		int varInitright = ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()).right;
 		VarInitValue varInit = (VarInitValue)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
 		 
-                vs.addFirst(new VarDecl(idleft, idright, new Variable(idleft, idright, id), t, varInit));
+                vs.addLast(new VarDecl(idleft, idright, new Variable(idleft, idright, id), t, varInit));
                 RESULT = vs;
               
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("Var_decls",5, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-5)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
@@ -762,7 +762,7 @@ class CUP$Parser$actions {
 		VarInitValue varInit = (VarInitValue)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
 		 
                 RESULT = new LinkedList<VarDecl>();
-                RESULT.addFirst(new VarDecl(idleft, idright, new Variable(idleft, idright, id), t, varInit));
+                RESULT.addLast(new VarDecl(idleft, idright, new Variable(idleft, idright, id), t, varInit));
               
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("Var_decls",5, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-3)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }

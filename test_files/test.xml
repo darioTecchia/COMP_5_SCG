@@ -2,29 +2,46 @@
 <Program>
   <Global>
     <VarDecl>
-      <Variable lexeme="b"/>
-      <PrimitiveTypeDenoter.java kind="BOOL"/>
-      <VarInitValue>
-        <BooleanConst value="false"/>
-      </VarInitValue>
-    </VarDecl>
-    <VarDecl>
       <Variable lexeme="a"/>
       <PrimitiveTypeDenoter.java kind="BOOL"/>
       <VarInitValue>
         <BooleanConst value="true"/>
       </VarInitValue>
     </VarDecl>
+    <VarDecl>
+      <Variable lexeme="b"/>
+      <PrimitiveTypeDenoter.java kind="BOOL"/>
+      <VarInitValue>
+        <BooleanConst value="false"/>
+      </VarInitValue>
+    </VarDecl>
   </Global>
   <Function>
     <Variable lexeme="main"/>
     <PrimitiveTypeDenoter.java kind="NIL"/>
+    <LocalStatement>
+      <VarDecl>
+        <Variable lexeme="a"/>
+        <PrimitiveTypeDenoter.java kind="BOOL"/>
+        <VarInitValue>
+          <BooleanConst value="true"/>
+        </VarInitValue>
+      </VarDecl>
+      <VarDecl>
+        <Variable lexeme="b"/>
+        <PrimitiveTypeDenoter.java kind="BOOL"/>
+        <VarInitValue>
+          <BooleanConst value="false"/>
+        </VarInitValue>
+      </VarDecl>
+      <NopStatement/>
+    </LocalStatement>
     <WriteStatement>
       <StringConst value="risultato: "/>
-      <PlusOp>
+      <GreaterThanRelop>
         <Id lexeme="a"/>
         <Id lexeme="b"/>
-      </PlusOp>
+      </GreaterThanRelop>
     </WriteStatement>
   </Function>
 </Program>
