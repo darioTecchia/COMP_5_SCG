@@ -70,6 +70,7 @@ public class PostCodeGenerationVisitor implements Visitor<String, SymbolTable> {
     String body = this.beautify(function.getStatements(), new StringJoiner("\n"), arg);
     arg.exitScope();
     if(functionName.equalsIgnoreCase("main")) return "";
+    else if(returnType == "" && !functionName.equalsIgnoreCase("main")) { returnType = "void"; }
     return String.format("%s %s(%s);", returnType, functionName, arguments.toString(), body);
   }
 

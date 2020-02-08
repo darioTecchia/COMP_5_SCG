@@ -11,3 +11,7 @@ function main( ): nil
   end;
   "risultato: ", a > b ==>
 end
+
+function zozo(a: int, b: int): nil
+  nop
+end
