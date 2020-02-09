@@ -63,7 +63,7 @@ JFlex and JavaCup integration for MyPallene language implementation.
 
 ## Grammar Specification
 
-```cup
+```java
 Program ::= Global Functions
 ;
 
@@ -158,10 +158,51 @@ Expr ::=  NIL
         
 ;
 ```
+## Structure
+The compiler is the `src/cli.MyPallene.java` class.
+- `src`
+  - `cli` package contains the compiler class and the main class.
+
+  - `dist` package contains the output files of CUP and jFlex
+
+  - `error` package contains the error handler
+
+  - `lexical` package contains the string table used during the compilation
+
+  - `nodekind` and `nodetype` package contains the kind class and the type class of a node
+
+  - `resource` package contains the template c file
+
+  - `semantic` package contains the symbol table classes
+
+  - `syntax` package contains the AST node classes
+
+  - `template` package contains the template classes used in translation to XML and C
+
+  - `test` package contains some test classes
+
+  - `visitor` package contains the visitor classes used for scopechecking, typechecking and translation
+
+  - `visitor` package contains the visitor classes used for scopechecking, typechecking and translation
+
+- `srcflexcup` folder contains the CUP and jFlex input files
+
+- `test_files` folder contains some myPallene's test files
+
+## Usage
+- Execute `MyPallene2C.java <filePath>` or just `MyPallene2C.java` located in the `cli` package.
+- In the first case it compile the `-mp` file in the `filePath` or it shows a menu for select an example file to compile.
+- Once you launched the compiler, three file are generate:
+  - `file.xml` - contains the AST
+  - `file.c` - contains the .c output file
+  - `file.c.ll` - contains the LLVM IR file
 
 ## Notes
-```
+For compile CUP file launch:
+```sh
 java -jar C:\CUP\java-cup-11b.jar -dump -progress -expect 5 -destdir .\src\dist\ .\srcjflexcup\Parser.cup 2>.\out.txt
-
+```
+For compile jFLEX file launch:
+```sh
 ..\jflex-1.7.0\bin\jflex -d .\src\dist\ srcjflexcup\Lexer.flex
 ```
