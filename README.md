@@ -183,8 +183,6 @@ The compiler is the `src/cli.MyPallene.java` class.
 
   - `visitor` package contains the visitor classes used for scopechecking, typechecking and translation
 
-  - `visitor` package contains the visitor classes used for scopechecking, typechecking and translation
-
 - `srcflexcup` folder contains the CUP and jFlex input files
 
 - `test_files` folder contains some myPallene's test files
