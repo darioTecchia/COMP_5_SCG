@@ -1,22 +1,17 @@
 global
-
+  array: {int} = {}: int;
   result: int
 end
 
 function main( ): nil
-  executor(sott, 1, 2);
-  executor(somma, 1, 2);
+  executor(somma, array, array);
   nop
 end
 
-function somma(a: int, b: int): int
-  return a + b
+function somma(a: {int}, b: {int}): int
+  return #a
 end
 
-function sott(a: int, b: int): int
-  return a - b
-end
-
-function executor(ptr: (int, int) -> int, a: int, b: int): nil
-  ptr(a, b) ==>
+function executor(ptr: ({int}, {int}) -> int, a: {int}, b: {int}): nil
+  ptr(a, a) ==>
 end

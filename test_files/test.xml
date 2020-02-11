@@ -2,6 +2,17 @@
 <Program>
   <Global>
     <VarDecl>
+      <Variable lexeme="array"/>
+      <ArrayTypeDenoter>
+        <PrimitiveTypeDenoter.java kind="INT"/>
+      </ArrayTypeDenoter>
+      <VarInitValue>
+        <ArrayConst>
+          <PrimitiveTypeDenoter.java kind="INT"/>
+        </ArrayConst>
+      </VarInitValue>
+    </VarDecl>
+    <VarDecl>
       <Variable lexeme="result"/>
       <PrimitiveTypeDenoter.java kind="INT"/>
     </VarDecl>
@@ -10,15 +21,9 @@
     <Variable lexeme="main"/>
     <PrimitiveTypeDenoter.java kind="NIL"/>
     <FunctionCallStatement>
-      <Id lexeme="sott"/>
-      <IntegerConst value="1"/>
-      <IntegerConst value="2"/>
-      <Id lexeme="executor"/>
-    </FunctionCallStatement>
-    <FunctionCallStatement>
       <Id lexeme="somma"/>
-      <IntegerConst value="1"/>
-      <IntegerConst value="2"/>
+      <Id lexeme="array"/>
+      <Id lexeme="array"/>
       <Id lexeme="executor"/>
     </FunctionCallStatement>
     <NopStatement/>
@@ -27,36 +32,21 @@
     <Variable lexeme="somma"/>
     <ParDecl>
       <Variable lexeme="a"/>
-      <PrimitiveTypeDenoter.java kind="INT"/>
+      <ArrayTypeDenoter>
+        <PrimitiveTypeDenoter.java kind="INT"/>
+      </ArrayTypeDenoter>
     </ParDecl>
     <ParDecl>
       <Variable lexeme="b"/>
-      <PrimitiveTypeDenoter.java kind="INT"/>
+      <ArrayTypeDenoter>
+        <PrimitiveTypeDenoter.java kind="INT"/>
+      </ArrayTypeDenoter>
     </ParDecl>
     <PrimitiveTypeDenoter.java kind="INT"/>
     <ReturnStatement>
-      <PlusOp>
+      <SharpExpr>
         <Id lexeme="a"/>
-        <Id lexeme="b"/>
-      </PlusOp>
-    </ReturnStatement>
-  </Function>
-  <Function>
-    <Variable lexeme="sott"/>
-    <ParDecl>
-      <Variable lexeme="a"/>
-      <PrimitiveTypeDenoter.java kind="INT"/>
-    </ParDecl>
-    <ParDecl>
-      <Variable lexeme="b"/>
-      <PrimitiveTypeDenoter.java kind="INT"/>
-    </ParDecl>
-    <PrimitiveTypeDenoter.java kind="INT"/>
-    <ReturnStatement>
-      <MinusOp>
-        <Id lexeme="a"/>
-        <Id lexeme="b"/>
-      </MinusOp>
+      </SharpExpr>
     </ReturnStatement>
   </Function>
   <Function>
@@ -64,25 +54,33 @@
     <ParDecl>
       <Variable lexeme="ptr"/>
       <FunctionTypeDenoter>
-        <PrimitiveTypeDenoter.java kind="INT"/>
-        <PrimitiveTypeDenoter.java kind="INT"/>
+        <ArrayTypeDenoter>
+          <PrimitiveTypeDenoter.java kind="INT"/>
+        </ArrayTypeDenoter>
+        <ArrayTypeDenoter>
+          <PrimitiveTypeDenoter.java kind="INT"/>
+        </ArrayTypeDenoter>
         <PrimitiveTypeDenoter.java kind="INT"/>
       </FunctionTypeDenoter>
     </ParDecl>
     <ParDecl>
       <Variable lexeme="a"/>
-      <PrimitiveTypeDenoter.java kind="INT"/>
+      <ArrayTypeDenoter>
+        <PrimitiveTypeDenoter.java kind="INT"/>
+      </ArrayTypeDenoter>
     </ParDecl>
     <ParDecl>
       <Variable lexeme="b"/>
-      <PrimitiveTypeDenoter.java kind="INT"/>
+      <ArrayTypeDenoter>
+        <PrimitiveTypeDenoter.java kind="INT"/>
+      </ArrayTypeDenoter>
     </ParDecl>
     <PrimitiveTypeDenoter.java kind="NIL"/>
     <WriteStatement>
       <FunctionCall>
         <Id lexeme="ptr"/>
         <Id lexeme="a"/>
-        <Id lexeme="b"/>
+        <Id lexeme="a"/>
       </FunctionCall>
     </WriteStatement>
   </Function>

@@ -3,33 +3,26 @@ source_filename = "test_files/test.c"
 target datalayout = "e-m:e-i64:64-f80:128-n8:16:32:64-S128"
 target triple = "x86_64-pc-linux-gnu"
 
+@array = local_unnamed_addr global [50 x i32] zeroinitializer, align 16
 @.str = private unnamed_addr constant [3 x i8] c"%d\00", align 1
 @result = common local_unnamed_addr global i32 0, align 4
 
 ; Function Attrs: nounwind uwtable
 define i32 @main() local_unnamed_addr #0 {
-  %1 = tail call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([3 x i8], [3 x i8]* @.str, i64 0, i64 0), i32 -1) #3
-  %2 = tail call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([3 x i8], [3 x i8]* @.str, i64 0, i64 0), i32 3) #3
+  %1 = tail call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([3 x i8], [3 x i8]* @.str, i64 0, i64 0), i32 2) #3
   ret i32 0
 }
 
 ; Function Attrs: nounwind uwtable
-define void @executor(i32 (i32, i32)* nocapture, i32, i32) local_unnamed_addr #0 {
-  %4 = tail call i32 %0(i32 %1, i32 %2) #3
+define void @executor(i32 (i32*, i32*)* nocapture, i32*, i32* nocapture readnone) local_unnamed_addr #0 {
+  %4 = tail call i32 %0(i32* %1, i32* %1) #3
   %5 = tail call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([3 x i8], [3 x i8]* @.str, i64 0, i64 0), i32 %4)
   ret void
 }
 
 ; Function Attrs: norecurse nounwind readnone uwtable
-define i32 @sott(i32, i32) local_unnamed_addr #1 {
-  %3 = sub nsw i32 %0, %1
-  ret i32 %3
-}
-
-; Function Attrs: norecurse nounwind readnone uwtable
-define i32 @somma(i32, i32) local_unnamed_addr #1 {
-  %3 = add nsw i32 %1, %0
-  ret i32 %3
+define i32 @somma(i32* nocapture readnone, i32* nocapture readnone) local_unnamed_addr #1 {
+  ret i32 2
 }
 
 ; Function Attrs: nounwind

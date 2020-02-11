@@ -63,7 +63,13 @@ public class FunctionTypeDenoter extends TypeDenoter {
   @Override
   public String cType() {
     StringJoiner joiner = new StringJoiner(", ");
-    this.getTypes().stream().map((TypeDenoter t) -> t.typeFactory().toString()).forEach(joiner::add);
+    this.getTypes().stream().map((TypeDenoter t) -> {
+      if(t instanceof ArrayTypeDenoter) {
+        return t.cType() + "[]";
+      } else {
+        return t.cType();
+      }
+    }).forEach(joiner::add);
     return String.format("%s (*%s) (%s)", this.getReturnType().typeFactory(), "%s", joiner.toString());
   }
 
