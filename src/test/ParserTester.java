@@ -1,6 +1,7 @@
 package test;
 
 import dist.*;
+import java_cup.runtime.ComplexSymbolFactory;
 import lexical.ArrayStringTable;
 import lexical.StringTable;
 import syntax.Program;
@@ -14,10 +15,12 @@ public class ParserTester {
 
     StringTable stringTable = new ArrayStringTable();
 
-    lexer = new Lexer(stringTable);
+    ComplexSymbolFactory complexSymbolFactory = new ComplexSymbolFactory();
+
+    lexer = new Lexer(stringTable, complexSymbolFactory);
 
     if(lexer.initialize(args[0])) {
-      parser = new Parser(lexer);
+      parser = new Parser(lexer, complexSymbolFactory);
       System.out.println(parser.parse().value);
     } else {
       System.out.println("File not found!");

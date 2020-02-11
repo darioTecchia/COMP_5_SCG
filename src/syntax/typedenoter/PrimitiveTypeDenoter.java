@@ -1,5 +1,7 @@
 package syntax.typedenoter;
 
+import java_cup.runtime.ComplexSymbolFactory.Location;
+
 import nodetype.PrimitiveNodeType;
 import syntax.Leaf;
 import syntax.TypeDenoter;
@@ -9,7 +11,7 @@ public class PrimitiveTypeDenoter extends TypeDenoter implements Leaf<String> {
 
   private String kind;
 
-  public PrimitiveTypeDenoter(int leftLocation, int rightLocation, String kind) {
+  public PrimitiveTypeDenoter(Location leftLocation, Location rightLocation, String kind) {
     super(leftLocation, rightLocation);
     this.kind = kind;
   }

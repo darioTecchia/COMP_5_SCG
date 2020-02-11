@@ -1,5 +1,6 @@
 package syntax;
 
+import java_cup.runtime.ComplexSymbolFactory.Location;
 
 import syntax.expr.Id;
 import visitor.Visitor;
@@ -10,7 +11,7 @@ public class VarDecl extends AstNode {
   private TypeDenoter typeDenoter;
   private VarInitValue varInitValue;
 
-  public VarDecl(int leftLocation, int rightLocation, Variable variable, TypeDenoter typeDenoter, VarInitValue varInitValue) {
+  public VarDecl(Location leftLocation, Location rightLocation, Variable variable, TypeDenoter typeDenoter, VarInitValue varInitValue) {
     super(leftLocation, rightLocation);
     this.variable = variable;
     this.typeDenoter = typeDenoter;

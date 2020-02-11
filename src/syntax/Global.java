@@ -2,6 +2,7 @@ package syntax;
 
 import java.util.LinkedList;
 
+import java_cup.runtime.ComplexSymbolFactory.Location;
 
 import visitor.Visitor;
 
@@ -9,12 +10,12 @@ public class Global extends AstNode {
 
   private LinkedList<VarDecl> varDecls;
 
-  public Global(int leftLocation, int rightLocation, LinkedList<VarDecl> varDecls) {
+  public Global(Location leftLocation, Location rightLocation, LinkedList<VarDecl> varDecls) {
     super(leftLocation, rightLocation);
     this.varDecls = varDecls;
   }
 
-  public Global(int leftLocation, int rightLocation) {
+  public Global(Location leftLocation, Location rightLocation) {
     super(leftLocation, rightLocation);
     this.varDecls = new LinkedList<VarDecl>();
   }

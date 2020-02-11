@@ -2,6 +2,7 @@ package syntax.statement;
 
 import java.util.LinkedList;
 
+import java_cup.runtime.ComplexSymbolFactory.Location;
 
 import syntax.*;
 import visitor.Visitor;
@@ -10,7 +11,7 @@ public class WriteStatement extends Statement {
 
   private LinkedList<Expr> exprs;
 
-  public WriteStatement(int leftLocation, int rightLocation, LinkedList<Expr> exprs) {
+  public WriteStatement(Location leftLocation, Location rightLocation, LinkedList<Expr> exprs) {
     super(leftLocation, rightLocation);
     this.exprs = exprs;
   }

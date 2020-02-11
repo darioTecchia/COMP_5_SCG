@@ -10,18 +10,20 @@ import org.w3c.dom.Node;
 import syntax.TypeDenoter;
 import visitor.Visitor;
 
+import java_cup.runtime.ComplexSymbolFactory.Location;
+
 public class FunctionTypeDenoter extends TypeDenoter {
 
   private LinkedList<TypeDenoter> typeDenoters;
   private TypeDenoter returnTypeDenoter;
 
-  public FunctionTypeDenoter(int leftLocation, int rightLocation, LinkedList<TypeDenoter> typeDenoters, TypeDenoter returnTypeDenoter) {
+  public FunctionTypeDenoter(Location leftLocation, Location rightLocation, LinkedList<TypeDenoter> typeDenoters, TypeDenoter returnTypeDenoter) {
     super(leftLocation, rightLocation);
     this.returnTypeDenoter = returnTypeDenoter;
     this.typeDenoters = typeDenoters;
   }
 
-  public FunctionTypeDenoter(int leftLocation, int rightLocation, TypeDenoter returnTypeDenoter) {
+  public FunctionTypeDenoter(Location leftLocation, Location rightLocation, TypeDenoter returnTypeDenoter) {
     super(leftLocation, rightLocation);
     this.returnTypeDenoter = returnTypeDenoter;
     this.typeDenoters =  new LinkedList<>();

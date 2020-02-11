@@ -2,6 +2,7 @@ package syntax.statement;
 
 import java.util.LinkedList;
 
+import java_cup.runtime.ComplexSymbolFactory.Location;
 
 import syntax.expr.Id;
 import visitor.Visitor;
@@ -12,13 +13,13 @@ public class FunctionCallStatement extends Statement {
   private Id id;
   private LinkedList<Expr> functionParams;
 
-  public FunctionCallStatement(int leftLocation, int rightLocation, Id id, LinkedList<Expr> functionParams) {
+  public FunctionCallStatement(Location leftLocation, Location rightLocation, Id id, LinkedList<Expr> functionParams) {
     super(leftLocation, rightLocation);
     this.id = id;
     this.functionParams = functionParams;
   }
 
-  public FunctionCallStatement(int leftLocation, int rightLocation, Id id) {
+  public FunctionCallStatement(Location leftLocation, Location rightLocation, Id id) {
     super(leftLocation, rightLocation);
     this.id = id;
     this.functionParams = new LinkedList<>();

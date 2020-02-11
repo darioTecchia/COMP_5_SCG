@@ -4,6 +4,7 @@ import dist.Lexer;
 import dist.Parser;
 import error.ErrorHandler;
 import error.StackErrorHandler;
+import java_cup.runtime.ComplexSymbolFactory;
 import lexical.ArrayStringTable;
 import lexical.StringTable;
 import org.w3c.dom.Document;
@@ -18,8 +19,9 @@ import java.io.FileNotFoundException;
 public class MyPallene {
 
   private Parser parser;
+  private ComplexSymbolFactory complexSymbolFactory = new ComplexSymbolFactory();
   private StringTable stringTable = new ArrayStringTable();
-  private Lexer lexer = new Lexer(stringTable);
+  private Lexer lexer = new Lexer(stringTable, complexSymbolFactory);
   private StackSymbolTable symbolTable = new StackSymbolTable(stringTable);
   private ErrorHandler errorHandler = new StackErrorHandler();
 
@@ -46,7 +48,7 @@ public class MyPallene {
     if(lexer.initialize(this.filePath)) {
       debug(this.filePath);
 
-      parser = new Parser(lexer);
+      parser = new Parser(lexer, complexSymbolFactory);
 
       Program program = (Program) parser.parse().value;
 

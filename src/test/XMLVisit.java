@@ -1,6 +1,7 @@
 package test;
 
 import dist.*;
+import java_cup.runtime.ComplexSymbolFactory;
 import lexical.ArrayStringTable;
 import lexical.StringTable;
 import org.w3c.dom.Document;
@@ -20,11 +21,13 @@ public class XMLVisit {
 
     StringTable stringTable = new ArrayStringTable();
 
-    lexer = new Lexer(stringTable);
+    ComplexSymbolFactory complexSymbolFactory = new ComplexSymbolFactory();
+
+    lexer = new Lexer(stringTable, complexSymbolFactory);
 
     if(lexer.initialize(args[0])) {
       System.out.println(args[0]);
-      parser = new Parser(lexer);
+      parser = new Parser(lexer, complexSymbolFactory);
 
       Program program = (Program) parser.parse().value;
 

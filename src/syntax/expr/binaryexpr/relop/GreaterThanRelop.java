@@ -1,5 +1,6 @@
 package syntax.expr.binaryexpr.relop;
 
+import java_cup.runtime.ComplexSymbolFactory.Location;
 
 import syntax.Expr;
 import syntax.expr.BinaryOp;
@@ -10,7 +11,7 @@ public class GreaterThanRelop extends BinaryOp {
   private Expr leftOperand;
   private Expr rightOperand;
 
-  public GreaterThanRelop(int leftLocation, int rightLocation, Expr leftOperand, Expr rightOperand) {
+  public GreaterThanRelop(Location leftLocation, Location rightLocation, Expr leftOperand, Expr rightOperand) {
     super(leftLocation, rightLocation);
     this.leftOperand = leftOperand;
     this.rightOperand = rightOperand;

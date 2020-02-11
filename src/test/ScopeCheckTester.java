@@ -4,6 +4,7 @@ import dist.Lexer;
 import dist.Parser;
 import error.ErrorHandler;
 import error.StackErrorHandler;
+import java_cup.runtime.ComplexSymbolFactory;
 import lexical.ArrayStringTable;
 import lexical.StringTable;
 import org.w3c.dom.Document;
@@ -26,12 +27,14 @@ public class ScopeCheckTester {
     StackSymbolTable symbolTable = new StackSymbolTable(stringTable);
     ErrorHandler errorHandler = new StackErrorHandler();
 
-    lexer = new Lexer(stringTable);
+    ComplexSymbolFactory complexSymbolFactory = new ComplexSymbolFactory();
+
+    lexer = new Lexer(stringTable, complexSymbolFactory);
 
     if(lexer.initialize(args[0])) {
       System.out.println(args[0]);
 
-      parser = new Parser(lexer);
+      parser = new Parser(lexer, complexSymbolFactory);
 
       Program program = (Program) parser.parse().value;
 

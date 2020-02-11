@@ -1,5 +1,6 @@
 package syntax.statement;
 
+import java_cup.runtime.ComplexSymbolFactory.Location;
 
 import visitor.Visitor;
 
@@ -12,7 +13,7 @@ public class IfThenStatement extends Statement {
   private Expr expr;
   private LinkedList<Statement> statements;
 
-  public IfThenStatement(int leftLocation, int rightLocation, Expr expr, LinkedList<Statement> statements) {
+  public IfThenStatement(Location leftLocation, Location rightLocation, Expr expr, LinkedList<Statement> statements) {
     super(leftLocation, rightLocation);
     this.expr = expr;
     this.statements = statements;

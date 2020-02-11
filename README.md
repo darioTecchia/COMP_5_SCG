@@ -198,7 +198,7 @@ The compiler is the `src/cli.MyPallene.java` class.
 ## Notes
 For compile CUP file launch:
 ```sh
-java -jar C:\CUP\java-cup-11b.jar -dump -progress -expect 5 -destdir .\src\dist\ .\srcjflexcup\Parser.cup 2>.\out.txt
+java -jar C:\CUP\java-cup-11b.jar -dump -progress -locations -expect 5 -destdir .\src\dist\ .\srcjflexcup\Parser.cup 2>.\out.txt
 ```
 For compile jFLEX file launch:
 ```sh

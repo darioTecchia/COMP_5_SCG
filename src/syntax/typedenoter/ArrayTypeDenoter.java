@@ -7,11 +7,13 @@ import org.w3c.dom.Node;
 import syntax.TypeDenoter;
 import visitor.Visitor;
 
+import java_cup.runtime.ComplexSymbolFactory.Location;
+
 public class ArrayTypeDenoter extends TypeDenoter {
 
   private TypeDenoter typeDenoter;
 
-  public ArrayTypeDenoter(int leftLocation, int rightLocation, TypeDenoter typeDenoter) {
+  public ArrayTypeDenoter(Location leftLocation, Location rightLocation, TypeDenoter typeDenoter) {
     super(leftLocation, rightLocation);
     this.typeDenoter = typeDenoter;
   }

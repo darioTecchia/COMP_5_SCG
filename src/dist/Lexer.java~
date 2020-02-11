@@ -556,7 +556,7 @@ public class Lexer implements java_cup.runtime.Scanner {
     }
   }
 
-  public Lexer(StringTable table, ComplexSymbolFactory symbolFactory) {
+  public Lexer(ComplexSymbolFactory symbolFactory, StringTable table) {
     this.symbolFactory = symbolFactory;
     this.table = table;
   }

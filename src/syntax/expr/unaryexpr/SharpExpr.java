@@ -1,5 +1,6 @@
 package syntax.expr.unaryexpr;
 
+import java_cup.runtime.ComplexSymbolFactory.Location;
 
 import syntax.Expr;
 import syntax.expr.UnaryOp;
@@ -9,7 +10,7 @@ public class SharpExpr extends UnaryOp {
 
   private Expr expr;
 
-  public SharpExpr(int leftLocation, int rightLocation, Expr expr) {
+  public SharpExpr(Location leftLocation, Location rightLocation, Expr expr) {
     super(leftLocation, rightLocation);
     this.expr = expr;
   }

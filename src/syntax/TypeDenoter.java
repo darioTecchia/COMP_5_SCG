@@ -1,11 +1,12 @@
 package syntax;
 
+import java_cup.runtime.ComplexSymbolFactory.Location;
 
 import nodetype.NodeType;
 
 public abstract class TypeDenoter extends AstNode {
 
-  public TypeDenoter(int leftLocation, int rightLocation) {
+  public TypeDenoter(Location leftLocation, Location rightLocation) {
     super(leftLocation, rightLocation);
   }
 

@@ -1,9 +1,11 @@
 /* JFlex example: part of Java language lexer specification */
 package dist;
 
-
 import java_cup.runtime.Symbol;
 import lexical.StringTable;
+import java_cup.runtime.ComplexSymbolFactory;
+import java_cup.runtime.ComplexSymbolFactory.Location;
+import java_cup.runtime.ComplexSymbolFactory.ComplexSymbol;
 /**
 * This class is a simple example lexer.
 */
@@ -12,27 +14,29 @@ import lexical.StringTable;
 %%
 
 %class Lexer
+%public
+%unicode
+
 %cupsym ParserSym
 
 %cup
 
-%unicode
-
-%public
-
 %line
 %column
+
+
 
 %{
   private StringTable table;
   private StringBuffer string = new StringBuffer();
+  private ComplexSymbolFactory symbolFactory;
 
-  private Symbol generateTokenSym(int type) {
-    return new Symbol(type, yyline, yycolumn);
+  private Symbol generateTokenSym(String name, int type) {
+    return this.symbolFactory.newSymbol(name, type, new Location(yyline + 1, yycolumn + 1 - yylength()), new Location(yyline + 1, yycolumn + 1));
   }
-  private Symbol generateTokenSym(int type, Object value) {
+  private Symbol generateTokenSym(String name, int type, Object value) {
     this.table.install(value.toString());
-    return new Symbol(type, yyline, yycolumn, value);
+    return this.symbolFactory.newSymbol(name, type, new Location(yyline + 1, yycolumn + 1 - yylength()), new Location(yyline + 1, yycolumn + 1), value);
   }
 
   // prepara file input per lettura e controlla errori
@@ -45,13 +49,22 @@ import lexical.StringTable;
     }
   }
 
-  public Lexer(StringTable table) {
+  public Lexer(StringTable table, ComplexSymbolFactory symbolFactory) {
+    this.symbolFactory = symbolFactory;
     this.table = table;
+  }
+
+  protected void emit_warning(String message) {
+    System.out.println("scanner warning: " + message + " at : 2 "+ (yyline+1) + " " + (yycolumn+1));
+  }
+
+  protected void emit_error(String message) {
+    System.out.println("scanner error: " + message + " at : 2" + (yyline+1) + " " + (yycolumn+1) + " " + yychar);
   }
 %}
 
 %eofval{
-	return generateTokenSym(ParserSym.EOF);
+	return generateTokenSym("EOF", ParserSym.EOF);
 %eofval}
 
 LineTerminator = \r|\n|\r\n
@@ -83,70 +96,70 @@ GlobalKeyword = [gG][lL][oO][bB][aA][lL]
 <YYINITIAL> {
 
   /* keywords */
-  "function" { return generateTokenSym(ParserSym.FUNCTION); }
-  "end" { return generateTokenSym(ParserSym.END); }
-  "if" { return generateTokenSym(ParserSym.IF); }
-  "then" { return generateTokenSym(ParserSym.THEN); }
-  "else" { return generateTokenSym(ParserSym.ELSE); }
-  "while" { return generateTokenSym(ParserSym.WHILE); }
-  "do" { return generateTokenSym(ParserSym.DO); }
-  "for" { return generateTokenSym(ParserSym.FOR); }
-  "local" { return generateTokenSym(ParserSym.LOCAL); }
-  {GlobalKeyword} { return generateTokenSym(ParserSym.GLOBAL); }
-  "<==" { return generateTokenSym(ParserSym.READ); }
-  "==>" { return generateTokenSym(ParserSym.WRITE); }
-  "return" { return generateTokenSym(ParserSym.RETURN); }
-  "true" { return generateTokenSym(ParserSym.TRUE, true); }
-  "false" { return generateTokenSym(ParserSym.FALSE, false); }
-  "not" { return generateTokenSym(ParserSym.NOT); }
-  "#" { return generateTokenSym(ParserSym.SHARP); }
+  "function" { return generateTokenSym("FUNCTION", ParserSym.FUNCTION); }
+  "end" { return generateTokenSym("END", ParserSym.END); }
+  "if" { return generateTokenSym("IF", ParserSym.IF); }
+  "then" { return generateTokenSym("THEN", ParserSym.THEN); }
+  "else" { return generateTokenSym("ELSE", ParserSym.ELSE); }
+  "while" { return generateTokenSym("WHILE", ParserSym.WHILE); }
+  "do" { return generateTokenSym("DO", ParserSym.DO); }
+  "for" { return generateTokenSym("FOR", ParserSym.FOR); }
+  "local" { return generateTokenSym("LOCAL", ParserSym.LOCAL); }
+  {GlobalKeyword} { return generateTokenSym("GLOBAL", ParserSym.GLOBAL); }
+  "<==" { return generateTokenSym("READ", ParserSym.READ); }
+  "==>" { return generateTokenSym("WRITE", ParserSym.WRITE); }
+  "return" { return generateTokenSym("RETURN", ParserSym.RETURN); }
+  "true" { return generateTokenSym("TRUE", ParserSym.TRUE, true); }
+  "false" { return generateTokenSym("FALSE", ParserSym.FALSE, false); }
+  "not" { return generateTokenSym("NOT", ParserSym.NOT); }
+  "#" { return generateTokenSym("SHARP", ParserSym.SHARP); }
 
 
   /* Types Keywords */
-  "nil" { return generateTokenSym(ParserSym.NIL); }
-  "int" { return generateTokenSym(ParserSym.INT); }
-  "bool" { return generateTokenSym(ParserSym.BOOL); }
-  "float" { return generateTokenSym(ParserSym.FLOAT); }
-  "string" { return generateTokenSym(ParserSym.STRING); }
+  "nil" { return generateTokenSym("NIL", ParserSym.NIL); }
+  "int" { return generateTokenSym("INT", ParserSym.INT); }
+  "bool" { return generateTokenSym("BOOL", ParserSym.BOOL); }
+  "float" { return generateTokenSym("FLOAT", ParserSym.FLOAT); }
+  "string" { return generateTokenSym("STRING", ParserSym.STRING); }
 
   /* separators */
-  "(" { return generateTokenSym(ParserSym.LPAR); }
-  ")" { return generateTokenSym(ParserSym.RPAR); }
-  "{" { return generateTokenSym(ParserSym.BLPAR); }
-  "}" { return generateTokenSym(ParserSym.BRPAR); }
-  "[" { return generateTokenSym(ParserSym.SLPAR); }
-  "]" { return generateTokenSym(ParserSym.SRPAR); }
-  "," { return generateTokenSym(ParserSym.COMMA); }
-  ";" { return generateTokenSym(ParserSym.SEMI); }
-  ":" { return generateTokenSym(ParserSym.COLON); }
+  "(" { return generateTokenSym("LPAR", ParserSym.LPAR); }
+  ")" { return generateTokenSym("RPAR", ParserSym.RPAR); }
+  "{" { return generateTokenSym("BLPAR", ParserSym.BLPAR); }
+  "}" { return generateTokenSym("BRPAR", ParserSym.BRPAR); }
+  "[" { return generateTokenSym("SLPAR", ParserSym.SLPAR); }
+  "]" { return generateTokenSym("SRPAR", ParserSym.SRPAR); }
+  "," { return generateTokenSym("COMMA", ParserSym.COMMA); }
+  ";" { return generateTokenSym("SEMI", ParserSym.SEMI); }
+  ":" { return generateTokenSym("COLON", ParserSym.COLON); }
 
   /* relop */
-  "and" { return generateTokenSym(ParserSym.AND); }
-  "or" { return generateTokenSym(ParserSym.OR); }
-  "<" { return generateTokenSym(ParserSym.LT); }
-  "<=" { return generateTokenSym(ParserSym.LE); }
-  "<>" { return generateTokenSym(ParserSym.NE); }
-  ">" { return generateTokenSym(ParserSym.GT); }
-  ">=" { return generateTokenSym(ParserSym.GE); }
-  "->" { return generateTokenSym(ParserSym.ARROW); }
-  "=" { return generateTokenSym(ParserSym.ASSIGN); }
-  "==" { return generateTokenSym(ParserSym.EQ); }
-  "!=" { return generateTokenSym(ParserSym.NE); }
-  "nop" { return generateTokenSym(ParserSym.NOP); }
+  "and" { return generateTokenSym("AND", ParserSym.AND); }
+  "or" { return generateTokenSym("OR", ParserSym.OR); }
+  "<" { return generateTokenSym("LT", ParserSym.LT); }
+  "<=" { return generateTokenSym("LE", ParserSym.LE); }
+  "<>" { return generateTokenSym("NE", ParserSym.NE); }
+  ">" { return generateTokenSym("GT", ParserSym.GT); }
+  ">=" { return generateTokenSym("GE", ParserSym.GE); }
+  "->" { return generateTokenSym("ARROW", ParserSym.ARROW); }
+  "=" { return generateTokenSym("ARROW", ParserSym.ASSIGN); }
+  "==" { return generateTokenSym("EQ", ParserSym.EQ); }
+  "!=" { return generateTokenSym("NE", ParserSym.NE); }
+  "nop" { return generateTokenSym("NOP", ParserSym.NOP); }
 
   /* arop */
-  "+" { return generateTokenSym(ParserSym.PLUS); }
-  "-" { return generateTokenSym(ParserSym.MINUS); }
-  "*" { return generateTokenSym(ParserSym.TIMES); }
-  "/" { return generateTokenSym(ParserSym.DIV); }
+  "+" { return generateTokenSym("PLUS", ParserSym.PLUS); }
+  "-" { return generateTokenSym("MINUS", ParserSym.MINUS); }
+  "*" { return generateTokenSym("TIMES", ParserSym.TIMES); }
+  "/" { return generateTokenSym("DIV", ParserSym.DIV); }
 
 
   /* identifiers */
-  {Identifier} { return generateTokenSym(ParserSym.ID, yytext()); }
+  {Identifier} { return generateTokenSym("ID", ParserSym.ID, yytext()); }
 
   /* literals */
-  {IntegerLiteral} { return generateTokenSym(ParserSym.INT_CONST, Integer.parseInt(yytext())); }
-  {FloatLiteral} { return generateTokenSym(ParserSym.FLOAT_CONST, Float.parseFloat(yytext())); }
+  {IntegerLiteral} { return generateTokenSym("INT_CONST", ParserSym.INT_CONST, Integer.parseInt(yytext())); }
+  {FloatLiteral} { return generateTokenSym("FLOAT_CONST", ParserSym.FLOAT_CONST, Float.parseFloat(yytext())); }
   \" { string.setLength(0); yybegin(STRING); }
 
   /* comments */
@@ -159,7 +172,7 @@ GlobalKeyword = [gG][lL][oO][bB][aA][lL]
 <STRING> {
   \" {
     yybegin(YYINITIAL); 
-    return generateTokenSym(ParserSym.STRING_CONST, 
+    return generateTokenSym("STRING_CONST", ParserSym.STRING_CONST,
     string.toString()); 
   }
   [^\n\r\"\\]+ { string.append( yytext() ); }

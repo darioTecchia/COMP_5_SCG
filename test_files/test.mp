@@ -5,7 +5,7 @@ end
 
 function main( ): nil
   local
-    a: bool = true;
+    a: bool = true
     b: bool = false;
     nop
   end;

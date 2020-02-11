@@ -1,6 +1,7 @@
 package test;
 
 import dist.*;
+import java_cup.runtime.ComplexSymbolFactory;
 import java_cup.runtime.Symbol;
 import lexical.ArrayStringTable;
 import lexical.StringTable;
@@ -14,7 +15,9 @@ public class LexerTester {
 
     StringTable stringTable = new ArrayStringTable();
 
-    Lexer lexicalAnalyzer = new Lexer(stringTable);
+    ComplexSymbolFactory complexSymbolFactory = new ComplexSymbolFactory();
+
+    Lexer lexicalAnalyzer = new Lexer(stringTable, complexSymbolFactory);
     String filePath = args[0];
 
     if (lexicalAnalyzer.initialize(filePath)) {

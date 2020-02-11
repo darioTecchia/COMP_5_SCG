@@ -3,9 +3,11 @@ package syntax.statement;
 import syntax.Statement;
 import visitor.Visitor;
 
+import java_cup.runtime.ComplexSymbolFactory.Location;
+
 public class NopStatement extends Statement {
 
-  public NopStatement(int leftLocation, int rightLocation) {
+  public NopStatement(Location leftLocation, Location rightLocation) {
     super(leftLocation, rightLocation);
   }
 

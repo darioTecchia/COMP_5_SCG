@@ -3,6 +3,7 @@ package syntax;
 import java.util.ArrayList;
 import java.util.LinkedList;
 
+import java_cup.runtime.ComplexSymbolFactory.Location;
 
 import nodetype.CompositeNodeType;
 import nodetype.NodeType;
@@ -18,7 +19,7 @@ public class Function extends AstNode {
   /**
    * Function definition with params
    */
-  public Function(int leftLocation, int rightLocation, Variable variable, LinkedList<ParDecl> parDecls, TypeDenoter typeDenoter, LinkedList<Statement> statements) {
+  public Function(Location leftLocation, Location rightLocation, Variable variable, LinkedList<ParDecl> parDecls, TypeDenoter typeDenoter, LinkedList<Statement> statements) {
     super(leftLocation, rightLocation);
     this.variable = variable;
     this.parDecls = parDecls;
@@ -29,7 +30,7 @@ public class Function extends AstNode {
   /**
    * Function definition without params
    */
-  public Function(int leftLocation, int rightLocation, Variable variable, TypeDenoter typeDenoter, LinkedList<Statement> statements) {
+  public Function(Location leftLocation, Location rightLocation, Variable variable, TypeDenoter typeDenoter, LinkedList<Statement> statements) {
     super(leftLocation, rightLocation);
     this.variable = variable;
     this.parDecls = new LinkedList<>();

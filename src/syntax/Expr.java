@@ -1,13 +1,14 @@
 package syntax;
 
 
+import java_cup.runtime.ComplexSymbolFactory.Location;
 import nodetype.NodeType;
 
 public abstract class Expr extends AstNode {
 
   NodeType type;
 
-  public Expr(int leftLocation, int rightLocation) {
+  public Expr(Location leftLocation, Location rightLocation) {
     super(leftLocation, rightLocation);
   }
 

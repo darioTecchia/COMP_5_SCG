@@ -1,5 +1,6 @@
 package syntax.statement;
 
+import java_cup.runtime.ComplexSymbolFactory.Location;
 
 import syntax.expr.Id;
 import visitor.Visitor;
@@ -15,7 +16,7 @@ public class ForStatement extends Statement {
   private Expr postConditionExpr;
   private LinkedList<Statement> statements;
 
-  public ForStatement(int leftLocation, int rightLocation, Variable variable, Expr initExpr, Expr postConditionExpr, LinkedList<Statement> statements) {
+  public ForStatement(Location leftLocation, Location rightLocation, Variable variable, Expr initExpr, Expr postConditionExpr, LinkedList<Statement> statements) {
     super(leftLocation, rightLocation);
     this.variable = variable;
     this.initExpr = initExpr;

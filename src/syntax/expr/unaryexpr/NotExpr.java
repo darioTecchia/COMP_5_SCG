@@ -1,5 +1,6 @@
 package syntax.expr.unaryexpr;
 
+import java_cup.runtime.ComplexSymbolFactory.Location;
 
 import syntax.Expr;
 import syntax.expr.UnaryOp;
@@ -9,7 +10,7 @@ public class NotExpr extends UnaryOp {
 
   private Expr expr;
 
-  public NotExpr(int leftLocation, int rightLocation, Expr expr) {
+  public NotExpr(Location leftLocation, Location rightLocation, Expr expr) {
     super(leftLocation, rightLocation);
     this.expr = expr;
   }

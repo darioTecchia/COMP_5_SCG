@@ -2,6 +2,7 @@ package syntax;
 
 import java.util.LinkedList;
 
+import java_cup.runtime.ComplexSymbolFactory.Location;
 
 import visitor.Visitor;
 
@@ -10,7 +11,7 @@ public class Program extends AstNode {
   private Global global;
   private LinkedList<Function> functions;
 
-  public Program(int leftLocation, int rightLocation, Global global, LinkedList<Function> functions) {
+  public Program(Location leftLocation, Location rightLocation, Global global, LinkedList<Function> functions) {
     super(leftLocation, rightLocation);
     this.global = global;
     this.functions = functions;

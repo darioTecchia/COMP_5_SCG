@@ -2,6 +2,7 @@ package syntax.statement;
 
 import java.util.LinkedList;
 
+import java_cup.runtime.ComplexSymbolFactory.Location;
 
 import visitor.Visitor;
 import syntax.*;
@@ -12,7 +13,7 @@ public class IfThenElseStatement extends Statement {
   private LinkedList<Statement> thenStatements;
   private LinkedList<Statement> elseStatements;
 
-  public IfThenElseStatement(int leftLocation, int rightLocation, Expr expr, LinkedList<Statement> thenStatements, LinkedList<Statement> elseStatements) {
+  public IfThenElseStatement(Location leftLocation, Location rightLocation, Expr expr, LinkedList<Statement> thenStatements, LinkedList<Statement> elseStatements) {
     super(leftLocation, rightLocation);
     this.expr = expr;
     this.thenStatements = thenStatements;

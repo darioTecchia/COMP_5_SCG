@@ -1,5 +1,6 @@
 package syntax.expr;
 
+import java_cup.runtime.ComplexSymbolFactory.Location;
 
 import syntax.*;
 import visitor.Visitor;
@@ -8,7 +9,7 @@ public class ArrayConst extends Expr {
 
   private TypeDenoter typeDenoter;
 
-  public ArrayConst(int leftLocation, int rightLocation, TypeDenoter typeDenoter) {
+  public ArrayConst(Location leftLocation, Location rightLocation, TypeDenoter typeDenoter) {
     super(leftLocation, rightLocation);
     this.typeDenoter = typeDenoter;
   }
