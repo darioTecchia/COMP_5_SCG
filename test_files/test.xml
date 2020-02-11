@@ -15,10 +15,17 @@
         <IntegerConst value="2"/>
       </VarInitValue>
     </VarDecl>
+    <VarDecl>
+      <Variable lexeme="c"/>
+      <PrimitiveTypeDenoter.java kind="INT"/>
+    </VarDecl>
   </Global>
   <Function>
     <Variable lexeme="main"/>
     <PrimitiveTypeDenoter.java kind="NIL"/>
+    <ReadStatement>
+      <Id lexeme="c"/>
+    </ReadStatement>
     <WriteStatement>
       <StringConst value="risultato: "/>
       <FunctionCall>
@@ -44,21 +51,6 @@
         <Id lexeme="a"/>
         <Id lexeme="b"/>
       </PlusOp>
-    </ReturnStatement>
-    <LocalStatement>
-      <VarDecl>
-        <Variable lexeme="a"/>
-        <PrimitiveTypeDenoter.java kind="STRING"/>
-        <VarInitValue>
-          <StringConst value="Ciao"/>
-        </VarInitValue>
-      </VarDecl>
-      <ReturnStatement>
-        <Id lexeme="a"/>
-      </ReturnStatement>
-    </LocalStatement>
-    <ReturnStatement>
-      <FloatConst value="2.0"/>
     </ReturnStatement>
   </Function>
 </Program>

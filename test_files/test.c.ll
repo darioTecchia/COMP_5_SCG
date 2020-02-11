@@ -5,19 +5,24 @@ target triple = "x86_64-pc-linux-gnu"
 
 @a = local_unnamed_addr global i32 1, align 4
 @b = local_unnamed_addr global i32 2, align 4
-@.str = private unnamed_addr constant [3 x i8] c"%s\00", align 1
-@.str.1 = private unnamed_addr constant [12 x i8] c"risultato: \00", align 1
-@.str.2 = private unnamed_addr constant [3 x i8] c"%d\00", align 1
+@.str = private unnamed_addr constant [3 x i8] c"%d\00", align 1
+@c = common global i32 0, align 4
+@.str.1 = private unnamed_addr constant [3 x i8] c"%s\00", align 1
+@.str.2 = private unnamed_addr constant [12 x i8] c"risultato: \00", align 1
 
 ; Function Attrs: nounwind uwtable
 define i32 @main() local_unnamed_addr #0 {
-  %1 = tail call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([3 x i8], [3 x i8]* @.str, i64 0, i64 0), i8* getelementptr inbounds ([12 x i8], [12 x i8]* @.str.1, i64 0, i64 0))
-  %2 = load i32, i32* @a, align 4, !tbaa !2
-  %3 = load i32, i32* @b, align 4, !tbaa !2
-  %4 = add nsw i32 %3, %2
-  %5 = tail call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([3 x i8], [3 x i8]* @.str.2, i64 0, i64 0), i32 %4)
+  %1 = tail call i32 (i8*, ...) @__isoc99_scanf(i8* getelementptr inbounds ([3 x i8], [3 x i8]* @.str, i64 0, i64 0), i32* nonnull @c)
+  %2 = tail call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([3 x i8], [3 x i8]* @.str.1, i64 0, i64 0), i8* getelementptr inbounds ([12 x i8], [12 x i8]* @.str.2, i64 0, i64 0))
+  %3 = load i32, i32* @a, align 4, !tbaa !2
+  %4 = load i32, i32* @b, align 4, !tbaa !2
+  %5 = add nsw i32 %4, %3
+  %6 = tail call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([3 x i8], [3 x i8]* @.str, i64 0, i64 0), i32 %5)
   ret i32 0
 }
+
+; Function Attrs: nounwind
+declare i32 @__isoc99_scanf(i8* nocapture readonly, ...) local_unnamed_addr #1
 
 ; Function Attrs: nounwind
 declare i32 @printf(i8* nocapture readonly, ...) local_unnamed_addr #1

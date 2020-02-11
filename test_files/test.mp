@@ -8,10 +8,5 @@ function main( ): nil
 end
 
 function zozo(a: int, b: int): int
-  return a + b;
-  local
-    a: string = "Ciao";
-    return a
-  end;
-  return 2.0
+  return a + b
 end
