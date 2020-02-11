@@ -45,5 +45,20 @@
         <Id lexeme="b"/>
       </PlusOp>
     </ReturnStatement>
+    <LocalStatement>
+      <VarDecl>
+        <Variable lexeme="a"/>
+        <PrimitiveTypeDenoter.java kind="STRING"/>
+        <VarInitValue>
+          <StringConst value="Ciao"/>
+        </VarInitValue>
+      </VarDecl>
+      <ReturnStatement>
+        <Id lexeme="a"/>
+      </ReturnStatement>
+    </LocalStatement>
+    <ReturnStatement>
+      <FloatConst value="2.0"/>
+    </ReturnStatement>
   </Function>
 </Program>

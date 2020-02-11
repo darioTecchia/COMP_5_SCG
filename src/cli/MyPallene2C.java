@@ -40,11 +40,11 @@ public class MyPallene2C {
       System.out.println(startMessage);
       // String filePath = manageChoice(new Scanner(System.in).nextInt());
       String filePath = manageChoice(5);
-      compiler = new MyPallene(filePath, true);
+      compiler = new MyPallene(filePath, false);
       compiler.compile();
       finalFileName = filePath.replace(".mp", ".c");
     } else {
-      compiler = new MyPallene(args[0], true);
+      compiler = new MyPallene(args[0], false);
       compiler.compile();
       finalFileName = args[0].replace(".mp", ".c");
     }

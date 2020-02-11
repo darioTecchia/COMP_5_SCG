@@ -23,6 +23,8 @@ public class TypeCheckerVisitor implements Visitor<NodeType, SymbolTable> {
 
   private ErrorHandler errorHandler;
 
+  private NodeType lastTypeToReturn = null;
+
   public TypeCheckerVisitor(ErrorHandler errorHandler) {
   this.errorHandler = errorHandler;
   }
@@ -50,6 +52,7 @@ public class TypeCheckerVisitor implements Visitor<NodeType, SymbolTable> {
 
   @Override
   public NodeType visit(Function function, SymbolTable arg) {
+    this.lastTypeToReturn = function.codomain();
     NodeType functionType = function.getVariable().accept(this, arg);
     arg.enterScope();
     function.getParDecls().forEach(this.typeCheck(arg));
@@ -165,7 +168,10 @@ public class TypeCheckerVisitor implements Visitor<NodeType, SymbolTable> {
 
   @Override
   public NodeType visit(ReturnStatement returnStatement, SymbolTable arg) {
-    returnStatement.getExpr().accept(this, arg);
+    NodeType returnType = returnStatement.getExpr().accept(this, arg);
+    if(!returnType.equals(this.lastTypeToReturn)) {
+      this.errorHandler.reportError(String.format("Invalid return type %s, expected %s", returnType, this.lastTypeToReturn), returnStatement);
+    }
     return PrimitiveNodeType.NULL;
   }
 

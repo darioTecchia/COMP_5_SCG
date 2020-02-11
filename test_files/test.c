@@ -22,4 +22,11 @@ int main() {
   printf("%d", zozo(a, b));
 }
 
-int zozo(int a, int b) { return a + b; }
+int zozo(int a, int b) {
+  return a + b;
+  {
+    char* a = "Ciao";
+    return a;
+  }
+  return 2.0;
+}

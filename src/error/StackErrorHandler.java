@@ -24,10 +24,10 @@ public class StackErrorHandler implements ErrorHandler {
     StringBuilder errorBuilder = new StringBuilder();
     errorBuilder.append(msg);
     errorBuilder.append(" at ");
-    errorBuilder.append('(');
-    errorBuilder.append(node.getLeftLocation());
-    errorBuilder.append('-');
-    errorBuilder.append(node.getRightLocation());
+    errorBuilder.append("(L:");
+    errorBuilder.append(node.getLeftLocation().getLine());
+    errorBuilder.append(",C:");
+    errorBuilder.append(node.getRightLocation().getColumn());
     errorBuilder.append(")");
     this.catchedErrors.push(errorBuilder.toString());
   }
