@@ -8,6 +8,11 @@ function main( ): nil
   nop
 end
 
+function asd(): int
+  nop;
+  return 1
+end
+
 function somma(a: {int}, b: {int}): int
   return #a
 end

@@ -2,7 +2,6 @@ package visitor;
 
 import error.ErrorHandler;
 import nodetype.*;
-import org.w3c.dom.Node;
 import semantic.SymbolTable;
 
 import syntax.*;
@@ -14,6 +13,7 @@ import syntax.expr.binaryexpr.arithop.*;
 import syntax.expr.binaryexpr.relop.*;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.function.Consumer;
 
 /**
@@ -24,6 +24,8 @@ public class TypeCheckerVisitor implements Visitor<NodeType, SymbolTable> {
   private ErrorHandler errorHandler;
 
   private NodeType lastTypeToReturn = null;
+  private HashMap<String, ArrayList<NodeType>> returnedValuesPerId = new HashMap<>();
+  private String lastFunction = null;
 
   public TypeCheckerVisitor(ErrorHandler errorHandler) {
   this.errorHandler = errorHandler;
@@ -53,11 +55,20 @@ public class TypeCheckerVisitor implements Visitor<NodeType, SymbolTable> {
   @Override
   public NodeType visit(Function function, SymbolTable arg) {
     this.lastTypeToReturn = function.codomain();
+    this.returnedValuesPerId.putIfAbsent(function.getVariable().getValue(), new ArrayList<>());
+    this.lastFunction = function.getVariable().getValue();
+
     NodeType functionType = function.getVariable().accept(this, arg);
     arg.enterScope();
     function.getParDecls().forEach(this.typeCheck(arg));
     function.getStatements().forEach(this.typeCheck(arg));
     arg.exitScope();
+
+    if((function.codomain().toString() != "void" && this.returnedValuesPerId.get(function.getVariable().getValue()).isEmpty())) {
+      this.errorHandler.reportError(String.format("Function %s must have at least one return statement!", function.getVariable().getValue(), function));
+    }
+    this.lastTypeToReturn = null;
+
     return functionType;
   }
 
@@ -169,9 +180,12 @@ public class TypeCheckerVisitor implements Visitor<NodeType, SymbolTable> {
   @Override
   public NodeType visit(ReturnStatement returnStatement, SymbolTable arg) {
     NodeType returnType = returnStatement.getExpr().accept(this, arg);
+
+    this.returnedValuesPerId.get(this.lastFunction).add(returnType);
     if(!returnType.equals(this.lastTypeToReturn)) {
       this.errorHandler.reportError(String.format("Invalid return type %s, expected %s", returnType, this.lastTypeToReturn), returnStatement);
     }
+
     return PrimitiveNodeType.NULL;
   }
 

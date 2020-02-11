@@ -25,6 +25,11 @@ define i32 @somma(i32* nocapture readnone, i32* nocapture readnone) local_unname
   ret i32 2
 }
 
+; Function Attrs: norecurse nounwind readnone uwtable
+define i32 @asd() local_unnamed_addr #1 {
+  ret i32 1
+}
+
 ; Function Attrs: nounwind
 declare i32 @printf(i8* nocapture readonly, ...) local_unnamed_addr #2
 

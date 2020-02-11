@@ -14,6 +14,7 @@ int result;
 
 /********************* Functions declaration *******/
 
+int asd();
 int somma(int a[], int b[]);
 void executor(int (*ptr)(int[], int[]), int a[], int b[]);
 
@@ -21,6 +22,11 @@ void executor(int (*ptr)(int[], int[]), int a[], int b[]);
 int main() {
   executor(somma, array, array);
   nop();
+}
+
+int asd() {
+  nop();
+  return 1;
 }
 
 int somma(int a[], int b[]) { return count(a); }
