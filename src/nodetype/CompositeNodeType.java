@@ -51,7 +51,7 @@ public class CompositeNodeType implements NodeType {
   public boolean equals(Object obj) {
     if (this == obj) {
       return true;
-    }else if (obj == null) {
+    } else if (obj == null) {
       return false;
     } else if (getClass() != obj.getClass()) {
       return false;

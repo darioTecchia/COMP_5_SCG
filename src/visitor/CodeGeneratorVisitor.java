@@ -41,6 +41,8 @@ public class CodeGeneratorVisitor implements Visitor<String, SymbolTable> {
       public void accept(ParDecl t) {
         if(t.getTypeDenoter() instanceof ArrayTypeDenoter) {
           joiner.add(String.format("%s[]", t.accept(CodeGeneratorVisitor.this, table)));
+        } else if(t.getTypeDenoter() instanceof FunctionTypeDenoter) {
+          joiner.add(String.format(t.accept(CodeGeneratorVisitor.this, table), "%s"));
         } else {
           joiner.add(String.format("%s", t.accept(CodeGeneratorVisitor.this, table)));
         }
@@ -95,7 +97,11 @@ public class CodeGeneratorVisitor implements Visitor<String, SymbolTable> {
   public String visit(ParDecl parDecl, SymbolTable arg) {
     String parameterType = parDecl.getTypeDenoter().accept(this, arg);
     String parameterName = parDecl.getVariable().accept(this, arg);
-    return String.format("%s %s", parameterType, parameterName);
+    if(parDecl.getTypeDenoter() instanceof FunctionTypeDenoter) {
+      return String.format(parameterType, parameterName);
+    } else {
+      return String.format("%s %s", parameterType, parameterName);
+    }
   }
 
   @Override
@@ -129,7 +135,7 @@ public class CodeGeneratorVisitor implements Visitor<String, SymbolTable> {
 
   @Override
   public String visit(FunctionTypeDenoter functionType, SymbolTable arg) {
-    return "null";
+    return functionType.cType();
   }
 
   @Override

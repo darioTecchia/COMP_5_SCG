@@ -45,4 +45,19 @@ public class PrimitiveTypeDenoter extends TypeDenoter implements Leaf<String> {
     return visitor.visit(this, arg);
   }
 
+  @Override
+  public String cType() {
+    switch(this.kind){
+      case "INT":
+        return "int";
+      case "FLOAT":
+        return "float";
+      case "STRING":
+        return "char *";
+      case "BOOL":
+        return "bool";
+      default:
+        return "undefined";
+    }
+  }
 }

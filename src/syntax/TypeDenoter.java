@@ -10,6 +10,8 @@ public abstract class TypeDenoter extends AstNode {
     super(leftLocation, rightLocation);
   }
 
+  public abstract String cType();
+
   public abstract NodeType typeFactory();
   
 }

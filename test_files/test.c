@@ -9,19 +9,23 @@ typedef int bool;
 #define false 0
 
 /********************* Declarations ****************/
-int a = 1;
-int b = 2;
-int c;
+int result;
 
 /********************* Functions declaration *******/
 
-int zozo(int a, int b);
+int somma(int a, int b);
+int sott(int a, int b);
+int executor(int (* % s)(int, int) ptr, int a, int b);
 
 /********************* Functions definition  *******/
 int main() {
-  scanf("%d", &c);
-  printf("%s", "risultato: ");
-  printf("%d", zozo(a, b));
+  executor(sott, 1, 2);
+  executor(somma, 1, 2);
+  nop();
 }
 
-int zozo(int a, int b) { return a + b; }
+int somma(int a, int b) { return a + b; }
+
+int sott(int a, int b) { return a - b; }
+
+int executor(int (*ptr)(int, int), int a, int b) { printf("%d", ptr(a, b)); }

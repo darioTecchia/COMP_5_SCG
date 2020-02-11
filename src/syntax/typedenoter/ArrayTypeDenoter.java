@@ -39,6 +39,7 @@ public class ArrayTypeDenoter extends TypeDenoter {
     return new ArrayNodeType((PrimitiveNodeType) this.typeDenoter.typeFactory());
   }
 
+  @Override
   public String cType(){
     switch((PrimitiveNodeType) this.getElementsType()){
       case STRING:

@@ -103,7 +103,7 @@ public class PostCodeGenerationVisitor implements Visitor<String, SymbolTable> {
 
   @Override
   public String visit(FunctionTypeDenoter functionType, SymbolTable arg) {
-    return "null";
+    return functionType.cType();
   }
 
   @Override

@@ -1,12 +1,22 @@
 global
-  a: int = 1;
-  b: int = 2
+
+  result: int
 end
 
 function main( ): nil
-  "risultato: ", zozo(a, b) ==>
+  executor(sott, 1, 2);
+  executor(somma, 1, 2);
+  nop
 end
 
-function zozo(a: int, b: int): int
+function somma(a: int, b: int): int
   return a + b
+end
+
+function sott(a: int, b: int): int
+  return a - b
+end
+
+function executor(ptr: (int, int) -> int, a: int, b: int): int
+  ptr(a, b) ==>
 end

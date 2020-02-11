@@ -2,41 +2,29 @@
 <Program>
   <Global>
     <VarDecl>
-      <Variable lexeme="a"/>
-      <PrimitiveTypeDenoter.java kind="INT"/>
-      <VarInitValue>
-        <IntegerConst value="1"/>
-      </VarInitValue>
-    </VarDecl>
-    <VarDecl>
-      <Variable lexeme="b"/>
-      <PrimitiveTypeDenoter.java kind="INT"/>
-      <VarInitValue>
-        <IntegerConst value="2"/>
-      </VarInitValue>
-    </VarDecl>
-    <VarDecl>
-      <Variable lexeme="c"/>
+      <Variable lexeme="result"/>
       <PrimitiveTypeDenoter.java kind="INT"/>
     </VarDecl>
   </Global>
   <Function>
     <Variable lexeme="main"/>
     <PrimitiveTypeDenoter.java kind="NIL"/>
-    <ReadStatement>
-      <Id lexeme="c"/>
-    </ReadStatement>
-    <WriteStatement>
-      <StringConst value="risultato: "/>
-      <FunctionCall>
-        <Id lexeme="zozo"/>
-        <Id lexeme="a"/>
-        <Id lexeme="b"/>
-      </FunctionCall>
-    </WriteStatement>
+    <FunctionCallStatement>
+      <Id lexeme="sott"/>
+      <IntegerConst value="1"/>
+      <IntegerConst value="2"/>
+      <Id lexeme="executor"/>
+    </FunctionCallStatement>
+    <FunctionCallStatement>
+      <Id lexeme="somma"/>
+      <IntegerConst value="1"/>
+      <IntegerConst value="2"/>
+      <Id lexeme="executor"/>
+    </FunctionCallStatement>
+    <NopStatement/>
   </Function>
   <Function>
-    <Variable lexeme="zozo"/>
+    <Variable lexeme="somma"/>
     <ParDecl>
       <Variable lexeme="a"/>
       <PrimitiveTypeDenoter.java kind="INT"/>
@@ -52,5 +40,50 @@
         <Id lexeme="b"/>
       </PlusOp>
     </ReturnStatement>
+  </Function>
+  <Function>
+    <Variable lexeme="sott"/>
+    <ParDecl>
+      <Variable lexeme="a"/>
+      <PrimitiveTypeDenoter.java kind="INT"/>
+    </ParDecl>
+    <ParDecl>
+      <Variable lexeme="b"/>
+      <PrimitiveTypeDenoter.java kind="INT"/>
+    </ParDecl>
+    <PrimitiveTypeDenoter.java kind="INT"/>
+    <ReturnStatement>
+      <MinusOp>
+        <Id lexeme="a"/>
+        <Id lexeme="b"/>
+      </MinusOp>
+    </ReturnStatement>
+  </Function>
+  <Function>
+    <Variable lexeme="executor"/>
+    <ParDecl>
+      <Variable lexeme="ptr"/>
+      <FunctionTypeDenoter>
+        <PrimitiveTypeDenoter.java kind="INT"/>
+        <PrimitiveTypeDenoter.java kind="INT"/>
+        <PrimitiveTypeDenoter.java kind="INT"/>
+      </FunctionTypeDenoter>
+    </ParDecl>
+    <ParDecl>
+      <Variable lexeme="a"/>
+      <PrimitiveTypeDenoter.java kind="INT"/>
+    </ParDecl>
+    <ParDecl>
+      <Variable lexeme="b"/>
+      <PrimitiveTypeDenoter.java kind="INT"/>
+    </ParDecl>
+    <PrimitiveTypeDenoter.java kind="INT"/>
+    <WriteStatement>
+      <FunctionCall>
+        <Id lexeme="ptr"/>
+        <Id lexeme="a"/>
+        <Id lexeme="b"/>
+      </FunctionCall>
+    </WriteStatement>
   </Function>
 </Program>

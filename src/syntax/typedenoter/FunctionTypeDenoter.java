@@ -2,8 +2,10 @@ package syntax.typedenoter;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.StringJoiner;
 
 import nodetype.CompositeNodeType;
+import nodetype.FunctionNodeType;
 import nodetype.NodeType;
 import nodetype.PrimitiveNodeType;
 import org.w3c.dom.Node;
@@ -59,7 +61,16 @@ public class FunctionTypeDenoter extends TypeDenoter {
   }
 
   @Override
-  public PrimitiveNodeType typeFactory() {
-    return null;
+  public String cType() {
+    StringJoiner joiner = new StringJoiner(", ");
+    this.getTypes().stream().map((TypeDenoter t) -> t.typeFactory().toString()).forEach(joiner::add);
+    return String.format("%s (*%s) (%s)", this.getReturnType().typeFactory(), "%s", joiner.toString());
   }
+
+  @Override
+  public NodeType typeFactory() {
+    return new FunctionNodeType(domain(),  codomain());
+  }
+
+
 }
