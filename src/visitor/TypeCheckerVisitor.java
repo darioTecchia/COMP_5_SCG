@@ -245,6 +245,7 @@ public class TypeCheckerVisitor implements Visitor<NodeType, SymbolTable> {
     if (!functionCallType.getParamsType().equals(input)) {
       this.errorHandler.reportTypeMismatch(functionCallType, input, functionCall);
     }
+    functionCall.setType(functionCallType);
     return functionCallType.getNodeType();
   }
 

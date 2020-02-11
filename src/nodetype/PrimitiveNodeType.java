@@ -235,7 +235,7 @@ public enum PrimitiveNodeType implements NodeType {
       case STRING:
         return "string";
       default:
-        return "undefined";
+        return "void";
     }
   }
 }

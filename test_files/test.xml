@@ -3,45 +3,29 @@
   <Global>
     <VarDecl>
       <Variable lexeme="a"/>
-      <PrimitiveTypeDenoter.java kind="BOOL"/>
+      <PrimitiveTypeDenoter.java kind="INT"/>
       <VarInitValue>
-        <BooleanConst value="true"/>
+        <IntegerConst value="1"/>
       </VarInitValue>
     </VarDecl>
     <VarDecl>
       <Variable lexeme="b"/>
-      <PrimitiveTypeDenoter.java kind="BOOL"/>
+      <PrimitiveTypeDenoter.java kind="INT"/>
       <VarInitValue>
-        <BooleanConst value="false"/>
+        <IntegerConst value="2"/>
       </VarInitValue>
     </VarDecl>
   </Global>
   <Function>
     <Variable lexeme="main"/>
     <PrimitiveTypeDenoter.java kind="NIL"/>
-    <LocalStatement>
-      <VarDecl>
-        <Variable lexeme="a"/>
-        <PrimitiveTypeDenoter.java kind="BOOL"/>
-        <VarInitValue>
-          <BooleanConst value="true"/>
-        </VarInitValue>
-      </VarDecl>
-      <VarDecl>
-        <Variable lexeme="b"/>
-        <PrimitiveTypeDenoter.java kind="BOOL"/>
-        <VarInitValue>
-          <BooleanConst value="false"/>
-        </VarInitValue>
-      </VarDecl>
-      <NopStatement/>
-    </LocalStatement>
     <WriteStatement>
       <StringConst value="risultato: "/>
-      <GreaterThanRelop>
+      <FunctionCall>
+        <Id lexeme="zozo"/>
         <Id lexeme="a"/>
         <Id lexeme="b"/>
-      </GreaterThanRelop>
+      </FunctionCall>
     </WriteStatement>
   </Function>
   <Function>
@@ -54,7 +38,12 @@
       <Variable lexeme="b"/>
       <PrimitiveTypeDenoter.java kind="INT"/>
     </ParDecl>
-    <PrimitiveTypeDenoter.java kind="NIL"/>
-    <NopStatement/>
+    <PrimitiveTypeDenoter.java kind="INT"/>
+    <ReturnStatement>
+      <PlusOp>
+        <Id lexeme="a"/>
+        <Id lexeme="b"/>
+      </PlusOp>
+    </ReturnStatement>
   </Function>
 </Program>

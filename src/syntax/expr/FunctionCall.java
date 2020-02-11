@@ -4,6 +4,8 @@ import java.util.LinkedList;
 
 import java_cup.runtime.ComplexSymbolFactory.Location;
 
+import nodetype.FunctionNodeType;
+import nodetype.NodeType;
 import syntax.Expr;
 import visitor.Visitor;
 
@@ -41,6 +43,12 @@ public class FunctionCall extends Expr {
   @Override
   public <T, P> T accept(Visitor<T, P> visitor, P arg) {
     return visitor.visit(this, arg);
+  }
+
+  @Override
+  public NodeType getType() {
+    FunctionNodeType functionNodeType = (FunctionNodeType) super.getType();
+    return functionNodeType.getNodeType();
   }
 
 }

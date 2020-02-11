@@ -4,6 +4,8 @@ import java.util.LinkedList;
 
 import java_cup.runtime.ComplexSymbolFactory.Location;
 
+import nodetype.FunctionNodeType;
+import nodetype.NodeType;
 import syntax.expr.Id;
 import visitor.Visitor;
 import syntax.*;
@@ -43,6 +45,5 @@ public class FunctionCallStatement extends Statement {
   public <T, P> T accept(Visitor<T, P> visitor, P arg) {
     return visitor.visit(this, arg);
   }
-
 
 }

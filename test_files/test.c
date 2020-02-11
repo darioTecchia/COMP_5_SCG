@@ -9,22 +9,17 @@ typedef int bool;
 #define false 0
 
 /********************* Declarations ****************/
-bool a = true;
-bool b = false;
+int a = 1;
+int b = 2;
 
 /********************* Functions declaration *******/
 
-void zozo(int a, int b);
+int zozo(int a, int b);
 
 /********************* Functions definition  *******/
 int main() {
-  {
-    bool a = true;
-    bool b = false;
-    nop();
-  }
   printf("%s", "risultato: ");
-  printf("%d", a > b);
+  printf("%d", zozo(a, b));
 }
 
-void zozo(int a, int b) { nop(); }
+int zozo(int a, int b) { return a + b; }

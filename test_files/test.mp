@@ -1,17 +1,12 @@
 global
-  a: bool = true;
-  b: bool = false
+  a: int = 1;
+  b: int = 2
 end
 
 function main( ): nil
-  local
-    a: bool = true
-    b: bool = false;
-    nop
-  end;
-  "risultato: ", a > b ==>
+  "risultato: ", zozo(a, b) ==>
 end
 
-function zozo(a: int, b: int): nil
-  nop
+function zozo(a: int, b: int): int
+  return a + b
 end
