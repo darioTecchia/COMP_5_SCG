@@ -280,6 +280,9 @@ public class ScopeCheckerVisitor implements Visitor<Boolean, SymbolTable> {
    */
   @Override
   public Boolean visit(FunctionCallStatement functionCallStatement, SymbolTable arg) {
+    if(functionCallStatement.getId().getName().equalsIgnoreCase("main")) {
+      this.errorHandler.reportError("Invalid function call statement, you cannot call main function!");
+    }
     boolean isFunCallSafe = functionCallStatement.getId().accept(this, arg);
     if(!isFunCallSafe){
       this.errorHandler.reportNotDefined(functionCallStatement);
@@ -452,6 +455,9 @@ public class ScopeCheckerVisitor implements Visitor<Boolean, SymbolTable> {
    */
   @Override
   public Boolean visit(FunctionCall functionCall, SymbolTable arg) {
+    if(functionCall.getId().getName().equalsIgnoreCase("main")) {
+      this.errorHandler.reportError("Invalid function call statement, you cannot call main function!");
+    }
     boolean isFunCallSafe = functionCall.getId().accept(this, arg);
     if(!isFunCallSafe){
       this.errorHandler.reportNotDefined(functionCall);
