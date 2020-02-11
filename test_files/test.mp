@@ -17,6 +17,6 @@ function sott(a: int, b: int): int
   return a - b
 end
 
-function executor(ptr: (int, int) -> int, a: int, b: int): int
+function executor(ptr: (int, int) -> int, a: int, b: int): nil
   ptr(a, b) ==>
 end

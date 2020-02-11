@@ -15,7 +15,7 @@ int result;
 
 int somma(int a, int b);
 int sott(int a, int b);
-int executor(int (* % s)(int, int) ptr, int a, int b);
+void executor(int (*ptr)(int, int), int a, int b);
 
 /********************* Functions definition  *******/
 int main() {
@@ -28,4 +28,4 @@ int somma(int a, int b) { return a + b; }
 
 int sott(int a, int b) { return a - b; }
 
-int executor(int (*ptr)(int, int), int a, int b) { printf("%d", ptr(a, b)); }
+void executor(int (*ptr)(int, int), int a, int b) { printf("%d", ptr(a, b)); }

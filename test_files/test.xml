@@ -77,7 +77,7 @@
       <Variable lexeme="b"/>
       <PrimitiveTypeDenoter.java kind="INT"/>
     </ParDecl>
-    <PrimitiveTypeDenoter.java kind="INT"/>
+    <PrimitiveTypeDenoter.java kind="NIL"/>
     <WriteStatement>
       <FunctionCall>
         <Id lexeme="ptr"/>
